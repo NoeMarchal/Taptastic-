@@ -1,0 +1,152 @@
+/* Styles de base */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Conteneur principal qui aligne les deux blocs */
+.container {
+    display: flex;
+    justify-content: center; /* Centre les blocs horizontalement */
+    gap: 20px; /* Espace entre les blocs */
+    padding: 20px;
+    align-items: flex-start; /* Alignement en haut */
+}
+
+/* Styles des blocs "Jeu" et "Trophées" */
+.game-container, .trophies {
+    width: 35%; /* Chaque bloc prend 35% de l'espace */
+    padding: 20px;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Styles des trophées */
+.trophies ul {
+    list-style: none;
+    padding: 0;
+}
+
+.trophies li {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #cfc9c9;
+    border-radius: 5px;
+    /* Assurez-vous que les trophées sont en vertical */
+    display: block;
+}
+
+/* Styles des boutons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.upgrade-button {
+    background-color: #28a745;
+}
+
+.upgrade-button:hover {
+    background-color: #218838;
+}
+
+/* Bouton de réinitialisation */
+#reset-game {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#reset-game:hover {
+    background-color: #c82333;
+}
+
+/* Conteneur de l'avatar et du nom */
+.image {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    left: 50px;
+}
+.player-name{
+    font-size: 2rem;
+}
+/* Avatar dans le coin gauche */
+.avatar-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Nom du joueur centré */
+.player-name {
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Style pour le formulaire de personnalisation */
+#customization-form{
+    position: absolute;
+    top: 170px;
+    left: 6%;
+    transform: translateX(-50%);
+    background-color: #cfc9c9;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Avatar dans le coin gauche */
+.avatar-container img {
+    width: 100px; /* Largeur de l'avatar */
+    height: 100px; /* Hauteur de l'avatar */
+    border-radius: 50%; /* Optionnel : rendre l'avatar circulaire */
+}
+
+/* Conteneur principal et autres styles inchangés */
+.container {
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+}
+
+.upgrades {
+    margin-top: 30px;
+}
+

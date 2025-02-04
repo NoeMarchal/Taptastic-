@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu Incrémental</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button id="reset-game">Réinitialiser le jeu</button>
+
+    <!-- Section Avatar et Nom -->
+     <div class="container">
+    <div class="user-info">
+        <div class="avatar-container">
+            <img id="avatar" src="images/avatars/choose_avatar.JPG" alt="Avatar du joueur" class="image">
+        </div>
+        <div id="player-name" class="player-name">Nom du joueur</div>
+    </div>
+</div>
+<details>
+    <summary>Personnalisation du joueur</summary>
+    <div id="customization-form">
+        <label for="avatar-select">Choisissez un avatar :</label>
+        <select id="avatar-select" onchange="changeAvatar()">
+            <option value="avatar1.JPG">Jhon</option>
+            <option value="avatar2.JPG">Greg</option>
+            <option value="avatar3.JPG">Luc</option>
+        </select>
+        <br><br>
+        <label for="name-input">Entrez votre nom :</label>
+        <input type="text" id="name-input" placeholder="Entrez votre nom" />
+        <button onclick="changeName()">Changer le nom</button>
+    </div>
+</details>
+    <!-- Conteneur principal du jeu -->
+    <div class="container">
+        <div class="trophies">
+            <h2>Trophées :</h2>
+            <ul id="trophy-list">
+                <li>Aucun trophée débloqué pour l’instant.</li>
+            </ul>
+        </div>
+
+        <div class="game-container">
+            <h1>Clicker</h1>
+            <p id="points">Points: 0</p>
+            <p id="pps-display">Points par seconde: 0</p>
+            <button id="click-button">Cliquez-moi!</button>
+            
+            <div class="upgrades">
+                <h2>Améliorations</h2>
+                <button id="upgrade1" class="upgrade-button">Amélioration 1 (Coût: 10 points)</button>
+                <button id="upgrade2" class="upgrade-button">Amélioration 2 (Coût: 50 points)</button>
+                <button id="autoclicker-button" class="upgrade-button">Acheter un Autoclicker (Coût: 100 points)</button>
+                <div id="stats-container">
+                    <p id="upgrade1-count">Amélioration 1 : 0</p>
+                    <p id="upgrade2-count">Amélioration 2 : 0</p>
+                    <p id="autoclicker-count">Autoclickers : 0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
