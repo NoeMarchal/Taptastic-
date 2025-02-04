@@ -186,7 +186,7 @@ function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
 
     // Vérifie si l'image existe avant de l'afficher
-    const newAvatarPath = `${avatarFileName}`;
+    const newAvatarPath = `avatar2.jpg`;
     fetch(newAvatarPath)
         .then(response => {
             if (response.ok) {
