@@ -13,7 +13,7 @@ let upgrade1Level = 0;
 let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
 let playerName = "Nom du joueur"; // Nom par défaut
-let avatarSrc = "choose_avatar.JPG"; // Avatar par défaut
+let avatarSrc = "avatar2.JPG"; // Avatar par défaut
 let farmCost = 200000000; // Coût d'une ferme
 let farms = 0;
 
@@ -240,7 +240,7 @@ function resetGame() {
     upgrade1Level = 0;
     upgrade2Level = 0;
     playerName = "Nom du joueur";
-    avatarSrc = "choose_avatar.JPG";
+    avatarSrc = "avatar2.JPG";
     unlockedTrophies = [];  // Réinitialise les trophées
 
     // Supprime la sauvegarde complète et recharge le jeu
