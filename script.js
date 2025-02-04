@@ -13,7 +13,7 @@ let upgrade1Level = 0;
 let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
 let playerName = "Nom du joueur"; // Nom par défaut
-let avatarSrc = "choose_avatar.JPG"; // Avatar par défaut
+let avatarSrc = "Images/choose_avatar.jpg"; // Avatar par défaut
 let farmCost = 200000000; // Coût d'une ferme
 let farms = 0;
 
@@ -186,7 +186,7 @@ function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
 
     // Vérifie si l'image existe avant de l'afficher
-    const newAvatarPath = `${avatarFileName}`;
+    const newAvatarPath = `Images/${avatarFileName}`;
     fetch(newAvatarPath)
         .then(response => {
             if (response.ok) {
@@ -240,7 +240,7 @@ function resetGame() {
     upgrade1Level = 0;
     upgrade2Level = 0;
     playerName = "Nom du joueur";
-    avatarSrc = "choose_avatar.JPG";
+    avatarSrc = "Images/choose_avatar.jpg";
     unlockedTrophies = [];  // Réinitialise les trophées
 
     // Supprime la sauvegarde complète et recharge le jeu
