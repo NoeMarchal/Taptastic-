@@ -377,38 +377,3 @@ function updateTrophies() {
 
     saveGame(); // Sauvegarde les trophées
 }
-// Acheter le supermarché
-boutonSupermarche.addEventListener('click', () => {
-    if (!entrepriseAchetee && points >= COUT_SUPERMARCHE) {
-        points -= COUT_SUPERMARCHE;
-        entrepriseAchetee = true;
-        updateDisplay();
-    }
-});
-
-// Acheter les marchandises
-boutonMarchandises.addEventListener('click', () => {
-    if (!marchandisesAchetees && entrepriseAchetee && points >= COUT_MARCHANDISES) {
-        points -= COUT_MARCHANDISES;
-        marchandisesAchetees = true;
-        updateDisplay();
-    }
-});
-
-// Acheter le superviseur
-boutonSuperviseur.addEventListener('click', () => {
-    if (!superviseurAchete && entrepriseAchetee && points >= COUT_SUPERVISEUR) {
-        points -= COUT_SUPERVISEUR;
-        superviseurAchete = true;
-        updateDisplay();
-    }
-});
-
-// Acheter l'agrandissement
-boutonAgrandissement.addEventListener('click', () => {
-    if (!agrandissementAchete && entrepriseAchetee && points >= COUT_AGRANDISSEMENT) {
-        points -= COUT_AGRANDISSEMENT;
-        agrandissementAchete = true;
-        updateDisplay();
-    }
-});
