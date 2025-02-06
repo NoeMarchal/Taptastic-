@@ -9,6 +9,7 @@ let upgrade1Cost = 10;
 let upgrade2Cost = 50;
 let autoclickerCost = 100;
 let autoclickers = 0;
+let autoclickerPower = 50; // Chaque autoclicker rapporte 10 points par seconde
 let upgrade1Level = 0;
 let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
@@ -79,7 +80,7 @@ function loadGame() {
 // Mettre à jour l'affichage
 function updateDisplay() {
     pointsDisplay.textContent = `Points: ${points}`;
-    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers + pointsPerClick}`;
+    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers * autoclickerPower}`; // Mettre à jour ici
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
@@ -130,7 +131,7 @@ function updateTrophies() {
 
 // Gestion des clics
 clickButton.addEventListener('click', () => {
-    points += 1;
+    points += 0;
     updateDisplay();
 });
 
@@ -163,6 +164,26 @@ upgrade2Button.addEventListener('click', () => {
         updateDisplay();
     }
 });
+setInterval(() => {
+    if (autoclickers > 0) {
+        points += autoclickers * autoclickerPower; // Chaque autoclicker rapporte 10 points par seconde
+
+        // Créer un effet d'autoclicker
+        const autoclickerEffect = document.createElement('div');
+        autoclickerEffect.classList.add('autoclicker-effect');
+        autoclickerEffect.textContent = `+${autoclickers * autoclickerPower} points`;
+        autoclickerEffect.style.left = `${clickButton.offsetLeft + 50}px`;
+        autoclickerEffect.style.top = `${clickButton.offsetTop}px`;
+        document.body.appendChild(autoclickerEffect);
+
+        // Supprimer l'effet après l'animation
+        setTimeout(() => {
+            autoclickerEffect.remove();
+        }, 1000);
+
+        updateDisplay();
+    }
+}, 1000);
 
 // Achat d'un autoclicker
 autoclickerButton.addEventListener('click', () => {
@@ -172,7 +193,7 @@ autoclickerButton.addEventListener('click', () => {
     }
     if (points >= autoclickerCost) {
         points -= autoclickerCost;
-        autoclickers++;
+        autoclickers+=1;
         autoclickerCost = Math.floor(autoclickerCost * 4);
         updateDisplay();
     }
@@ -289,26 +310,6 @@ clickButton.addEventListener('click', (event) => {
     updateDisplay();
 });
 
-setInterval(() => {
-    if (autoclickers > 0) {
-        points += autoclickers * pointsPerClick;
-
-        // Créer un effet d'autoclicker
-        const autoclickerEffect = document.createElement('div');
-        autoclickerEffect.classList.add('autoclicker-effect');
-        autoclickerEffect.textContent = `+${autoclickers * pointsPerClick} points`;
-        autoclickerEffect.style.left = `${clickButton.offsetLeft + 50}px`;
-        autoclickerEffect.style.top = `${clickButton.offsetTop}px`;
-        document.body.appendChild(autoclickerEffect);
-
-        // Supprimer l'effet après l'animation
-        setTimeout(() => {
-            autoclickerEffect.remove();
-        }, 1000);
-
-        updateDisplay();
-    }
-}, 1000);
 
 function updateTrophies() {
     trophyList.innerHTML = ""; // Vide la liste actuelle
