@@ -184,23 +184,25 @@ function changeAvatar(avatarFileName) {
 
     // Mettre à jour l'image
     const newAvatarPath = `Images/${avatarFileName}`;
-    avatarImg.src = newAvatarPath;
+    console.log("Nouvel avatar :", newAvatarPath); // ✅ Debug
 
-    // Sauvegarder l'avatar sélectionné
+    avatarImg.src = newAvatarPath;
     localStorage.setItem("selectedAvatar", newAvatarPath);
 }
 
-// Charger l'avatar au démarrage du jeu
+// Charger l'avatar sauvegardé au démarrage
 window.addEventListener("load", () => {
     const savedAvatar = localStorage.getItem("selectedAvatar");
 
     if (savedAvatar) {
+        console.log("Avatar chargé depuis localStorage :", savedAvatar); // ✅ Debug
         document.getElementById("avatar").src = savedAvatar;
     }
 });
 
 // Écouteur pour le changement d'avatar
 document.getElementById("avatar-select").addEventListener("change", function() {
+    console.log("Avatar sélectionné :", this.value); // ✅ Debug
     changeAvatar(this.value);
 });
 
