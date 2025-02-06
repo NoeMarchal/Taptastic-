@@ -130,7 +130,7 @@ function updateTrophies() {
 
 // Gestion des clics
 clickButton.addEventListener('click', () => {
-    points += 0;
+    points += 1;
     updateDisplay();
 });
 
