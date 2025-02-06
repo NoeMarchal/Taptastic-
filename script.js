@@ -14,7 +14,9 @@ let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
 let playerName = "Nom du joueur"; // Nom par défaut
 let avatarSrc = "./Images/choose_avatar.jpg"; // Avatar par défaut
-
+let lastClickTimes = [];
+const maxClicksPerSecond = 12; // Seuil suspect (ajuste selon ton jeu)
+const maxIdenticalIntervals = 5; // Nombre max de clics avec intervalle fixe
 // Liste des trophées et leurs conditions
 const trophies = [
     { name: "Débutant", condition: 100 },
@@ -341,9 +343,7 @@ function updateTrophies() {
     saveGame(); // Sauvegarde les trophées
 }
 
-let lastClickTimes = [];
-const maxClicksPerSecond = 12; // Seuil suspect (ajuste selon ton jeu)
-const maxIdenticalIntervals = 5; // Nombre max de clics avec intervalle fixe
+
 
 document.addEventListener("click", () => {
     let now = performance.now();
