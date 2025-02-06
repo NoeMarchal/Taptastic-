@@ -14,9 +14,7 @@ let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
 let playerName = "Nom du joueur"; // Nom par défaut
 let avatarSrc = "./Images/choose_avatar.jpg"; // Avatar par défaut
-let lastClickTimes = [];
-const maxClicksPerSecond = 12; // Seuil suspect (ajuste selon ton jeu)
-const maxIdenticalIntervals = 5; // Nombre max de clics avec intervalle fixe
+
 // Liste des trophées et leurs conditions
 const trophies = [
     { name: "Débutant", condition: 100 },
@@ -159,7 +157,7 @@ upgrade2Button.addEventListener('click', () => {
     if (points >= upgrade2Cost) {
         points -= upgrade2Cost;
         points += 6;
-        upgrade2Cost = Math.floor(upgrade2Cost * 4);
+        upgrade2Cost = Math.floor(upgrade2Cost * 2);
         upgrade2Level++;
         updateDisplay();
     }
@@ -342,37 +340,3 @@ function updateTrophies() {
 
     saveGame(); // Sauvegarde les trophées
 }
-
-
-
-document.addEventListener("click", () => {
-    let now = performance.now();
-    
-    // Enregistrer l'intervalle entre les clics
-    if (lastClickTimes.length > 0) {
-        let interval = now - lastClickTimes[lastClickTimes.length - 1];
-        
-        // Vérifier si les intervalles sont trop constants
-        if (lastClickTimes.length >= maxIdenticalIntervals) {
-            let similarIntervals = lastClickTimes.slice(-maxIdenticalIntervals).map((t, i, arr) => i > 0 ? t - arr[i - 1] : 0);
-            if (similarIntervals.every(val => Math.abs(val - interval) < 2)) {
-                alert("⚠️ Auto-clicker détecté !");
-                return;
-            }
-        }
-    }
-    
-    // Ajouter le temps du clic et limiter la taille du tableau
-    lastClickTimes.push(now);
-    if (lastClickTimes.length > maxClicksPerSecond) {
-        lastClickTimes.shift();
-    }
-
-    // Vérifier si le joueur clique trop vite
-    if (lastClickTimes.length >= maxClicksPerSecond) {
-        let timeDiff = lastClickTimes[lastClickTimes.length - 1] - lastClickTimes[0];
-        if (timeDiff < 1000) {
-            alert("⚠️ Auto-clicker détecté !");
-        }
-    }
-});
