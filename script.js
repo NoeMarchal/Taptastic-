@@ -79,7 +79,7 @@ function loadGame() {
 // Mettre à jour l'affichage
 function updateDisplay() {
     pointsDisplay.textContent = `Points: ${points}`;
-    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers*pointsPerClick}`;
+    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers + pointsPerClick}`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
