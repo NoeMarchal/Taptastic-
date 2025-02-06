@@ -158,8 +158,9 @@ button {
 }
 
 summary{
-    margin-left: -1350px;
+    margin-left: -1330px;
     margin-top: 140px;
+    font-size: 0.9rem;
 }
 
 @keyframes clickEffect {
