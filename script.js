@@ -1,4 +1,4 @@
-const maxUpgrade1Level = 100;  // Niveau max pour l'amélioration 1
+const maxUpgrade1Level = 100;//iveau max pour l'amélioration 1
 const maxUpgrade2Level = 100;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 100;   // Nombre max d'autoclickers
 
@@ -142,36 +142,62 @@ clickButton.addEventListener('click', () => {
     points += 0;
     updateDisplay();
 });
-
-// Amélioration 1
+//Amélioration1 
 upgrade1Button.addEventListener('click', () => {
     if (upgrade1Level >= maxUpgrade1Level) {
-        alert("Amélioration 1 au niveau maximum !");
+        // Afficher un message d'erreur stylisé avec SweetAlert2
+        Swal.fire({
+            title: 'Niveau maximum atteint !',
+            text: 'Vous ne pouvez pas améliorer davantage cette compétence.',
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        });
         return;
     }
     if (points >= upgrade1Cost) {
         points -= upgrade1Cost;
         pointsPerClick += 10;
-        upgrade1Cost = Math.floor(upgrade1Cost +150);
+        upgrade1Cost = Math.floor(upgrade1Cost + 150);
         upgrade1Level++;
         updateDisplay();
     }
 });
 
+
+
 // Amélioration 2
 upgrade2Button.addEventListener('click', () => {
     if (upgrade2Level >= maxUpgrade2Level) {
-        alert("Amélioration 2 au niveau maximum !");
+        // Jouer un son d'erreur
+        const errorSound = new Audio('error-sound.mp3');
+        errorSound.play();
+
+        // Afficher un message d'erreur stylisé avec SweetAlert2
+        Swal.fire({
+            title: 'Niveau maximum atteint !',
+            text: 'Vous ne pouvez pas améliorer davantage cette compétence.',
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        });
         return;
     }
     if (points >= upgrade2Cost) {
         points -= upgrade2Cost;
         pointsPerClick += 20;
-        upgrade2Cost = Math.floor(upgrade2Cost +300);
+        upgrade2Cost = Math.floor(upgrade2Cost + 300);
         upgrade2Level++;
         updateDisplay();
     }
 });
+
 setInterval(() => {
     if (autoclickers > 0) {
         points += autoclickers * autoclickerPower; // Chaque autoclicker rapporte 10 points par seconde
@@ -196,17 +222,26 @@ setInterval(() => {
 // Achat d'un autoclicker
 autoclickerButton.addEventListener('click', () => {
     if (autoclickers >= maxAutoclickers) {
-        alert("Nombre maximum d'autoclickers atteint !");
+        // Afficher un message d'erreur stylisé avec SweetAlert2
+        Swal.fire({
+            title: 'Nombre maximum atteint !',
+            text: 'Vous ne pouvez pas acheter plus d\'autoclickers.',
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        });
         return;
     }
     if (points >= autoclickerCost) {
         points -= autoclickerCost;
-        autoclickers+=1;
-        autoclickerCost = Math.floor(autoclickerCost +1000);
+        autoclickers += 1;
+        autoclickerCost = Math.floor(autoclickerCost + 1000);
         updateDisplay();
     }
 });
-
 
 function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
