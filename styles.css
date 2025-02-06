@@ -15,6 +15,7 @@ body {
     gap: 20px; /* Espace entre les blocs */
     padding: 20px;
     align-items: flex-start; /* Alignement en haut */
+    margin-top: -40px;
 }
 
 /* Styles des blocs "Jeu" et "Trophées" */
@@ -46,27 +47,15 @@ body {
 
 /* Styles des boutons */
 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
+    display: inline-block;
+    margin: 1px;
+    padding: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
-    background-color: #0056b3;
-}
-
-.upgrade-button {
-    background-color: #28a745;
-}
-
-.upgrade-button:hover {
-    background-color: #218838;
-}
 
 /* Bouton de réinitialisation */
 #reset-game {
@@ -93,11 +82,12 @@ button:hover {
     padding: 10px 20px;
     position: absolute;
     top: 10px;
-    width: 100%;
+    width: 200px;
     left: 50px;
 }
 .player-name{
-    font-size: 2rem;
+    size: 50px;
+    margin-top: 80px;
 }
 /* Avatar dans le coin gauche */
 .avatar-container {
@@ -126,6 +116,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 /* Avatar dans le coin gauche */
@@ -150,3 +141,23 @@ button {
     margin-top: 30px;
 }
 
+.entreprise-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #cfc9c9;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.entreprise-container {
+    margin-top: -250px;
+    margin-left: 200px;
+}
+
+summary{
+    margin-left: -1350px;
+    margin-top: 140px;
+}

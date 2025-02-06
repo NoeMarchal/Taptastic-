@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu Incrémental</title>
+    <title>Jeu incrémentale</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
      <div class="container">
     <div class="user-info">
         <div class="avatar-container">
-            <img id="avatar" src="Images/choose_avatar.jpg" alt="Avatar du joueur" class="image">
+            <img id="avatar" src="./Images/choose_avatar.jpg" alt="Avatar du joueur" class="image">
         </div>
         <div id="player-name" class="player-name">Nom du joueur</div>
     </div>
@@ -34,6 +34,7 @@
     </div>
 </details>
     <!-- Conteneur principal du jeu -->
+    <div class="trophies-container">    
     <div class="container">
         <div class="trophies">
             <h2>Trophées :</h2>
@@ -61,7 +62,18 @@
             </div>
         </div>
     </div>
+  </div>  
+  <div class="entreprise-container">
+    <h2>Entreprise</h2>
+    <p>Achete une entreprise pour gagner plus de points</br>
+        oublie pas les améliorations pour aller encore plus vite ;)
+    </p>
+    <button id="boutonSupermarche">Acheter Supermarché</button>
+    <button id="boutonMarchandises">Acheter Marchandises</button>
+    <button id="boutonSuperviseur">Acheter Superviseur</button>
+    <button id="boutonAgrandissement">Acheter Agrandissement</button>
     
+</div>
     <script src="script.js"></script>
 </body>
 </html>
