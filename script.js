@@ -171,7 +171,7 @@ autoclickerButton.addEventListener('click', () => {
     }
     if (points >= autoclickerCost) {
         points -= autoclickerCost;
-        autoclickers+= 1;
+        autoclickers++;
         autoclickerCost = Math.floor(autoclickerCost * 4);
         updateDisplay();
     }
@@ -340,3 +340,39 @@ function updateTrophies() {
 
     saveGame(); // Sauvegarde les trophées
 }
+
+let lastClickTimes = [];
+const maxClicksPerSecond = 12; // Seuil suspect (ajuste selon ton jeu)
+const maxIdenticalIntervals = 5; // Nombre max de clics avec intervalle fixe
+
+document.addEventListener("click", () => {
+    let now = performance.now();
+    
+    // Enregistrer l'intervalle entre les clics
+    if (lastClickTimes.length > 0) {
+        let interval = now - lastClickTimes[lastClickTimes.length - 1];
+        
+        // Vérifier si les intervalles sont trop constants
+        if (lastClickTimes.length >= maxIdenticalIntervals) {
+            let similarIntervals = lastClickTimes.slice(-maxIdenticalIntervals).map((t, i, arr) => i > 0 ? t - arr[i - 1] : 0);
+            if (similarIntervals.every(val => Math.abs(val - interval) < 2)) {
+                alert("⚠️ Auto-clicker détecté !");
+                return;
+            }
+        }
+    }
+    
+    // Ajouter le temps du clic et limiter la taille du tableau
+    lastClickTimes.push(now);
+    if (lastClickTimes.length > maxClicksPerSecond) {
+        lastClickTimes.shift();
+    }
+
+    // Vérifier si le joueur clique trop vite
+    if (lastClickTimes.length >= maxClicksPerSecond) {
+        let timeDiff = lastClickTimes[lastClickTimes.length - 1] - lastClickTimes[0];
+        if (timeDiff < 1000) {
+            alert("⚠️ Auto-clicker détecté !");
+        }
+    }
+});
