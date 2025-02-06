@@ -182,22 +182,24 @@ autoclickerButton.addEventListener('click', () => {
 function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
 
-    // Vérifie si l'image existe avant de l'afficher
+    // Mettre à jour l'image
     const newAvatarPath = `Images/${avatarFileName}`;
-    fetch(newAvatarPath)
-        .then(response => {
-            if (response.ok) {
-                avatarSrc = newAvatarPath; // Met à jour la variable globale
-                avatarImg.src = avatarSrc; // Met à jour l'affichage
-                saveGame(); // Sauvegarde les changements
-            } else {
-                console.error("Image introuvable :", newAvatarPath);
-            }
-        })
-        .catch(error => console.error("Erreur lors du chargement de l'image :", error));
+    avatarImg.src = newAvatarPath;
+
+    // Sauvegarder l'avatar sélectionné
+    localStorage.setItem("selectedAvatar", newAvatarPath);
 }
 
-// Exemple pour changer d'avatar
+// Charger l'avatar au démarrage du jeu
+window.addEventListener("load", () => {
+    const savedAvatar = localStorage.getItem("selectedAvatar");
+
+    if (savedAvatar) {
+        document.getElementById("avatar").src = savedAvatar;
+    }
+});
+
+// Écouteur pour le changement d'avatar
 document.getElementById("avatar-select").addEventListener("change", function() {
     changeAvatar(this.value);
 });
