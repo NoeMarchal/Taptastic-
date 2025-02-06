@@ -12,7 +12,7 @@ body {
 .container {
     display: flex;
     justify-content: center; /* Centre les blocs horizontalement */
-    gap: 20px; /* Espace entre les blocs */
+    gap: 10px; /* Espace entre les blocs */
     padding: 20px;
     align-items: flex-start; /* Alignement en haut */
     margin-top: -40px;
@@ -143,7 +143,7 @@ button {
 
 .entreprise-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     margin: 20px auto;
     padding: 20px;
     background-color: #cfc9c9;
@@ -153,11 +153,61 @@ button {
 }
 
 .entreprise-container {
-    margin-top: -250px;
-    margin-left: 200px;
+    margin-top: -260px;
+    margin-left: 120px;
 }
 
 summary{
     margin-left: -1350px;
     margin-top: 140px;
 }
+
+@keyframes clickEffect {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.click-effect {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: gold;
+    border-radius: 50%;
+    animation: clickEffect 0.5s ease-out;
+    pointer-events: none; /* Permet de cliquer à travers l'effet */
+}
+
+@keyframes autoclickerEffect {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-20px); opacity: 0; }
+}
+
+.autoclicker-effect {
+    position: absolute;
+    font-size: 16px;
+    color: blue;
+    animation: autoclickerEffect 1s ease-out;
+    pointer-events: none;
+}
+
+/* Style pour le message "Bravo" */
+.bravo-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    color: gold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: blink 1s infinite;
+    z-index: 1000; /* Pour s'assurer que le message est au-dessus de tout */
+}
+
+/* Animation de clignotement */
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+
+

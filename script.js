@@ -4,7 +4,7 @@ const maxAutoclickers = 100;   // Nombre max d'autoclickers
 
 // Variables du jeu
 let points = 0;
-let pointsPerClick = 1;
+let pointsPerClick = 0;
 let upgrade1Cost = 10;
 let upgrade2Cost = 50;
 let autoclickerCost = 100;
@@ -14,8 +14,23 @@ let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
 let playerName = "Nom du joueur"; // Nom par défaut
 let avatarSrc = "./Images/choose_avatar.jpg"; // Avatar par défaut
-let farmCost = 200000000; // Coût d'une ferme
-let farms = 0;
+// Variables du jeu
+let entrepriseAchetee = false;
+let marchandisesAchetees = false;
+let superviseurAchete = false;
+let agrandissementAchete = false;
+
+// Coûts des achats
+const COUT_SUPERMARCHE = 1;
+const COUT_MARCHANDISES = 1;
+const COUT_SUPERVISEUR = 1;
+const COUT_AGRANDISSEMENT = 1;
+
+// Gains des achats
+const GAIN_SUPERMARCHE = 1; // Points par seconde
+const GAIN_MARCHANDISES = 1; // Bonus de points par seconde
+const GAIN_SUPERVISEUR = 1; // Bonus de points par seconde
+const GAIN_AGRANDISSEMENT = 1; // Bonus de points par seconde
 
 // Liste des trophées et leurs conditions
 const trophies = [
@@ -37,6 +52,11 @@ const autoclickerCountDisplay = document.getElementById('autoclicker-count');
 const trophyList = document.getElementById("trophy-list");
 const farmButton = document.getElementById('buy-farm');
 const farmsCountDisplay = document.getElementById('farms-count');
+// Éléments du DOM
+const boutonSupermarche = document.getElementById('boutonSupermarche');
+const boutonMarchandises = document.getElementById('boutonMarchandises');
+const boutonSuperviseur = document.getElementById('boutonSuperviseur');
+const boutonAgrandissement = document.getElementById('boutonAgrandissement');
 
 // Charger la sauvegarde
 loadGame();
@@ -54,7 +74,11 @@ function saveGame() {
         upgrade2Level,
         unlockedTrophies,
         playerName,
-        avatarSrc
+        avatarSrc,
+        entrepriseAchetee,
+        marchandisesAchetees,
+        superviseurAchete,
+        agrandissementAchete
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
@@ -75,6 +99,10 @@ function loadGame() {
         unlockedTrophies = gameData.unlockedTrophies || [];
         playerName = gameData.playerName;
         avatarSrc = gameData.avatarSrc;
+        entrepriseAchetee = gameData.entrepriseAchetee;
+        marchandisesAchetees = gameData.marchandisesAchetees;
+        superviseurAchete = gameData.superviseurAchete;
+        agrandissementAchete = gameData.agrandissementAchete;
         updateDisplay();
         updateTrophies();
     }
@@ -83,7 +111,7 @@ function loadGame() {
 // Mettre à jour l'affichage
 function updateDisplay() {
     pointsDisplay.textContent = `Points: ${points}`;
-    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers * pointsPerClick}`;
+    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers}`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
@@ -92,6 +120,11 @@ function updateDisplay() {
     autoclickerButton.textContent = `Acheter un Autoclicker (Coût: ${autoclickerCost} points)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc;
+    boutonSupermarche.disabled = entrepriseAchetee || points < COUT_SUPERMARCHE;
+    boutonMarchandises.disabled = marchandisesAchetees || !entrepriseAchetee || points < COUT_MARCHANDISES;
+    boutonSuperviseur.disabled = superviseurAchete || !entrepriseAchetee || points < COUT_SUPERVISEUR;
+    boutonAgrandissement.disabled = agrandissementAchete || !entrepriseAchetee || points < COUT_AGRANDISSEMENT;
+
     updateTrophies();
     saveGame(); // Sauvegarde après chaque mise à jour
 }
@@ -99,14 +132,14 @@ function updateDisplay() {
 function updateTrophies() {
     trophyList.innerHTML = ""; // Vide la liste actuelle
 
+    // Vérifier et débloquer les trophées si les conditions sont remplies
     trophies.forEach(trophy => {
-        // Vérifier si le trophée est déjà débloqué ou si les points permettent de le débloquer
         if (points >= trophy.condition && !unlockedTrophies.includes(trophy.name)) {
             unlockedTrophies.push(trophy.name); // Ajoute le trophée débloqué
         }
     });
 
-    // Toujours afficher tous les trophées
+    // Afficher tous les trophées
     trophies.forEach(trophy => {
         let li = document.createElement("li");
 
@@ -115,7 +148,12 @@ function updateTrophies() {
         let trophyText = isUnlocked ? `✅ ${trophy.name}` : `❌ ${trophy.name}`;
 
         // Calcul du pourcentage de progression
-        let progress = Math.min((points / trophy.condition) * 100, 100).toFixed(1);
+        let progress;
+        if (isUnlocked) {
+            progress = 100; // Fixer à 100% si le trophée est débloqué
+        } else {
+            progress = Math.min((points / trophy.condition) * 100, 100).toFixed(1); // Calculer le pourcentage
+        }
 
         // Ajouter l'élément dans la liste
         li.innerHTML = `${trophyText} - ${progress}%`;
@@ -128,7 +166,7 @@ function updateTrophies() {
 
 // Gestion des clics
 clickButton.addEventListener('click', () => {
-    points += pointsPerClick;
+    points += 0;
     updateDisplay();
 });
 
@@ -140,7 +178,7 @@ upgrade1Button.addEventListener('click', () => {
     }
     if (points >= upgrade1Cost) {
         points -= upgrade1Cost;
-        pointsPerClick += 2;
+        pointsPerClick *= 1,4;
         upgrade1Cost = Math.floor(upgrade1Cost * 1.2);
         upgrade1Level++;
         updateDisplay();
@@ -155,7 +193,7 @@ upgrade2Button.addEventListener('click', () => {
     }
     if (points >= upgrade2Cost) {
         points -= upgrade2Cost;
-        pointsPerClick += 6;
+        pointsPerClick *= 1,7;
         upgrade2Cost = Math.floor(upgrade2Cost * 2);
         upgrade2Level++;
         updateDisplay();
@@ -171,16 +209,11 @@ autoclickerButton.addEventListener('click', () => {
     if (points >= autoclickerCost) {
         points -= autoclickerCost;
         autoclickers++;
-        autoclickerCost = Math.floor(autoclickerCost * 4);
+        autoclickerCost = Math.floor(autoclickerCost * 2);
         updateDisplay();
     }
 });
 
-// Mise en place de l'autoclicker (ajoute des points automatiquement)
-setInterval(() => {
-    points += autoclickers * pointsPerClick;
-    updateDisplay();
-}, 1000);
 
 function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
@@ -239,6 +272,10 @@ function resetGame() {
     upgrade2Cost = 50;
     upgrade1Level = 0;
     upgrade2Level = 0;
+    entrepriseAchetee = false;
+    marchandisesAchetees = false;
+    superviseurAchete = false;
+    agrandissementAchete = false;
     playerName = "Nom du joueur";
     avatarSrc = "./Images/choose_avatar.jpg";
     unlockedTrophies = [];  // Réinitialise les trophées
@@ -248,3 +285,130 @@ function resetGame() {
     updateDisplay();  // Mettre à jour l'affichage du jeu
 }
 
+const clicksButton = document.getElementById('button'); // Récupère le bouton par son ID
+
+clickButton.addEventListener('click', (event) => {
+    points += pointsPerClick;
+
+    // Créer un effet de clic
+    const clickEffect = document.createElement('div');
+    clickEffect.classList.add('click-effect');
+    clickEffect.style.left = `${event.clientX - 10}px`; // Position X de la souris
+    clickEffect.style.top = `${event.clientY - 10}px`; // Position Y de la souris
+    document.body.appendChild(clickEffect);
+
+    // Supprimer l'effet après l'animation
+    setTimeout(() => {
+        clickEffect.remove();
+    }, 500);
+
+    updateDisplay();
+});
+
+setInterval(() => {
+    if (autoclickers > 0) {
+        points += autoclickers * pointsPerClick;
+
+        // Créer un effet d'autoclicker
+        const autoclickerEffect = document.createElement('div');
+        autoclickerEffect.classList.add('autoclicker-effect');
+        autoclickerEffect.textContent = `+${autoclickers * pointsPerClick} points`;
+        autoclickerEffect.style.left = `${clickButton.offsetLeft + 50}px`;
+        autoclickerEffect.style.top = `${clickButton.offsetTop}px`;
+        document.body.appendChild(autoclickerEffect);
+
+        // Supprimer l'effet après l'animation
+        setTimeout(() => {
+            autoclickerEffect.remove();
+        }, 1000);
+
+        updateDisplay();
+    }
+}, 1000);
+
+function updateTrophies() {
+    trophyList.innerHTML = ""; // Vide la liste actuelle
+
+    // Vérifier et débloquer les trophées si les conditions sont remplies
+    trophies.forEach(trophy => {
+        if (points >= trophy.condition && !unlockedTrophies.includes(trophy.name)) {
+            unlockedTrophies.push(trophy.name);
+
+            // Effet de confettis
+            confetti({
+                particleCount: 100, // Nombre de confettis
+                spread: 70, // Étendue des confettis
+                origin: { y: 0.6 } // Point d'origine des confettis (en bas de l'écran)
+            });
+
+            // Afficher le message "Bravo"
+            const bravoMessage = document.createElement('div');
+            bravoMessage.classList.add('bravo-message');
+            bravoMessage.textContent = "Bravo !";
+            document.body.appendChild(bravoMessage);
+
+            // Supprimer le message après 3 secondes
+            setTimeout(() => {
+                bravoMessage.remove();
+            }, 3000);
+        }
+    });
+
+    // Afficher tous les trophées
+    trophies.forEach(trophy => {
+        let li = document.createElement("li");
+
+        // Vérifier si le trophée est débloqué
+        let isUnlocked = unlockedTrophies.includes(trophy.name);
+        let trophyText = isUnlocked ? `✅ ${trophy.name}` : `❌ ${trophy.name}`;
+
+        // Calcul du pourcentage de progression
+        let progress;
+        if (isUnlocked) {
+            progress = 100; // Fixer à 100% si le trophée est débloqué
+        } else {
+            progress = Math.min((points / trophy.condition) * 100, 100).toFixed(1); // Calculer le pourcentage
+        }
+
+        // Ajouter l'élément dans la liste
+        li.innerHTML = `${trophyText} - ${progress}%`;
+        trophyList.appendChild(li);
+    });
+
+    saveGame(); // Sauvegarde les trophées
+}
+// Acheter le supermarché
+boutonSupermarche.addEventListener('click', () => {
+    if (!entrepriseAchetee && points >= COUT_SUPERMARCHE) {
+        points -= COUT_SUPERMARCHE;
+        entrepriseAchetee = true;
+        updateDisplay();
+    }
+});
+
+// Acheter les marchandises
+boutonMarchandises.addEventListener('click', () => {
+    if (!marchandisesAchetees && entrepriseAchetee && points >= COUT_MARCHANDISES) {
+        points -= COUT_MARCHANDISES;
+        marchandisesAchetees = true;
+        updateDisplay();
+    }
+});
+
+// Acheter le superviseur
+boutonSuperviseur.addEventListener('click', () => {
+    if (!superviseurAchete && entrepriseAchetee && points >= COUT_SUPERVISEUR) {
+        points -= COUT_SUPERVISEUR;
+        superviseurAchete = true;
+        updateDisplay();
+    }
+});
+
+// Acheter l'agrandissement
+boutonAgrandissement.addEventListener('click', () => {
+    if (!agrandissementAchete && entrepriseAchetee && points >= COUT_AGRANDISSEMENT) {
+        points -= COUT_AGRANDISSEMENT;
+        agrandissementAchete = true;
+        updateDisplay();
+    }
+});
