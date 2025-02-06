@@ -142,7 +142,7 @@ upgrade1Button.addEventListener('click', () => {
     if (points >= upgrade1Cost) {
         points -= upgrade1Cost;
         pointsPerClick += 2;
-        upgrade1Cost = Math.floor(upgrade1Cost * 1.2);
+        upgrade1Cost = Math.floor(upgrade1Cost * 1.5);
         upgrade1Level++;
         updateDisplay();
     }
@@ -157,7 +157,7 @@ upgrade2Button.addEventListener('click', () => {
     if (points >= upgrade2Cost) {
         points -= upgrade2Cost;
         pointsPerClick *= 6;
-        upgrade2Cost = Math.floor(upgrade2Cost * 1,5);
+        upgrade2Cost = Math.floor(upgrade2Cost * 2);
         upgrade2Level++;
         updateDisplay();
     }
@@ -172,7 +172,7 @@ autoclickerButton.addEventListener('click', () => {
     if (points >= autoclickerCost) {
         points -= autoclickerCost;
         autoclickers++;
-        autoclickerCost = Math.floor(autoclickerCost * 2);
+        autoclickerCost = Math.floor(autoclickerCost * 4);
         updateDisplay();
     }
 });
