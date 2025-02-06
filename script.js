@@ -71,9 +71,14 @@ function loadGame() {
         upgrade2Level = gameData.upgrade2Level || 0;
         unlockedTrophies = gameData.unlockedTrophies || [];
         playerName = gameData.playerName;
-        avatarSrc = gameData.avatarSrc;
+        avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg"; // Charger l'avatar sauvegardé
         updateDisplay();
         updateTrophies();
+    }
+    // Charger l'avatar depuis localStorage
+    const savedAvatar = localStorage.getItem("selectedAvatar");
+    if (savedAvatar) {
+        document.getElementById("avatar").src = savedAvatar;
     }
 }
 
