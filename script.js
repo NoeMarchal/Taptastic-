@@ -51,7 +51,7 @@ function saveGame() {
         upgrade2Level,
         unlockedTrophies,
         playerName,
-        avatarSrc,
+        avatarSrc, // Sauvegarder l'avatar
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
@@ -72,20 +72,23 @@ function loadGame() {
         unlockedTrophies = gameData.unlockedTrophies || [];
         playerName = gameData.playerName;
         avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg"; // Charger l'avatar sauvegardé
-        updateDisplay();
-        updateTrophies();
     }
-    // Charger l'avatar depuis localStorage
+
+    // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
     const savedAvatar = localStorage.getItem("selectedAvatar");
     if (savedAvatar) {
+        avatarSrc = savedAvatar;
         document.getElementById("avatar").src = savedAvatar;
     }
+
+    updateDisplay();
+    updateTrophies();
 }
 
 // Mettre à jour l'affichage
 function updateDisplay() {
     pointsDisplay.textContent = `Points: ${points}`;
-    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers * autoclickerPower}`; // Mettre à jour ici
+    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers * autoclickerPower}`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
@@ -93,7 +96,7 @@ function updateDisplay() {
     upgrade2Button.textContent = `Amélioration 2 (Coût: ${upgrade2Cost} points)`;
     autoclickerButton.textContent = `Acheter un Autoclicker (Coût: ${autoclickerCost} points)`;
     document.getElementById("player-name").textContent = playerName;
-    document.getElementById("avatar").src = avatarSrc;
+    document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
 
     updateTrophies();
     saveGame(); // Sauvegarde après chaque mise à jour
@@ -213,8 +216,8 @@ function changeAvatar(avatarFileName) {
     console.log("Nouvel avatar :", newAvatarPath); // ✅ Debug
 
     avatarImg.src = newAvatarPath;
-    localStorage.setItem("selectedAvatar", newAvatarPath);
     avatarSrc = newAvatarPath; // Mettre à jour la variable avatarSrc
+    localStorage.setItem("selectedAvatar", newAvatarPath); // Sauvegarder dans localStorage
     saveGame(); // Sauvegarder le jeu après le changement d'avatar
 }
 
@@ -233,7 +236,6 @@ document.getElementById("avatar-select").addEventListener("change", function() {
     console.log("Avatar sélectionné :", this.value); // ✅ Debug
     changeAvatar(this.value);
 });
-
 // Fonction pour changer le nom
 function changeName(newName) {
     playerName = newName;
@@ -289,12 +291,15 @@ function resetGame() {
     upgrade1Level = 0;
     upgrade2Level = 0;
     playerName = "Nom du joueur";
-    avatarSrc = "Images/choose_avatar.jpg";
+    avatarSrc = "Images/choose_avatar.jpg"; // Réinitialiser l'avatar
     unlockedTrophies = [];  // Réinitialise les trophées
 
-    // Supprime la sauvegarde complète et recharge le jeu
-    saveGame();  // Enregistrer la nouvelle progression après réinitialisation
-    updateDisplay();  // Mettre à jour l'affichage du jeu
+    // Supprimer l'avatar sauvegardé
+    localStorage.removeItem("selectedAvatar");
+
+    // Sauvegarder et mettre à jour l'affichage
+    saveGame();
+    updateDisplay();
 }
 
 const clicksButton = document.getElementById('button'); // Récupère le bouton par son ID
