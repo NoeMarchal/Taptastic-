@@ -209,6 +209,8 @@ function changeAvatar(avatarFileName) {
 
     avatarImg.src = newAvatarPath;
     localStorage.setItem("selectedAvatar", newAvatarPath);
+    avatarSrc = newAvatarPath; // Mettre à jour la variable avatarSrc
+    saveGame(); // Sauvegarder le jeu après le changement d'avatar
 }
 
 // Charger l'avatar sauvegardé au démarrage
