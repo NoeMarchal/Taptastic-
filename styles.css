@@ -47,7 +47,7 @@ body {
 }
 
 /* Styles des boutons */
-button {
+button, input, select, option{
     display: inline-block;
     margin: 1px;
     padding: 5px;
@@ -55,6 +55,7 @@ button {
     border: 1px solid #ddd;
     border-radius: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 
