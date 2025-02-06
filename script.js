@@ -197,6 +197,10 @@ function changeAvatar(avatarFileName) {
         .catch(error => console.error("Erreur lors du chargement de l'image :", error));
 }
 
+// Exemple pour changer d'avatar
+document.getElementById("avatar-select").addEventListener("change", function() {
+    changeAvatar(this.value);
+});
 
 // Fonction pour changer le nom
 function changeName(newName) {
@@ -204,10 +208,7 @@ function changeName(newName) {
     updateDisplay();
 }
 
-// Exemple pour changer d'avatar
-document.getElementById("avatar-select").addEventListener("change", function() {
-    changeAvatar(this.value);
-});
+
 
 
 // Permettre de changer le nom via l'input
