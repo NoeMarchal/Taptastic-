@@ -1,6 +1,6 @@
-const maxUpgrade1Level = 50;  // Niveau max pour l'amélioration 1
-const maxUpgrade2Level = 50;   // Niveau max pour l'amélioration 2
-const maxAutoclickers = 50;   // Nombre max d'autoclickers
+const maxUpgrade1Level = 200;  // Niveau max pour l'amélioration 1
+const maxUpgrade2Level = 200;   // Niveau max pour l'amélioration 2
+const maxAutoclickers = 200;   // Nombre max d'autoclickers
 
 // Variables du jeu
 let points = 0;
@@ -141,7 +141,7 @@ upgrade1Button.addEventListener('click', () => {
     }
     if (points >= upgrade1Cost) {
         points -= upgrade1Cost;
-        pointsPerClick *= 2;
+        pointsPerClick += 10;
         upgrade1Cost = Math.floor(upgrade1Cost * 2);
         upgrade1Level++;
         updateDisplay();
@@ -156,8 +156,8 @@ upgrade2Button.addEventListener('click', () => {
     }
     if (points >= upgrade2Cost) {
         points -= upgrade2Cost;
-        pointsPerClick *= 2;
-        upgrade2Cost = Math.floor(upgrade2Cost * 2);
+        pointsPerClick *= 20;
+        upgrade2Cost = Math.floor(upgrade2Cost * 4);
         upgrade2Level++;
         updateDisplay();
     }
