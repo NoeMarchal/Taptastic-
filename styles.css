@@ -16,6 +16,7 @@ body {
     padding: 20px;
     align-items: flex-start; /* Alignement en haut */
     margin-top: -40px;
+    margin-left: 50px;
 }
 
 /* Styles des blocs "Jeu" et "Trophées" */
@@ -142,8 +143,7 @@ button {
 }
 
 .entreprise-container {
-    width: 100%;
-    max-width: 600px;
+    width: 33%;
     margin: 20px auto;
     padding: 20px;
     background-color: #cfc9c9;
@@ -153,8 +153,9 @@ button {
 }
 
 .entreprise-container {
-    margin-top: -260px;
-    margin-left: 120px;
+    margin-top: -290px;
+    margin-left: 240px;
+    align-items: flex-start;
 }
 
 summary{
