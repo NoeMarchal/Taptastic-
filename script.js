@@ -1,6 +1,6 @@
-const maxUpgrade1Level = 10000;  // Niveau max pour l'amélioration 1
-const maxUpgrade2Level = 10000;   // Niveau max pour l'amélioration 2
-const maxAutoclickers = 10000;   // Nombre max d'autoclickers
+const maxUpgrade1Level = 100;  // Niveau max pour l'amélioration 1
+const maxUpgrade2Level = 100;   // Niveau max pour l'amélioration 2
+const maxAutoclickers = 100;   // Nombre max d'autoclickers
 
 // Variables du jeu
 let points = 0;
@@ -14,6 +14,23 @@ let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
 let playerName = "Nom du joueur"; // Nom par défaut
 let avatarSrc = "./Images/choose_avatar.jpg"; // Avatar par défaut
+// Variables du jeu
+let entrepriseAchetee = false;
+let marchandisesAchetees = false;
+let superviseurAchete = false;
+let agrandissementAchete = false;
+
+// Coûts des achats
+const COUT_SUPERMARCHE = 1;
+const COUT_MARCHANDISES = 1;
+const COUT_SUPERVISEUR = 1;
+const COUT_AGRANDISSEMENT = 1;
+
+// Gains des achats
+const GAIN_SUPERMARCHE = 1; // Points par seconde
+const GAIN_MARCHANDISES = 1; // Bonus de points par seconde
+const GAIN_SUPERVISEUR = 1; // Bonus de points par seconde
+const GAIN_AGRANDISSEMENT = 1; // Bonus de points par seconde
 
 // Liste des trophées et leurs conditions
 const trophies = [
@@ -33,6 +50,13 @@ const upgrade2Button = document.getElementById('upgrade2');
 const autoclickerButton = document.getElementById('autoclicker-button');
 const autoclickerCountDisplay = document.getElementById('autoclicker-count');
 const trophyList = document.getElementById("trophy-list");
+const farmButton = document.getElementById('buy-farm');
+const farmsCountDisplay = document.getElementById('farms-count');
+// Éléments du DOM
+const boutonSupermarche = document.getElementById('boutonSupermarche');
+const boutonMarchandises = document.getElementById('boutonMarchandises');
+const boutonSuperviseur = document.getElementById('boutonSuperviseur');
+const boutonAgrandissement = document.getElementById('boutonAgrandissement');
 
 // Charger la sauvegarde
 loadGame();
@@ -51,6 +75,10 @@ function saveGame() {
         unlockedTrophies,
         playerName,
         avatarSrc,
+        entrepriseAchetee,
+        marchandisesAchetees,
+        superviseurAchete,
+        agrandissementAchete
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
@@ -71,6 +99,10 @@ function loadGame() {
         unlockedTrophies = gameData.unlockedTrophies || [];
         playerName = gameData.playerName;
         avatarSrc = gameData.avatarSrc;
+        entrepriseAchetee = gameData.entrepriseAchetee;
+        marchandisesAchetees = gameData.marchandisesAchetees;
+        superviseurAchete = gameData.superviseurAchete;
+        agrandissementAchete = gameData.agrandissementAchete;
         updateDisplay();
         updateTrophies();
     }
@@ -79,7 +111,7 @@ function loadGame() {
 // Mettre à jour l'affichage
 function updateDisplay() {
     pointsDisplay.textContent = `Points: ${points}`;
-    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers * pointsPerClick}`;
+    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers}`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
@@ -88,6 +120,11 @@ function updateDisplay() {
     autoclickerButton.textContent = `Acheter un Autoclicker (Coût: ${autoclickerCost} points)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc;
+    boutonSupermarche.disabled = entrepriseAchetee || points < COUT_SUPERMARCHE;
+    boutonMarchandises.disabled = marchandisesAchetees || !entrepriseAchetee || points < COUT_MARCHANDISES;
+    boutonSuperviseur.disabled = superviseurAchete || !entrepriseAchetee || points < COUT_SUPERVISEUR;
+    boutonAgrandissement.disabled = agrandissementAchete || !entrepriseAchetee || points < COUT_AGRANDISSEMENT;
+
     updateTrophies();
     saveGame(); // Sauvegarde après chaque mise à jour
 }
@@ -141,8 +178,8 @@ upgrade1Button.addEventListener('click', () => {
     }
     if (points >= upgrade1Cost) {
         points -= upgrade1Cost;
-        points += 2;
-        upgrade1Cost = Math.floor(upgrade1Cost * 2);
+        pointsPerClick += 2;
+        upgrade1Cost = Math.floor(upgrade1Cost * 1.2);
         upgrade1Level++;
         updateDisplay();
     }
@@ -156,7 +193,7 @@ upgrade2Button.addEventListener('click', () => {
     }
     if (points >= upgrade2Cost) {
         points -= upgrade2Cost;
-        points += 6;
+        pointsPerClick += 6;
         upgrade2Cost = Math.floor(upgrade2Cost * 2);
         upgrade2Level++;
         updateDisplay();
@@ -340,3 +377,38 @@ function updateTrophies() {
 
     saveGame(); // Sauvegarde les trophées
 }
+// Acheter le supermarché
+boutonSupermarche.addEventListener('click', () => {
+    if (!entrepriseAchetee && points >= COUT_SUPERMARCHE) {
+        points -= COUT_SUPERMARCHE;
+        entrepriseAchetee = true;
+        updateDisplay();
+    }
+});
+
+// Acheter les marchandises
+boutonMarchandises.addEventListener('click', () => {
+    if (!marchandisesAchetees && entrepriseAchetee && points >= COUT_MARCHANDISES) {
+        points -= COUT_MARCHANDISES;
+        marchandisesAchetees = true;
+        updateDisplay();
+    }
+});
+
+// Acheter le superviseur
+boutonSuperviseur.addEventListener('click', () => {
+    if (!superviseurAchete && entrepriseAchetee && points >= COUT_SUPERVISEUR) {
+        points -= COUT_SUPERVISEUR;
+        superviseurAchete = true;
+        updateDisplay();
+    }
+});
+
+// Acheter l'agrandissement
+boutonAgrandissement.addEventListener('click', () => {
+    if (!agrandissementAchete && entrepriseAchetee && points >= COUT_AGRANDISSEMENT) {
+        points -= COUT_AGRANDISSEMENT;
+        agrandissementAchete = true;
+        updateDisplay();
+    }
+});
