@@ -13,7 +13,7 @@ let upgrade1Level = 0;
 let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
 let playerName = "Nom du joueur"; // Nom par défaut
-let avatarSrc = "Images/choose_avatar.jpg"; // Avatar par défaut
+let avatarSrc = "images/choose_avatar.jpg"; // Avatar par défaut
 
 // Liste des trophées et leurs conditions
 const trophies = [
@@ -183,7 +183,7 @@ function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
 
     // Mettre à jour l'image
-    const newAvatarPath = `Images/${avatarFileName}`;
+    const newAvatarPath = `images/${avatarFileName}`;
     avatarImg.src = newAvatarPath;
 
     // Sauvegarder l'avatar sélectionné
@@ -259,7 +259,7 @@ function resetGame() {
     upgrade1Level = 0;
     upgrade2Level = 0;
     playerName = "Nom du joueur";
-    avatarSrc = "Images/choose_avatar.jpg";
+    avatarSrc = "images/choose_avatar.jpg";
     unlockedTrophies = [];  // Réinitialise les trophées
 
     // Supprime la sauvegarde complète et recharge le jeu
