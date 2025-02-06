@@ -216,15 +216,34 @@ document.getElementById("name-input").addEventListener("input", function() {
 });
 
 
-// 🚫 Réinitialiser le jeu
 document.getElementById('reset-game').addEventListener('click', () => {
-    console.log('Réinitialisation en cours...');  // Vérification de l'événement
-    if (confirm('Voulez-vous vraiment réinitialiser le jeu ?')) {
-        localStorage.removeItem('incrementalGameSave');  // Supprimer uniquement les données du jeu dans localStorage
-        resetGame();  // Appeler une fonction de réinitialisation du jeu
-        updateDisplay();  // Mettre à jour l'affichage
-    }
+    Swal.fire({
+        title: 'Réinitialiser le jeu ?',
+        text: 'Toutes vos données seront perdues.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Oui, réinitialiser',
+        cancelButtonText: 'Annuler',
+        didOpen: () => {
+            document.querySelector('.swal2-popup').style.borderRadius = '20px';
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            localStorage.removeItem('incrementalGameSave');  
+            resetGame();  
+            updateDisplay();  
+
+            Swal.fire(
+                'Réinitialisé !',
+                'Votre progression a été supprimée.',
+                'success'
+            );
+        }
+    });
 });
+
 
 // Fonction pour réinitialiser le jeu
 function resetGame() {
