@@ -322,8 +322,8 @@ function resetGame() {
     pointsPerClick = 1;
     autoclickers = 0;
     autoclickerCost = 1000;
-    upgrade1Cost = 10;
-    upgrade2Cost = 50;
+    upgrade1Cost = 100;
+    upgrade2Cost = 500;
     upgrade1Level = 0;
     upgrade2Level = 0;
     playerName = "Nom du joueur";
