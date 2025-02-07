@@ -368,8 +368,8 @@ function updateTrophies() {
 
             // Effet de confettis
             confetti({
-                particleCount: 100, // Nombre de confettis
-                spread: 70, // Étendue des confettis
+                particleCount: 10000, // Nombre de confettis
+                spread: 900, // Étendue des confettis
                 origin: { y: 0.6 } // Point d'origine des confettis (en bas de l'écran)
             });
 
@@ -382,7 +382,7 @@ function updateTrophies() {
             // Supprimer le message après 3 secondes
             setTimeout(() => {
                 bravoMessage.remove();
-            }, 3000);
+            }, 6000);
         }
     });
 
