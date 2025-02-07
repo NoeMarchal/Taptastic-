@@ -316,7 +316,7 @@ document.getElementById('reset-game').addEventListener('click', () => {
 });
 
 
-// Fonction pour réinitialiser le jeu
+// Fonction pour réinitialiser le jeu //
 function resetGame() {
     points = 0;
     pointsPerClick = 1;
