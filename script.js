@@ -93,8 +93,8 @@ function updateDisplay() {
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
-    upgrade1Button.textContent = `Amélioration 1 + 10p/click (Coût: ${upgrade1Cost} points)`;
-    upgrade2Button.textContent = `Amélioration 2 + 20p/click (Coût: ${upgrade2Cost} points)`;
+    upgrade1Button.textContent = `Amélioration 1 + 20p/click (Coût: ${upgrade1Cost} points)`;
+    upgrade2Button.textContent = `Amélioration 2 + 50p/click (Coût: ${upgrade2Cost} points)`;
     autoclickerButton.textContent = `Acheter un Autoclicker + 250p/sec (Coût: ${autoclickerCost} points)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
@@ -369,7 +369,7 @@ function updateTrophies() {
 
             // Effet de confettis
             confetti({
-                particleCount: 1000, // Nombre de confettis
+                particleCount: 2000, // Nombre de confettis
                 spread: 500, // Étendue des confettis
                 origin: { y: 0.6 } // Point d'origine des confettis (en bas de l'écran)
             });
@@ -412,24 +412,45 @@ function updateTrophies() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
-//V1.2 Emepêche le clic-droit + inspecter / Détecte l'utiliser des raccourcis développeur / Affichage hop up de triche / Pas de reset game.
+// Anti auto-clicker + debugger bloquer //
 (function() {
-    let isOpen = false;
+    let clickTimes = [];
+    let autoClickDetected = false;
+    let isConsoleOpen = false;
+
+    function detectAutoClick() {
+        const now = performance.now();
+        clickTimes.push(now);
+
+        if (clickTimes.length > 10) {
+            clickTimes.shift();
+        }
+
+        if (clickTimes.length >= 5) { 
+            let intervalSum = 0;
+            for (let i = 1; i < clickTimes.length; i++) {
+                intervalSum += (clickTimes[i] - clickTimes[i - 1]);
+            }
+
+            const avgInterval = intervalSum / (clickTimes.length - 1);
+
+            if (avgInterval < 50 && !autoClickDetected) {
+                autoClickDetected = true;
+                bloquerJeu("Auto-click détecté !", "Vous utilisez un auto-clicker. Ceci est interdit.");
+            }
+        }
+    }
 
     function detectConsole() {
-        const element = new Image();
-        Object.defineProperty(element, 'id', {
-            get: function() {
-                isOpen = true;
-                throw new Error("Console détectée !");
+        console.log('%c ', new Image());
+        console.clear();
+
+        setTimeout(() => {
+            if (window.outerHeight - window.innerHeight > 100 || window.outerWidth - window.innerWidth > 100) {
+                isConsoleOpen = true;
+                bloquerJeu("Triche détectée !", "La console est ouverte. Fermez-la immédiatement.");
             }
-        });
-
-        console.log('%c', element);
-
-        if (isOpen) {
-            afficherAlerte();
-        }
+        }, 100);
     }
 
     function detectDebugger() {
@@ -439,44 +460,82 @@ function updateTrophies() {
             const duration = performance.now() - start;
 
             if (duration > 100) {
-                afficherAlerte();
+                bloquerJeu( "Oups !", "Une action interdite a été détectée.");
             }
         }, 1000);
     }
 
-    function afficherAlerte() {
+    function bloquerJeu(titre, message) {
+        document.body.innerHTML = "";
         Swal.fire({
-            title: 'Triche détectée !',
-            text: 'Vous avez ouvert la console. Veuillez la fermer immédiatement.',
+            title: titre,
+            text: message,
             icon: 'error',
             confirmButtonColor: '#d33',
             confirmButtonText: 'OK',
-            didOpen: () => {
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
-            }
-        });
+            allowOutsideClick: false, 
+            allowEscapeKey: false, 
+            allowEnterKey: false,
+        }).then(() => location.reload());
     }
 
-    // Vérification continue de la console ouverte
+    document.addEventListener("click", detectAutoClick);
+    document.addEventListener("touchstart", detectAutoClick);
+
     setInterval(detectConsole, 1000);
     detectDebugger();
 
-    // Bloque les raccourcis clavier pour ouvrir la console
     document.addEventListener("keydown", function(event) {
-        if (
-            event.key === "F12" ||
-            (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J" || event.key === "C")) ||
-            (event.ctrlKey && event.key === "U") ||
-            (event.metaKey && event.altKey && event.key === "I") // Cmd+Opt+I sur Mac
-        ) {
+        if (["F12", "U"].includes(event.key) || (event.ctrlKey && event.shiftKey && ["I", "J", "C"].includes(event.key)) || (event.metaKey && event.altKey && event.key === "I")) {
             event.preventDefault();
             console.clear();
-            afficherAlerte();
+            bloquerJeu("Triche détectée !", "Raccourci interdit.");
         }
     });
 
-    // Bloque l'ouverture de la console par clic droit + "Inspecter"
-    document.addEventListener("contextmenu", function(event) {
-        event.preventDefault();
-    });
+    document.addEventListener("contextmenu", event => event.preventDefault());
 })();
+
+// Utilisation d'un outil externe pour modifier le jeu //
+
+setInterval(() => {
+    if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+        bloquerJeu("Environnement suspect détecté !", "Veuillez jouer normalement.");
+    }
+}, 1000);
+
+// Ralentissement de la vitesse d'exécution du jeu //
+
+setInterval(() => {
+    const start = performance.now();
+    for (let i = 0; i < 1000000; i++) {} 
+    const duration = performance.now() - start;
+    
+    if (duration > 500) { 
+        bloquerJeu("Interférence détectée !", "Veuillez jouer normalement.");
+    }
+}, 2000);
+
+// Utilisation script auto-click //
+
+let lastKeyPress = Date.now();
+
+document.addEventListener("keydown", (event) => {
+    let now = Date.now();
+    if (now - lastKeyPress < 50) {
+        bloquerJeu("Appuis trop rapides détectés !", "Veuillez jouer normalement.");
+    }
+    lastKeyPress = now;
+});
+
+// Désactivation mode développeur sur Chrome/Firefox //
+
+setInterval(() => {
+    let before = new Date().getTime();
+    debugger; // Pause forcée si les outils développeurs sont ouverts
+    let after = new Date().getTime();
+    
+    if (after - before > 100) { // Si un décalage est détecté, ça veut dire que le mode dev est activé
+        bloquerJeu("Mode développeur détecté !", "Veuillez désactiver vos outils.");
+    }
+}, 3000);
