@@ -19,11 +19,11 @@ let avatarSrc = "Images/choose_avatar.jpg"; // Avatar par défaut
 // Liste des trophées et leurs conditions
 const trophies = [
     { name: "Débutant", condition: 100 },
-    { name: "Apprenti Clicker", condition: 500000 },
-    { name: "Clicker Amateur", condition: 10000000 },
-    { name: "Clicker Confirmé", condition: 250000000 },
-    { name: "Clicker Pro", condition: 500000000000 },
-    { name: "Maître du Click", condition: 100000000000000000 }
+    { name: "Apprenti Clicker", condition: 10000 },
+    { name: "Clicker Amateur", condition: 50000 },
+    { name: "Clicker Confirmé", condition: 100000 },
+    { name: "Clicker Pro", condition: 500000 },
+    { name: "Maître du Click", condition: 1000000 }
 ];
 
 // Éléments du DOM
