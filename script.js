@@ -321,7 +321,7 @@ function resetGame() {
     points = 0;
     pointsPerClick = 1;
     autoclickers = 0;
-    autoclickerCost = 100;
+    autoclickerCost = 1000;
     upgrade1Cost = 10;
     upgrade2Cost = 50;
     upgrade1Level = 0;
@@ -412,3 +412,38 @@ function updateTrophies() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
+
+(function() {
+    function detectConsole() {
+        let before = new Date().getTime();
+        debugger; // Détecte l'ouverture de la console
+        let after = new Date().getTime();
+
+        if (after - before > 100) {
+            console.clear();
+            console.log("Console détectée ! Réinitialisation du jeu...");
+            if (typeof resetGame === "function") {
+                resetGame(); // Réinitialise le jeu
+            }
+        }
+    }
+
+    // Vérifie toutes les 2 secondes si la console est ouverte
+    setInterval(detectConsole, 2000);
+
+    // Empêche les raccourcis clavier pour ouvrir la console
+    document.addEventListener("keydown", function(event) {
+        if (
+            event.key === "F12" ||
+            (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J")) ||
+            (event.ctrlKey && event.key === "U")
+        ) {
+            event.preventDefault();
+            console.clear();
+            console.log("Accès à la console bloqué !");
+            if (typeof resetGame === "function") {
+                resetGame(); // Réinitialise le jeu
+            }
+        }
+    });
+})();
