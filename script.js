@@ -95,7 +95,7 @@ function updateDisplay() {
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
     upgrade1Button.textContent = `Amélioration 1 + 10p/click (Coût: ${upgrade1Cost} points)`;
     upgrade2Button.textContent = `Amélioration 2 + 20p/click (Coût: ${upgrade2Cost} points)`;
-    autoclickerButton.textContent = `Acheter un Autoclicker + 500p/sec (Coût: ${autoclickerCost} points)`;
+    autoclickerButton.textContent = `Acheter un Autoclicker + 250p/sec (Coût: ${autoclickerCost} points)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
 
@@ -161,7 +161,7 @@ upgrade1Button.addEventListener('click', () => {
     }
     if (points >= upgrade1Cost) {
         points -= upgrade1Cost;
-        pointsPerClick +=20;
+        pointsPerClick +20;
         upgrade1Cost = Math.floor(upgrade1Cost + 500);
         upgrade1Level++;
         updateDisplay();
@@ -192,7 +192,7 @@ upgrade2Button.addEventListener('click', () => {
     }
     if (points >= upgrade2Cost) {
         points -= upgrade2Cost;
-        pointsPerClick +=50;
+        pointsPerClick + 50;
         upgrade2Cost = Math.floor(upgrade2Cost + 800);
         upgrade2Level++;
         updateDisplay();
@@ -201,7 +201,7 @@ upgrade2Button.addEventListener('click', () => {
 
 setInterval(() => {
     if (autoclickers > 0) {
-        points += autoclickers * autoclickerPower; // Chaque autoclicker rapporte 100 points par seconde
+        points += autoclickers * autoclickerPower; // Chaque autoclicker rapporte 250 points par seconde
 
         // Créer un effet d'autoclicker
         const autoclickerEffect = document.createElement('div');
@@ -238,7 +238,7 @@ autoclickerButton.addEventListener('click', () => {
     }
     if (points >= autoclickerCost) {
         points -= autoclickerCost;
-        autoclickers +=1;
+        autoclickers ++;
         autoclickerCost = Math.floor(autoclickerCost + 1000);
         updateDisplay();
     }
