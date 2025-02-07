@@ -9,7 +9,7 @@ let upgrade1Cost = 10;
 let upgrade2Cost = 50;
 let autoclickerCost = 100;
 let autoclickers = 0;
-let autoclickerPower = 1000; // Chaque autoclicker rapporte 100 points par secondes
+let autoclickerPower = 500; // Chaque autoclicker rapporte 100 points par secondes
 let upgrade1Level = 0;
 let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
@@ -94,7 +94,7 @@ function updateDisplay() {
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
     upgrade1Button.textContent = `Amélioration 1 + 10p/click (Coût: ${upgrade1Cost} points)`;
     upgrade2Button.textContent = `Amélioration 2 + 20p/click (Coût: ${upgrade2Cost} points)`;
-    autoclickerButton.textContent = `Acheter un Autoclicker + 1000p/sec (Coût: ${autoclickerCost} points)`;
+    autoclickerButton.textContent = `Acheter un Autoclicker + 500p/sec (Coût: ${autoclickerCost} points)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
 
