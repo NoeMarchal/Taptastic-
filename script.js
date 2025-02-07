@@ -369,7 +369,7 @@ function updateTrophies() {
             // Effet de confettis
             confetti({
                 particleCount: 1000, // Nombre de confettis
-                spread: 900, // Étendue des confettis
+                spread: 500, // Étendue des confettis
                 origin: { y: 0.6 } // Point d'origine des confettis (en bas de l'écran)
             });
 
