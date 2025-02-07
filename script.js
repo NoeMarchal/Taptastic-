@@ -237,7 +237,7 @@ autoclickerButton.addEventListener('click', () => {
     }
     if (points >= autoclickerCost) {
         points -= autoclickerCost;
-        autoclickers += 1;
+        autoclickers +=1;
         autoclickerCost = Math.floor(autoclickerCost * 1,8);
         updateDisplay();
     }
