@@ -9,7 +9,7 @@ let upgrade1Cost = 10;
 let upgrade2Cost = 50;
 let autoclickerCost = 100;
 let autoclickers = 0;
-let autoclickerPower = 100; // Chaque autoclicker rapporte 10 points par seconde
+let autoclickerPower = 100; // Chaque autoclicker rapporte 100 points par seconde
 let upgrade1Level = 0;
 let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
@@ -200,7 +200,7 @@ upgrade2Button.addEventListener('click', () => {
 
 setInterval(() => {
     if (autoclickers > 0) {
-        points += autoclickers * autoclickerPower; // Chaque autoclicker rapporte 10 points par seconde
+        points += autoclickers * autoclickerPower; // Chaque autoclicker rapporte 100 points par seconde
 
         // Créer un effet d'autoclicker
         const autoclickerEffect = document.createElement('div');
