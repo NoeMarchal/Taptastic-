@@ -1,6 +1,6 @@
-const maxUpgrade1Level = 500;    // niveau max pour l'amélioration 1
-const maxUpgrade2Level = 500;   // Niveau max pour l'amélioration 2
-const maxAutoclickers = 500;   // Nombre max d'autoclickers
+const maxUpgrade1Level = 1000;    // niveau max pour l'amélioration 1
+const maxUpgrade2Level = 1000;   // Niveau max pour l'amélioration 2
+const maxAutoclickers = 1000;   // Nombre max d'autoclickers
 
 // Variables du jeu
 let points = 0;
@@ -23,7 +23,8 @@ const trophies = [
     { name: "Clicker Amateur", condition: 500000 },
     { name: "Clicker Confirmé", condition: 1000000 },
     { name: "Clicker Pro", condition: 5000000 },
-    { name: "Maître du Click", condition: 10000000 }
+    { name: "Maître du Click", condition: 10000000 },
+    { name: "Incredible clicker master", condition: 1000000000000 }
 ];
 
 // Éléments du DOM
