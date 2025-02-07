@@ -1,6 +1,6 @@
-const maxUpgrade1Level = 100;//iveau max pour l'amélioration 1
-const maxUpgrade2Level = 100;   // Niveau max pour l'amélioration 2
-const maxAutoclickers = 100;   // Nombre max d'autoclickers
+const maxUpgrade1Level = 500;//iveau max pour l'amélioration 1
+const maxUpgrade2Level = 500;   // Niveau max pour l'amélioration 2
+const maxAutoclickers = 500;   // Nombre max d'autoclickers
 
 // Variables du jeu
 let points = 0;
