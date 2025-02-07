@@ -412,7 +412,7 @@ function updateTrophies() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
-//V1 empeche le clic droit et reset 
+//V1.2 Emepêche le clic-droit + inspecter / Détecte l'utiliser des raccourcis développeur / Affichage hop up de triche / Pas de reset game.
 (function() {
     let isOpen = false;
 
@@ -428,31 +428,8 @@ function updateTrophies() {
         console.log('%c', element);
 
         if (isOpen) {
-            fermerConsoleEtAlerte();
+            afficherAlerte();
         }
-    }
-
-    function fermerConsoleEtAlerte() {
-        // Recharge immédiatement la page pour fermer la console
-        location.reload();
-
-        // Afficher un pop-up après la fermeture de la console
-        setTimeout(() => {
-            Swal.fire({
-                title: 'Triche détectée !',
-                text: 'Vous avez ouvert la console. Le jeu va être réinitialisé.',
-                icon: 'error',
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'OK',
-                didOpen: () => {
-                    document.querySelector('.swal2-popup').style.borderRadius = '20px';
-                }
-            }).then(() => {
-                if (typeof resetGame === "function") {
-                    resetGame(); // Réinitialise le jeu
-                }
-            });
-        }, 500);
     }
 
     function detectDebugger() {
@@ -462,9 +439,22 @@ function updateTrophies() {
             const duration = performance.now() - start;
 
             if (duration > 100) {
-                fermerConsoleEtAlerte();
+                afficherAlerte();
             }
         }, 1000);
+    }
+
+    function afficherAlerte() {
+        Swal.fire({
+            title: 'Triche détectée !',
+            text: 'Vous avez ouvert la console. Veuillez la fermer immédiatement.',
+            icon: 'error',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        });
     }
 
     // Vérification continue de la console ouverte
@@ -481,7 +471,7 @@ function updateTrophies() {
         ) {
             event.preventDefault();
             console.clear();
-            fermerConsoleEtAlerte();
+            afficherAlerte();
         }
     });
 
