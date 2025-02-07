@@ -1,4 +1,4 @@
-const maxUpgrade1Level = 500;//iveau max pour l'amélioration 1
+const maxUpgrade1Level = 500;    // niveau max pour l'amélioration 1
 const maxUpgrade2Level = 500;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 500;   // Nombre max d'autoclickers
 
