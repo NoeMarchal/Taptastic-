@@ -92,9 +92,9 @@ function updateDisplay() {
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
-    upgrade1Button.textContent = `Amélioration 1 (Coût: ${upgrade1Cost} points)`;
-    upgrade2Button.textContent = `Amélioration 2 (Coût: ${upgrade2Cost} points)`;
-    autoclickerButton.textContent = `Acheter un Autoclicker (Coût: ${autoclickerCost} points)`;
+    upgrade1Button.textContent = `Amélioration 1 + 10p/click (Coût: ${upgrade1Cost} points)`;
+    upgrade2Button.textContent = `Amélioration 2 + 20p/click (Coût: ${upgrade2Cost} points)`;
+    autoclickerButton.textContent = `Acheter un Autoclicker + 100p/sec (Coût: ${autoclickerCost} points)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
 
