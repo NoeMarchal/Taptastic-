@@ -412,38 +412,81 @@ function updateTrophies() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
-
+//V1 empeche le clic droit et reset 
 (function() {
-    function detectConsole() {
-        let before = new Date().getTime();
-        debugger; // Détecte l'ouverture de la console
-        let after = new Date().getTime();
+    let isOpen = false;
 
-        if (after - before > 100) {
-            console.clear();
-            console.log("Console détectée ! Réinitialisation du jeu...");
-            if (typeof resetGame === "function") {
-                resetGame(); // Réinitialise le jeu
+    function detectConsole() {
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                isOpen = true;
+                throw new Error("Console détectée !");
             }
+        });
+
+        console.log('%c', element);
+
+        if (isOpen) {
+            fermerConsoleEtAlerte();
         }
     }
 
-    // Vérifie toutes les 2 secondes si la console est ouverte
-    setInterval(detectConsole, 2000);
+    function fermerConsoleEtAlerte() {
+        // Recharge immédiatement la page pour fermer la console
+        location.reload();
 
-    // Empêche les raccourcis clavier pour ouvrir la console
+        // Afficher un pop-up après la fermeture de la console
+        setTimeout(() => {
+            Swal.fire({
+                title: 'Triche détectée !',
+                text: 'Vous avez ouvert la console. Le jeu va être réinitialisé.',
+                icon: 'error',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'OK',
+                didOpen: () => {
+                    document.querySelector('.swal2-popup').style.borderRadius = '20px';
+                }
+            }).then(() => {
+                if (typeof resetGame === "function") {
+                    resetGame(); // Réinitialise le jeu
+                }
+            });
+        }, 500);
+    }
+
+    function detectDebugger() {
+        setInterval(() => {
+            const start = performance.now();
+            debugger;
+            const duration = performance.now() - start;
+
+            if (duration > 100) {
+                fermerConsoleEtAlerte();
+            }
+        }, 1000);
+    }
+
+    // Vérification continue de la console ouverte
+    setInterval(detectConsole, 1000);
+    detectDebugger();
+
+    // Bloque les raccourcis clavier pour ouvrir la console
     document.addEventListener("keydown", function(event) {
         if (
             event.key === "F12" ||
-            (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J")) ||
-            (event.ctrlKey && event.key === "U")
+            (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J" || event.key === "C")) ||
+            (event.ctrlKey && event.key === "U") ||
+            (event.metaKey && event.altKey && event.key === "I") // Cmd+Opt+I sur Mac
         ) {
             event.preventDefault();
             console.clear();
-            console.log("Accès à la console bloqué !");
-            if (typeof resetGame === "function") {
-                resetGame(); // Réinitialise le jeu
-            }
+            fermerConsoleEtAlerte();
         }
+    });
+
+    // Bloque l'ouverture de la console par clic droit + "Inspecter"
+    document.addEventListener("contextmenu", function(event) {
+        event.preventDefault();
     });
 })();
