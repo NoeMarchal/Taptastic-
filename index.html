@@ -9,35 +9,31 @@
 <body>
     <button id="reset-game">Réinitialiser le jeu</button>
 
-    <!-- Section Avatars et Nom -->
-     <div class="container">
-    <div class="user-info">
-        <div class="avatar-container">
-            <img id="avatar" src="./Images/choose_avatar.jpg" alt="Avatar du joueur" class="image">
-        </div>
-        <div id="player-name" class="player-name">Nom du joueur</div>
-    </div>
+<!-- Section Avatars et Nom -->
+<div class="profile-card">
+    <img id="avatar-image" src="Images/avatar1.jpg" alt="Avatar">
+    <p>Choisissez votre avatar :</p>
+    <select id="avatar-select" onchange="changeAvatar()">
+        <option value="avatar1.jpg">Jhon</option>
+        <option value="avatar2.jpg">Greg</option>
+        <option value="avatar3.jpg">Luc</option>
+        <option value="avatar4.jpg">David</option>
+        <option value="avatar5.jpg">Jonathan</option>
+        <option value="avatar6.jpg">Saphir</option>
+        <option value="avatar7.jpg">Jules</option>
+        <option value="avatar8.jpg">Diego</option>
+        <option value="avatar9.jpg">Karaba</option>
+    </select>
 </div>
-<details>
-    <summary>Personnalisation du joueur</summary>
-    <div id="customization-form">
-        <label for="avatar-select">Choisissez un avatar :</label> 
-        <select id="avatar-select" onchange="changeAvatar()">
-            <option value="avatar1.jpg">Jhon</option>
-            <option value="avatar2.jpg">Greg</option>
-            <option value="avatar3.jpg">Luc</option>
-            <option value="avatar4.jpg">David</option>
-            <option value="avatar5.jpg">Jonathan</option>
-            <option value="avatar6.jpg">Saphir</option>
-            <option value="avatar7.jpg">Jules</option>
-            <option value="avatar8.jpg">Diego</option>
-            <option value="avatar9.jpg">Karaba</option>
-        </select>
-        <br><br>
-        <label for="name-input">Entrez votre nom :</label>
-        <input type="text" id="name-input" placeholder="Entrez votre nom" />
-    </div>
-</details>
+
+<script>
+    function changeAvatar() {
+        const avatarSelect = document.getElementById('avatar-select');
+        const avatarImage = document.getElementById('avatar-image');
+        avatarImage.src = `Images/${avatarSelect.value}`;
+    }
+</script>
+
     <!-- Conteneur principal du jeu -->
     <div class="trophies-container">    
     <div class="container">

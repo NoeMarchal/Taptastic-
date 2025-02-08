@@ -8,27 +8,6 @@ body {
     padding: 0;
 }
 
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    body {
-        font-size: 16px;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    body {
-        font-size: 14px;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    body {
-        font-size: 12px;
-    }
-}
-
 /* Conteneur principal qui aligne les deux blocs */
 .container {
     display: flex;
@@ -40,32 +19,6 @@ body {
     margin-left: 50px;
 }
 
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    .container {
-        gap: 20px;
-        margin-left: 100px;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-        margin-left: 0;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-        margin-left: 0;
-    }
-}
-
 /* Styles des blocs "Jeu" et "Trophées" */
 .game-container, .trophies {
     width: 35%;
@@ -74,27 +27,6 @@ body {
     border-radius: 40px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
-}
-
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    .game-container, .trophies {
-        width: 35%;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    .game-container, .trophies {
-        width: 70%;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    .game-container, .trophies {
-        width: 90%;
-    }
 }
 
 /* Styles des trophées */
@@ -113,26 +45,6 @@ body {
     display: block;
 }
 
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    .trophies li {
-        font-size: 16px;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    .trophies li {
-        font-size: 14px;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    .trophies li {
-        font-size: 12px;
-    }
-}
 
 /* Styles des boutons */
 button, input, select, option {
@@ -145,27 +57,6 @@ button, input, select, option {
     padding: 10px 20px;
     margin: 10px;
     font-size: 16px;
-}
-
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    button, input, select, option {
-        padding: 10px 20px;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    button, input, select, option {
-        padding: 8px 16px;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    button, input, select, option {
-        padding: 5px 10px;
-    }
 }
 
 /* Bouton de réinitialisation */
@@ -186,140 +77,40 @@ button, input, select, option {
     background-color: #c82333;
 }
 
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    #reset-game {
-        top: 20px;
-        right: 40px;
-    }
-}
+/* Carte de Profile*/
 
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    #reset-game {
-        top: 15px;
-        right: 30px;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    #reset-game {
-        top: 10px;
-        right: 20px;
-    }
-}
-
-/* Conteneur de l'avatar et du nom */
-.image {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
+.profile-card {
     position: absolute;
-    top: 10px;
+    top: 20px;
+    left: 20px;
     width: 200px;
-    left: 50px;
-}
-
-.player-name {
-    font-size: 2rem;
-    font-weight: bold;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 80px;
-}
-
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    .player-name {
-        font-size: 2rem;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    .player-name {
-        font-size: 1.5rem;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    .player-name {
-        font-size: 1.2rem;
-    }
-}
-
-/* Style pour le formulaire de personnalisation */
-#customization-form {
-    position: absolute;
-    top: 170px;
-    left: 7%;
-    transform: translateX(-50%);
-    background-color: #cfc9c9;
-    padding: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
 }
 
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    #customization-form {
-        top: 170px;
-        left: 7%;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    #customization-form {
-        top: 150px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    #customization-form {
-        top: 130px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-/* Avatar dans le coin gauche */
-.avatar-container img {
+.profile-card img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
 }
 
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    .avatar-container img {
-        width: 100px;
-        height: 100px;
-    }
+.profile-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
 }
 
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    .avatar-container img {
-        width: 80px;
-        height: 80px;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    .avatar-container img {
-        width: 60px;
-        height: 60px;
-    }
+.profile-card select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 /* Conteneur principal et autres styles inchangés */
@@ -342,60 +133,10 @@ button, input, select, option {
     text-align: center;
 }
 
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    .entreprise-container {
-        margin-top: -290px;
-        margin-left: 240px;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    .entreprise-container {
-        margin-top: -200px;
-        margin-left: 0;
-        width: 70%;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    .entreprise-container {
-        margin-top: -150px;
-        margin-left: 0;
-        width: 90%;
-    }
-}
-
 summary {
     margin-left: -1330px;
     margin-top: 140px;
     font-size: 0.9rem;
-}
-
-/* Media Query pour les écrans d'ordinateur (≥ 1024px) */
-@media (min-width: 1024px) {
-    summary {
-        margin-left: -1330px;
-        margin-top: 140px;
-    }
-}
-
-/* Media Query pour les tablettes (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-    summary {
-        margin-left: 0;
-        margin-top: 20px;
-    }
-}
-
-/* Media Query pour les mobiles (< 768px) */
-@media (max-width: 767px) {
-    summary {
-        margin-left: 0;
-        margin-top: 20px;
-    }
 }
 
 @keyframes clickEffect {
