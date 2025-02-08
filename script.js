@@ -283,20 +283,17 @@ autoclickerButton.addEventListener('click', () => {
     }
 });
 
-function changeAvatar() {
-    const avatarSelect = document.getElementById("avatar-select");
+function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
-    const avatarPreview = document.getElementById("avatar-image");
 
-    // Définir le nouveau chemin de l'avatar
-    const newAvatarPath = `./Images/${avatarSelect.value}`;
-    
-    // Mettre à jour les deux images (avatar principal + aperçu)
+    // Mettre à jour l'image
+    const newAvatarPath = `Images/${avatarFileName}`;
+    console.log("Nouvel avatar :", newAvatarPath); // ✅ Debug
+
     avatarImg.src = newAvatarPath;
-    avatarPreview.src = newAvatarPath;
-
-    // Sauvegarder l'avatar sélectionné dans le localStorage
-    localStorage.setItem("selectedAvatar", newAvatarPath);
+    avatarSrc = newAvatarPath; // Mettre à jour la variable avatarSrc
+    localStorage.setItem("selectedAvatar", newAvatarPath); // Sauvegarder dans localStorage
+    saveGame(); // Sauvegarder le jeu après le changement d'avatar
 }
 
 // Charger l'avatar sauvegardé au démarrage
@@ -304,13 +301,17 @@ window.addEventListener("load", () => {
     const savedAvatar = localStorage.getItem("selectedAvatar");
 
     if (savedAvatar) {
+        console.log("Avatar chargé depuis localStorage :", savedAvatar); // ✅ Debug
         document.getElementById("avatar").src = savedAvatar;
-        document.getElementById("avatar-image").src = savedAvatar;
     }
 });
 
-// Ajouter un écouteur d'événement pour détecter le changement de sélection
-document.getElementById("avatar-select").addEventListener("change", changeAvatar);
+// Écouteur pour le changement d'avatar
+document.getElementById("avatar-select").addEventListener("change", function() {
+    console.log("Avatar sélectionné :", this.value); // ✅ Debug
+    changeAvatar(this.value);
+});
+
 
 
 document.getElementById('reset-game').addEventListener('click', () => {
