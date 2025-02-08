@@ -26,14 +26,6 @@
     </select>
 </div>
 
-<script>
-    function changeAvatar() {
-        const avatarSelect = document.getElementById('avatar-select');
-        const avatarImage = document.getElementById('avatar-image');
-        avatarImage.src = `Images/${avatarSelect.value}`;
-    }
-</script>
-
     <!-- Conteneur principal du jeu -->
     <div class="trophies-container">    
     <div class="container">
@@ -74,6 +66,12 @@
     <button id="boutonSuperviseur">Acheter Superviseur (Coût: 700000 points)</button>
     <button id="boutonAgrandissement">Acheter Agrandissement (Coût: 800000 points)</button>
     
+</div>
+<div id="stats-container">
+    <h2>Statistiques du Joueur</h2>
+    <p id="total-clicks">Nombre total de clics : 0</p>
+    <p id="total-time">Temps passé : 0 secondes</p>
+    <p id="total-points-earned">Points gagnés au total : 0</p>
 </div>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>

@@ -24,6 +24,9 @@ let supermarcheAchete = false;
 let marchandisesAchete = false;
 let superviseurAchete = false;
 let agrandissementAchete = false;
+let totalClicks = 0; // Nombre total de clics
+let totalTime = 0; // Temps total passé (en secondes)
+let totalPointsEarned = 0; // Points gagnés au total
 
 // Liste des trophées et leurs conditions
 const trophies = [
@@ -66,6 +69,9 @@ function saveGame() {
         marchandisesAchete,
         superviseurAchete,
         agrandissementAchete,
+        totalClicks,
+        totalTime,
+        totalPointsEarned,
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
@@ -90,6 +96,9 @@ function loadGame() {
         marchandisesAchete = gameData.marchandisesAchete || false;
         superviseurAchete = gameData.superviseurAchete || false;
         agrandissementAchete = gameData.agrandissementAchete || false;
+        totalClicks = gameData.totalClicks || 0;
+        totalTime = gameData.totalTime || 0;
+        totalPointsEarned = gameData.totalPointsEarned || 0;
     }
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
@@ -125,6 +134,9 @@ function updateDisplay() {
         document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${marchandisesCost} points)`;
         document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur (Coût: ${superviseurCost} points)`;
         document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement (Coût: ${agrandissementCost} points)`;
+        document.getElementById('total-clicks').textContent = `Nombre total de clics : ${totalClicks}`;
+        document.getElementById('total-time').textContent = `Temps passé : ${totalTime} secondes`;
+        document.getElementById('total-points-earned').textContent = `Points gagnés au total : ${totalPointsEarned}`;
 
     updateTrophies();
     saveGame(); // Sauvegarde après chaque mise à jour
@@ -271,17 +283,20 @@ autoclickerButton.addEventListener('click', () => {
     }
 });
 
-function changeAvatar(avatarFileName) {
+function changeAvatar() {
+    const avatarSelect = document.getElementById("avatar-select");
     const avatarImg = document.getElementById("avatar");
+    const avatarPreview = document.getElementById("avatar-image");
 
-    // Mettre à jour l'image
-    const newAvatarPath = `Images/${avatarFileName}`;
-    console.log("Nouvel avatar :", newAvatarPath); // ✅ Debug
-
+    // Définir le nouveau chemin de l'avatar
+    const newAvatarPath = `./Images/${avatarSelect.value}`;
+    
+    // Mettre à jour les deux images (avatar principal + aperçu)
     avatarImg.src = newAvatarPath;
-    avatarSrc = newAvatarPath; // Mettre à jour la variable avatarSrc
-    localStorage.setItem("selectedAvatar", newAvatarPath); // Sauvegarder dans localStorage
-    saveGame(); // Sauvegarder le jeu après le changement d'avatar
+    avatarPreview.src = newAvatarPath;
+
+    // Sauvegarder l'avatar sélectionné dans le localStorage
+    localStorage.setItem("selectedAvatar", newAvatarPath);
 }
 
 // Charger l'avatar sauvegardé au démarrage
@@ -289,29 +304,13 @@ window.addEventListener("load", () => {
     const savedAvatar = localStorage.getItem("selectedAvatar");
 
     if (savedAvatar) {
-        console.log("Avatar chargé depuis localStorage :", savedAvatar); // ✅ Debug
         document.getElementById("avatar").src = savedAvatar;
+        document.getElementById("avatar-image").src = savedAvatar;
     }
 });
 
-// Écouteur pour le changement d'avatar
-document.getElementById("avatar-select").addEventListener("change", function() {
-    console.log("Avatar sélectionné :", this.value); // ✅ Debug
-    changeAvatar(this.value);
-});
-// Fonction pour changer le nom
-function changeName(newName) {
-    playerName = newName;
-    updateDisplay();
-}
-
-
-
-
-// Permettre de changer le nom via l'input
-document.getElementById("name-input").addEventListener("input", function() {
-    changeName(this.value);
-});
+// Ajouter un écouteur d'événement pour détecter le changement de sélection
+document.getElementById("avatar-select").addEventListener("change", changeAvatar);
 
 
 document.getElementById('reset-game').addEventListener('click', () => {
@@ -360,6 +359,9 @@ function resetGame() {
     marchandisesAchete = false;
     superviseurAchete = false;
     agrandissementAchete = false;
+    totalClicks = 0;
+    totalTime = 0;
+    totalPointsEarned = 0;
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -380,12 +382,14 @@ const clicksButton = document.getElementById('button'); // Récupère le bouton 
 
 clickButton.addEventListener('click', (event) => {
     points += pointsPerClick;
+    totalClicks++; // Incrémenter le nombre total de clics
+    totalPointsEarned += pointsPerClick; // Ajouter les points gagnés
 
     // Créer un effet de clic
     const clickEffect = document.createElement('div');
     clickEffect.classList.add('click-effect');
-    clickEffect.style.left = `${event.clientX - 10}px`; // Position X de la souris
-    clickEffect.style.top = `${event.clientY - 10}px`; // Position Y de la souris
+    clickEffect.style.left = `${event.clientX - 10}px`;
+    clickEffect.style.top = `${event.clientY - 10}px`;
     document.body.appendChild(clickEffect);
 
     // Supprimer l'effet après l'animation
@@ -500,7 +504,11 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
         updateDisplay();
     }
 });
-
+// Mettre à jour le temps passé toutes les secondes
+setInterval(() => {
+    totalTime++; // Incrémenter le temps passé
+    updateStatsDisplay(); // Mettre à jour l'affichage des statistiques
+}, 1000);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
 (function() {
