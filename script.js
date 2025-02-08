@@ -1,6 +1,11 @@
 const maxUpgrade1Level = 1000;    // niveau max pour l'amélioration 1
 const maxUpgrade2Level = 1000;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 1000;   // Nombre max d'autoclickers
+const supermarcheCost = 10000; // Coût du supermarché
+const marchandisesCost = 5000; // Coût des marchandises
+const superviseurCost = 20000; // Coût du superviseur
+const agrandissementCost = 30000; // Coût de l'agrandissement
+
 
 // Variables du jeu
 let points = 0;
@@ -15,6 +20,10 @@ let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
 let playerName = "Nom du joueur"; // Nom par défaut
 let avatarSrc = "Images/choose_avatar.jpg"; // Avatar par défaut
+let supermarcheAchete = false;
+let marchandisesAchete = false;
+let superviseurAchete = false;
+let agrandissementAchete = false;
 
 // Liste des trophées et leurs conditions
 const trophies = [
@@ -53,6 +62,10 @@ function saveGame() {
         unlockedTrophies,
         playerName,
         avatarSrc, // Sauvegarder l'avatar
+        supermarcheAchete,
+        marchandisesAchete,
+        superviseurAchete,
+        agrandissementAchete,
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
@@ -73,6 +86,10 @@ function loadGame() {
         unlockedTrophies = gameData.unlockedTrophies || [];
         playerName = gameData.playerName;
         avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg"; // Charger l'avatar sauvegardé
+        supermarcheAchete = gameData.supermarcheAchete || false;
+        marchandisesAchete = gameData.marchandisesAchete || false;
+        superviseurAchete = gameData.superviseurAchete || false;
+        agrandissementAchete = gameData.agrandissementAchete || false;
     }
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
@@ -81,6 +98,11 @@ function loadGame() {
         avatarSrc = savedAvatar;
         document.getElementById("avatar").src = savedAvatar;
     }
+    // Désactiver les boutons déjà achetés
+    if (supermarcheAchete) disableButton('boutonSupermarche');
+    if (marchandisesAchete) disableButton('boutonMarchandises');
+    if (superviseurAchete) disableButton('boutonSuperviseur');
+    if (agrandissementAchete) disableButton('boutonAgrandissement');
 
     updateDisplay();
     updateTrophies();
@@ -98,6 +120,11 @@ function updateDisplay() {
     autoclickerButton.textContent = `Acheter un Autoclicker + 250p/sec (Coût: ${autoclickerCost} points)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
+        // Mettre à jour les boutons d'achat
+        document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${supermarcheCost} points)`;
+        document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${marchandisesCost} points)`;
+        document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur (Coût: ${superviseurCost} points)`;
+        document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement (Coût: ${agrandissementCost} points)`;
 
     updateTrophies();
     saveGame(); // Sauvegarde après chaque mise à jour
@@ -329,6 +356,17 @@ function resetGame() {
     playerName = "Nom du joueur";
     avatarSrc = "Images/choose_avatar.jpg"; // Réinitialiser l'avatar
     unlockedTrophies = [];  // Réinitialise les trophées
+    supermarcheAchete = false;
+    marchandisesAchete = false;
+    superviseurAchete = false;
+    agrandissementAchete = false;
+
+    // Réactiver les boutons
+    document.getElementById('boutonSupermarche').disabled = false;
+    document.getElementById('boutonMarchandises').disabled = false;
+    document.getElementById('boutonSuperviseur').disabled = false;
+    document.getElementById('boutonAgrandissement').disabled = false;
+
 
     // Supprimer l'avatar sauvegardé
     localStorage.removeItem("selectedAvatar");
@@ -410,6 +448,58 @@ function updateTrophies() {
 
     saveGame(); // Sauvegarde les trophées
 }
+
+function disableButton(buttonId) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+        button.disabled = true;
+        button.textContent += " (Acheté)";
+    }
+}
+
+// Écouteur d'événement pour le bouton Supermarché
+document.getElementById('boutonSupermarche').addEventListener('click', function() {
+    if (!supermarcheAchete && points >= supermarcheCost) {
+        points -= supermarcheCost; // Dépense les points
+        autoclickerPower += 5000; // Augmente les points par seconde de 5000
+        supermarcheAchete = true;
+        disableButton('boutonSupermarche');
+        updateDisplay();
+    }
+});
+
+// Écouteur d'événement pour le bouton Marchandises
+document.getElementById('boutonMarchandises').addEventListener('click', function() {
+    if (!marchandisesAchete && points >= marchandisesCost) {
+        points -= marchandisesCost; // Dépense les points
+        autoclickerPower += 500; // Augmente les points par seconde de 500
+        marchandisesAchete = true;
+        disableButton('boutonMarchandises');
+        updateDisplay();
+    }
+});
+
+// Écouteur d'événement pour le bouton Superviseur
+document.getElementById('boutonSuperviseur').addEventListener('click', function() {
+    if (!superviseurAchete && points >= superviseurCost) {
+        points -= superviseurCost; // Dépense les points
+        autoclickerPower += 1000; // Augmente les points par seconde de 1000
+        superviseurAchete = true;
+        disableButton('boutonSuperviseur');
+        updateDisplay();
+    }
+});
+
+// Écouteur d'événement pour le bouton Agrandissement
+document.getElementById('boutonAgrandissement').addEventListener('click', function() {
+    if (!agrandissementAchete && points >= agrandissementCost) {
+        points -= agrandissementCost; // Dépense les points
+        autoclickerPower += 2000; // Augmente les points par seconde de 2000
+        agrandissementAchete = true;
+        disableButton('boutonAgrandissement');
+        updateDisplay();
+    }
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //

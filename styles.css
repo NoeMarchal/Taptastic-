@@ -137,13 +137,14 @@ body {
 /* Styles des boutons */
 button, input, select, option {
     display: inline-block;
-    margin: 1px;
-    padding: 5px;
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
 }
 
 /* Media Query pour les écrans d'ordinateur (≥ 1024px) */
@@ -326,11 +327,6 @@ button, input, select, option {
     text-align: center;
 }
 
-button {
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-}
 
 .upgrades {
     margin-top: 30px;
@@ -344,12 +340,6 @@ button {
     border-radius: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-.entreprise-container {
-    margin-top: -290px;
-    margin-left: 240px;
-    align-items: flex-start;
 }
 
 /* Media Query pour les écrans d'ordinateur (≥ 1024px) */
