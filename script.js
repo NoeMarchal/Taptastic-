@@ -1,10 +1,10 @@
-const maxUpgrade1Level = 1000;    // niveau max pour l'amélioration 1
+const maxUpgrade1Level = 1000;    // niveau max pour l'amélioration 1²
 const maxUpgrade2Level = 1000;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 1000;   // Nombre max d'autoclickers
-const supermarcheCost = 10000; // Coût du supermarché
-const marchandisesCost = 5000; // Coût des marchandises
-const superviseurCost = 20000; // Coût du superviseur
-const agrandissementCost = 30000; // Coût de l'agrandissement
+const supermarcheCost = 1000000; // Coût du supermarché
+const marchandisesCost = 500000; // Coût des marchandises
+const superviseurCost = 700000; // Coût du superviseur
+const agrandissementCost = 800000; // Coût de l'agrandissement
 
 
 // Variables du jeu
