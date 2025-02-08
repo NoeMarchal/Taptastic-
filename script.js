@@ -24,9 +24,6 @@ let supermarcheAchete = false;
 let marchandisesAchete = false;
 let superviseurAchete = false;
 let agrandissementAchete = false;
-let totalClicks = 0; // Nombre total de clics
-let totalTime = 0; // Temps total passé (en secondes)
-let totalPointsEarned = 0; // Points gagnés au total
 
 // Liste des trophées et leurs conditions
 const trophies = [
@@ -69,9 +66,6 @@ function saveGame() {
         marchandisesAchete,
         superviseurAchete,
         agrandissementAchete,
-        totalClicks,
-        totalTime,
-        totalPointsEarned,
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
@@ -96,9 +90,7 @@ function loadGame() {
         marchandisesAchete = gameData.marchandisesAchete || false;
         superviseurAchete = gameData.superviseurAchete || false;
         agrandissementAchete = gameData.agrandissementAchete || false;
-        totalClicks = gameData.totalClicks || 0;
-        totalTime = gameData.totalTime || 0;
-        totalPointsEarned = gameData.totalPointsEarned || 0;
+
     }
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
@@ -134,9 +126,6 @@ function updateDisplay() {
         document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${marchandisesCost} points)`;
         document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur (Coût: ${superviseurCost} points)`;
         document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement (Coût: ${agrandissementCost} points)`;
-        document.getElementById('total-clicks').textContent = `Nombre total de clics : ${totalClicks}`;
-        document.getElementById('total-time').textContent = `Temps passé : ${totalTime} secondes`;
-        document.getElementById('total-points-earned').textContent = `Points gagnés au total : ${totalPointsEarned}`;
 
     updateTrophies();
     saveGame(); // Sauvegarde après chaque mise à jour
@@ -312,7 +301,16 @@ document.getElementById("avatar-select").addEventListener("change", function() {
     changeAvatar(this.value);
 });
 
+// Fonction pour changer le nom
+function changeName(newName) {
+    playerName = newName;
+    updateDisplay();
+}
 
+// Permettre de changer le nom via l'input
+document.getElementById("name-input").addEventListener("input", function() {
+    changeName(this.value);
+});
 
 document.getElementById('reset-game').addEventListener('click', () => {
     Swal.fire({
@@ -360,9 +358,6 @@ function resetGame() {
     marchandisesAchete = false;
     superviseurAchete = false;
     agrandissementAchete = false;
-    totalClicks = 0;
-    totalTime = 0;
-    totalPointsEarned = 0;
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -505,11 +500,7 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
         updateDisplay();
     }
 });
-// Mettre à jour le temps passé toutes les secondes
-setInterval(() => {
-    totalTime++; // Incrémenter le temps passé
-    updateStatsDisplay(); // Mettre à jour l'affichage des statistiques
-}, 1000);
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
 (function() {
