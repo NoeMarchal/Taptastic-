@@ -91,6 +91,17 @@ button, input, select, option {
     text-align: center;
 }
 
+.avatar-container img {
+    width: auto;
+    height: auto;
+    max-width: 100px; /* Limite la largeur maximale */
+    max-height: 100px; /* Limite la hauteur maximale */
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    object-fit: cover; /* Ajuste l'image sans la déformer */
+    margin-bottom: 10px;
+}
+
 .profile-card img {
     width: 100px;
     height: 100px;
