@@ -28,14 +28,23 @@ let totalPointsEarned = 0;
 let totalPointsSpent = 0;
 let gameStartTime = Date.now(); // Moment où le jeu commence
 let elapsedTime = 0; // Temps écoulé en secondes
+let gameTime = 0; // en secondes
+
+// Mise à jour du temps de jeu chaque seconde
+setInterval(() => {
+    gameTime++;
+    updateTrophies(); // Met à jour les trophées
+}, 1000); // 1000 ms = 1 seconde
 
 // Liste des trophées et leurs conditions
 const trophies = [
-    { name: "Débutant", condition: 10 },
+    { name: "Débutant Clikers", condition: 10 },
     { name: "Apprenti Clicker", condition: 100 },
     { name: "Clicker Amateur", condition: 1000 },
     { name: "Clicker Confirmé", condition: 5000 },
     { name: "Clicker Pro", condition: 10000 },
+    { name: "Joue 1h", condition: 3600 }, // 1 heure en secondes
+    { name: "Joue 5h", condition: 18000 },   // 5 heures en secondes
 ];
 
 // Éléments du DOM
@@ -181,9 +190,9 @@ function formatNumber(number) {
 function updateTrophies() {
     trophyList.innerHTML = ""; // Vide la liste actuelle
 
-    // Vérifier et débloquer les trophées uniquement avec `totalClicks`
+    // Vérifier et débloquer les trophées uniquement avec `totalClicks` ou `gameTime`
     trophies.forEach(trophy => {
-        if (totalClicks >= trophy.condition && !unlockedTrophies.includes(trophy.name)) {
+        if ((totalClicks >= trophy.condition || gameTime >= trophy.condition) && !unlockedTrophies.includes(trophy.name)) {
             unlockedTrophies.push(trophy.name);
 
             // 🎉 Effet de confettis
@@ -214,12 +223,16 @@ function updateTrophies() {
         let isUnlocked = unlockedTrophies.includes(trophy.name);
         let trophyText = isUnlocked ? `✅ ${trophy.name}` : `❌ ${trophy.name}`;
 
-        // Progression basée sur `totalClicks`
+        // Progression basée sur `totalClicks` ou `gameTime`
         let progress;
         if (isUnlocked) {
             progress = 100;
         } else {
-            progress = Math.min((totalClicks / trophy.condition) * 100, 100).toFixed(1);
+            if (trophy.condition === 3600 || trophy.condition === 18000) { // Pour les trophées liés au temps
+                progress = Math.min((gameTime / trophy.condition) * 100, 100).toFixed(1);
+            } else { // Pour les trophées liés aux clicks
+                progress = Math.min((totalClicks / trophy.condition) * 100, 100).toFixed(1);
+            }
         }
 
         // Ajouter l'élément à la liste
@@ -229,7 +242,6 @@ function updateTrophies() {
 
     saveGame(); // Sauvegarde des trophées
 }
-
 
 clickButton.replaceWith(clickButton.cloneNode(true)); // Évite les doublons d'écouteurs d'événements
 const newClickButton = document.getElementById('click-button');
