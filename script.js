@@ -45,6 +45,23 @@ const trophies = [
     { name: "Clicker Pro", condition: 10000 },
     { name: "Joue 1h", condition: 3600 }, // 1 heure en secondes
     { name: "Joue 5h", condition: 18000 },   // 5 heures en secondes
+    { name: "Amélioration 1 au niveau 50", condition: "upgrade1Level >= 50" },
+    { name: "Amélioration 2 au niveau 50", condition: "upgrade2Level >= 50" },
+    { name: "Autoclicker au niveau 50", condition: "autoclickers >= 50" },
+    { name: "Amélioration 1 au niveau 150", condition: "upgrade1Level >= 150" },
+    { name: "Amélioration 2 au niveau 150", condition: "upgrade2Level >= 150" },
+    { name: "Autoclicker au niveau 150", condition: "autoclickers >= 150" },
+    { name: "Amélioration 1 au niveau 200", condition: "upgrade1Level >= 200" },
+    { name: "Amélioration 2 au niveau 200", condition: "upgrade2Level >= 200" },
+    { name: "Autoclicker au niveau 200", condition: "autoclickers >= 200" },
+    { name: "1 000 Points", condition: "points >= 1000" }, // Nouveau trophée
+    { name: "5 000 Points", condition: "points >= 5000" }, // Nouveau trophée
+    { name: "10 000 Points", condition: "points >= 10000" }, // Nouveau trophée
+    { name: "50 000 Points", condition: "points >= 50000" }, // Nouveau trophée
+    { name: "100 000 Points", condition: "points >= 100000" }, // Nouveau trophée
+    { name: "500 000 Points", condition: "points >= 500000" }, // Nouveau trophée
+    { name: "1 000 000 Points", condition: "points >= 1000000" }, // Nouveau trophée
+    { name: "100 000 000 Points", condition: "points >= 100000000" }, // Nouveau trophée
 ];
 
 // Éléments du DOM
@@ -186,13 +203,23 @@ function formatNumber(number) {
 }
 
 
-// 🎖 Fonction pour gérer les trophées sans images
 function updateTrophies() {
     trophyList.innerHTML = ""; // Vide la liste actuelle
 
-    // Vérifier et débloquer les trophées uniquement avec `totalClicks` ou `gameTime`
+    // Vérifier et débloquer les trophées
     trophies.forEach(trophy => {
-        if ((totalClicks >= trophy.condition || gameTime >= trophy.condition) && !unlockedTrophies.includes(trophy.name)) {
+        let conditionMet = false;
+
+        // Vérifier si la condition est une chaîne de caractères (pour les nouveaux trophées)
+        if (typeof trophy.condition === 'string') {
+            // Évaluer la condition dynamiquement
+            conditionMet = eval(trophy.condition);
+        } else {
+            // Vérifier les conditions basées sur `totalClicks` ou `gameTime`
+            conditionMet = (totalClicks >= trophy.condition || gameTime >= trophy.condition);
+        }
+
+        if (conditionMet && !unlockedTrophies.includes(trophy.name)) {
             unlockedTrophies.push(trophy.name);
 
             // 🎉 Effet de confettis
@@ -215,29 +242,23 @@ function updateTrophies() {
         }
     });
 
-    // Afficher la liste des trophées
-    trophies.forEach(trophy => {
-        let li = document.createElement("li");
+    // Afficher uniquement les trophées débloqués
+    unlockedTrophies.forEach(trophyName => {
+        // Trouver le trophée correspondant dans la liste `trophies`
+        const trophy = trophies.find(t => t.name === trophyName);
+        if (trophy) {
+            let li = document.createElement("li");
 
-        // Vérifier si le trophée est débloqué
-        let isUnlocked = unlockedTrophies.includes(trophy.name);
-        let trophyText = isUnlocked ? `✅ ${trophy.name}` : `❌ ${trophy.name}`;
+            // Texte du trophée
+            let trophyText = `✅ ${trophy.name}`;
 
-        // Progression basée sur `totalClicks` ou `gameTime`
-        let progress;
-        if (isUnlocked) {
-            progress = 100;
-        } else {
-            if (trophy.condition === 3600 || trophy.condition === 18000) { // Pour les trophées liés au temps
-                progress = Math.min((gameTime / trophy.condition) * 100, 100).toFixed(1);
-            } else { // Pour les trophées liés aux clicks
-                progress = Math.min((totalClicks / trophy.condition) * 100, 100).toFixed(1);
-            }
+            // Progression (toujours 100% car le trophée est débloqué)
+            let progress = 100;
+
+            // Ajouter l'élément à la liste
+            li.innerHTML = `${trophyText} - ${progress}%`;
+            trophyList.appendChild(li);
         }
-
-        // Ajouter l'élément à la liste
-        li.innerHTML = `${trophyText} - ${progress}%`;
-        trophyList.appendChild(li);
     });
 
     saveGame(); // Sauvegarde des trophées
@@ -280,6 +301,7 @@ upgrade1Button.addEventListener('click', () => {
         upgrade1Cost = Math.floor(upgrade1Cost + 500);
         upgrade1Level++;
         updateDisplay();
+        updateTrophies();
     }
 });
 
@@ -312,6 +334,7 @@ upgrade2Button.addEventListener('click', () => {
         upgrade2Cost = Math.floor(upgrade2Cost + 800);
         upgrade2Level++;
         updateDisplay();
+        updateTrophies();
     }
 });
 
@@ -371,6 +394,7 @@ autoclickerButton.addEventListener('click', () => {
         autoclickers++;
         autoclickerCost = Math.floor(autoclickerCost + 10000);
         updateDisplay();
+        updateTrophies();
     }
 });
 
@@ -466,6 +490,7 @@ function resetGame() {
     totalPointsSpent = 0;
     gameStartTime = Date.now(); // Moment où le jeu commence
     elapsedTime = 0; // Temps écoulé en secondes
+    let gameTime = 0; // en secondes
 
 
     // Réactiver les boutons
