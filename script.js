@@ -551,7 +551,7 @@ document.getElementById('boutonSupermarche').addEventListener('click', function(
     if (!supermarcheAchete && points >= supermarcheCost) {
         points -= supermarcheCost; // Dépense les points
         totalPointsSpent += supermarcheCost;
-        autoclickerPower += 5000; // Augmente les points par seconde de 5000
+        autoclicker += 5000; // Augmente les points par seconde de 5000
         supermarcheAchete = true;
         disableButton('boutonSupermarche');
         updateDisplay();
@@ -563,7 +563,7 @@ document.getElementById('boutonMarchandises').addEventListener('click', function
     if (!marchandisesAchete && points >= marchandisesCost) {
         points -= marchandisesCost; // Dépense les points
         totalPointsSpent += marchandisesCost;
-        autoclickerPower += 500; // Augmente les points par seconde de 500
+        autoclicker += 500; // Augmente les points par seconde de 500
         marchandisesAchete = true;
         disableButton('boutonMarchandises');
         updateDisplay();
@@ -575,7 +575,7 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
     if (!superviseurAchete && points >= superviseurCost) {
         points -= superviseurCost; // Dépense les points
         totalPointsSpent += superviseurCost;
-        autoclickerPower += 1000; // Augmente les points par seconde de 1000
+        autoclicker += 1000; // Augmente les points par seconde de 1000
         superviseurAchete = true;
         disableButton('boutonSuperviseur');
         updateDisplay();
@@ -587,7 +587,7 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
     if (!agrandissementAchete && points >= agrandissementCost) {
         points -= agrandissementCost; // Dépense les points
         totalPointsSpent += marchandisesCost;
-        autoclickerPower += 2000; // Augmente les points par seconde de 2000
+        autoclicker += 2000; // Augmente les points par seconde de 2000
         agrandissementAchete = true;
         disableButton('boutonAgrandissement');
         updateDisplay();
