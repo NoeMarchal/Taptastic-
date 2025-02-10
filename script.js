@@ -1,11 +1,10 @@
-const maxUpgrade1Level = 1000;    // niveau max pour l'amélioration 1²
-const maxUpgrade2Level = 1000;   // Niveau max pour l'amélioration 2
-const maxAutoclickers = 1000;   // Nombre max d'autoclickers
+const maxUpgrade1Level = 200;    // niveau max pour l'amélioration 1²
+const maxUpgrade2Level = 200;   // Niveau max pour l'amélioration 2
+const maxAutoclickers = 200;   // Nombre max d'autoclickers
 const supermarcheCost = 1000000; // Coût du supermarché
 const marchandisesCost = 500000; // Coût des marchandises
 const superviseurCost = 700000; // Coût du superviseur
 const agrandissementCost = 800000; // Coût de l'agrandissement
-
 
 // Variables du jeu
 let points = 0;
@@ -14,7 +13,7 @@ let upgrade1Cost = 100;
 let upgrade2Cost = 500;
 let autoclickerCost = 1000;
 let autoclickers = 0;
-let autoclickerPower = 250; // Chaque autoclicker rapporte 100 points par secondes
+let autoclickerPower = 250; // Chaque autoclicker rapporte 250 points par secondes
 let upgrade1Level = 0;
 let upgrade2Level = 0;
 let unlockedTrophies = []; // Liste des trophées débloqués
@@ -24,6 +23,7 @@ let supermarcheAchete = false;
 let marchandisesAchete = false;
 let superviseurAchete = false;
 let agrandissementAchete = false;
+
 
 // Liste des trophées et leurs conditions
 const trophies = [
@@ -66,6 +66,7 @@ function saveGame() {
         marchandisesAchete,
         superviseurAchete,
         agrandissementAchete,
+
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
@@ -267,7 +268,7 @@ autoclickerButton.addEventListener('click', () => {
     if (points >= autoclickerCost) {
         points -= autoclickerCost;
         autoclickers ++;
-        autoclickerCost = Math.floor(autoclickerCost + 1000);
+        autoclickerCost = Math.floor(autoclickerCost + 10000);
         updateDisplay();
     }
 });
@@ -358,6 +359,7 @@ function resetGame() {
     marchandisesAchete = false;
     superviseurAchete = false;
     agrandissementAchete = false;
+
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
