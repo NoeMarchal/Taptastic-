@@ -20,7 +20,7 @@ body {
 }
 
 /* Styles des blocs "Jeu" et "Trophées" */
-.game-container, .trophies {
+.game-container, .trophies, .collection-container, .items-container, .item-shop {
     width: 35%;
     padding: 20px;
     background-color: #cfc9c9;
@@ -231,4 +231,26 @@ footer a:hover {
     margin-top: 20px;
     border-top: 1px solid #444;
     padding-top: 20px;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

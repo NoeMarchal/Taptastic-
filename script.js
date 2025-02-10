@@ -63,6 +63,14 @@ const trophies = [
     { name: "Maître Ultime", condition: "unlockedTrophies.length >= trophies.length - 1" }, // Nouveau trophée
 ];
 
+let items = [
+    { name: "Épée Légendaire", cost: 1000, bought: false },
+    { name: "Bouclier Magique", cost: 1500, bought: false },
+    { name: "Potion de Vie", cost: 500, bought: false },
+    { name: "Arc Enchanté", cost: 2000, bought: false },
+    { name: "Casque de Héros", cost: 1200, bought: false },
+];
+
 // Éléments du DOM
 const pointsDisplay = document.getElementById('points');
 const clickButton = document.getElementById('click-button');
@@ -98,6 +106,8 @@ function saveGame() {
         totalPointsSpent,
         gameStartTime, // Sauvegarder l'heure de début du jeu
         elapsedTime, // Sauvegarder le temps écoulé
+        items: items, // Sauvegarder les items
+
 
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
@@ -128,6 +138,7 @@ function loadGame() {
         totalPointsSpent = gameData.totalPointsSpent || 0;
         gameStartTime = gameData.gameStartTime || Date.now(); // Charger l'heure de début du jeu
         elapsedTime = gameData.elapsedTime || 0; // Charger le temps écoulé
+        items = gameData.items; // Charger les items
     }
 
 
@@ -146,6 +157,8 @@ function loadGame() {
 
     updateDisplay();
     updateTrophies();
+    renderItemShop();
+    renderPlayerCollection();
 }
 
 // Mettre à jour l'affichage
@@ -185,6 +198,7 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
 
     updateTrophies();
     saveGame(); // Sauvegarde après chaque mise à jour
+    renderItemShop();
 }
 
 
@@ -515,8 +529,12 @@ function resetGame() {
     totalPointsSpent = 0;
     gameStartTime = Date.now(); // Moment où le jeu commence
     elapsedTime = 0; // Temps écoulé en secondes
-    let gameTime = 0; // en secondes
-
+    gameTime = 0; // en secondes
+    
+// Réinitialiser les items achetés
+items.forEach(item => {
+    item.bought = false;
+});
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -531,6 +549,8 @@ function resetGame() {
     // Sauvegarder et mettre à jour l'affichage
     saveGame();
     updateDisplay();
+    renderItemShop();
+    renderPlayerCollection();
 }
 
 function disableButton(buttonId) {
@@ -589,6 +609,101 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
     }
 });
 
+function renderItemShop() {
+    const itemShop = document.getElementById('item-shop');
+    itemShop.innerHTML = ""; // Vider la liste actuelle
+
+    // Filtrer les items non achetés
+    const availableItems = items.filter(item => !item.bought);
+
+    // Afficher uniquement les items non achetés
+    availableItems.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${item.name} - ${item.cost} points</span>
+            <button onclick="buyItem(${items.indexOf(item)})" ${points < item.cost ? 'disabled' : ''}>
+                Acheter
+            </button>
+        `;
+        itemShop.appendChild(li);
+    });
+
+    // Si tous les items sont achetés, afficher un message
+    if (availableItems.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = "Tous les items ont été achetés !";
+        itemShop.appendChild(li);
+    }
+}
+
+function buyItem(index) {
+    const item = items[index];
+
+    if (points >= item.cost && !item.bought) {
+        points -= item.cost; // Déduire le coût
+        item.bought = true; // Marquer l'item comme acheté
+        updateDisplay(); // Mettre à jour l'affichage des points
+        renderItemShop(); // Mettre à jour la boutique
+        renderPlayerCollection(); // Mettre à jour la collection
+        saveGame(); // Sauvegarder l'état du jeu
+
+        // 🎉 Effet de confettis
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        // Afficher un message
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.textContent = `Félicitations, vous avez acheté : ${item.name} !`;
+        document.body.appendChild(message);
+        setTimeout(() => message.remove(), 3000);
+    }
+}
+
+function renderPlayerCollection() {
+    const playerCollection = document.getElementById('player-collection');
+    playerCollection.innerHTML = ""; // Vider la liste actuelle
+
+    items.forEach(item => {
+        if (item.bought) {
+            const li = document.createElement('li');
+            li.textContent = item.name;
+            playerCollection.appendChild(li);
+        }
+    });
+}
+
+
+function buyItem(index) {
+    const item = items[index];
+
+    if (points >= item.cost && !item.bought) {
+        points -= item.cost;
+        totalPointsSpent += item.cost;
+        item.bought = true;
+        updateDisplay();
+        renderItemShop();
+        renderPlayerCollection();
+        saveGame();
+
+        // 🎉 Effet de confettis
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        // Afficher un message
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.textContent = `Félicitations, vous avez acheté : ${item.name} !`;
+        document.body.appendChild(message);
+        setTimeout(() => message.remove(), 3000);
+    }
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
