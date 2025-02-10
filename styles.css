@@ -145,21 +145,6 @@ summary {
     font-size: 0.9rem;
 }
 
-@keyframes clickEffect {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(2); opacity: 0; }
-}
-
-.click-effect {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: gold;
-    border-radius: 50%;
-    animation: clickEffect 0.5s ease-out;
-    pointer-events: none;
-}
-
 @keyframes autoclickerEffect {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-20px); opacity: 0; }
