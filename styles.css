@@ -129,7 +129,7 @@ button, input, select, option {
     margin-top: 30px;
 }
 
-.entreprise-container {
+.entreprise-container, .stats-container {
     width: 33%;
     margin: 20px auto;
     padding: 20px;

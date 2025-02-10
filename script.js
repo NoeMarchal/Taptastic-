@@ -112,25 +112,39 @@ function loadGame() {
 
 // Mettre à jour l'affichage
 function updateDisplay() {
-    pointsDisplay.textContent = `Points: ${points}`;
-    document.getElementById("pps-display").textContent = `Points par seconde: ${autoclickers * autoclickerPower}`;
+    pointsDisplay.textContent = `Points: ${formatNumber(points)}`;
+    document.getElementById("pps-display").textContent = `Points par seconde: ${formatNumber(autoclickers * autoclickerPower)}`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
-    upgrade1Button.textContent = `Amélioration 1 + 20p/click (Coût: ${upgrade1Cost} points)`;
-    upgrade2Button.textContent = `Amélioration 2 + 50p/click (Coût: ${upgrade2Cost} points)`;
-    autoclickerButton.textContent = `Acheter un Autoclicker + 250p/sec (Coût: ${autoclickerCost} points)`;
+    upgrade1Button.textContent = `Amélioration 1 + 20p/click (Coût: ${formatNumber(upgrade1Cost)} points)`;
+    upgrade2Button.textContent = `Amélioration 2 + 50p/click (Coût: ${formatNumber(upgrade2Cost)} points)`;
+    autoclickerButton.textContent = `Acheter un Autoclicker + 250p/sec (Coût: ${formatNumber(autoclickerCost)} points)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
         // Mettre à jour les boutons d'achat
-        document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${supermarcheCost} points)`;
-        document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${marchandisesCost} points)`;
-        document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur (Coût: ${superviseurCost} points)`;
-        document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement (Coût: ${agrandissementCost} points)`;
+        document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${formatNumber(supermarcheCost)} points)`;
+        document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} points)`;
+        document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur (Coût: ${formatNumber(superviseurCost)} points)`;
+        document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement (Coût: ${formatNumber(agrandissementCost)} points)`;
 
     updateTrophies();
     saveGame(); // Sauvegarde après chaque mise à jour
 }
+
+function formatNumber(number) {
+    // Si le nombre est supérieur ou égal à 1 million
+    if (number >= 1000000) {
+        return (number / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    // Si le nombre est supérieur ou égal à 1 000
+    else if (number >= 1000) {
+        return (number / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    // Sinon, juste ajouter les séparateurs de milliers
+    return number.toLocaleString();
+}
+
 // 🎖 Fonction pour gérer les trophées sans images
 function updateTrophies() {
     trophyList.innerHTML = ""; // Vide la liste actuelle
@@ -235,7 +249,7 @@ setInterval(() => {
         // Créer un effet d'autoclicker
         const autoclickerEffect = document.createElement('div');
         autoclickerEffect.classList.add('autoclicker-effect');
-        autoclickerEffect.textContent = `+${autoclickers * autoclickerPower} points`;
+        autoclickerEffect.textContent = `+${formatNumber(autoclickers * autoclickerPower)} points`; // Utiliser le formatage
         autoclickerEffect.style.left = `${clickButton.offsetLeft + 50}px`;
         autoclickerEffect.style.top = `${clickButton.offsetTop}px`;
         document.body.appendChild(autoclickerEffect);
@@ -423,7 +437,7 @@ function updateTrophies() {
             // Supprimer le message après 3 secondes
             setTimeout(() => {
                 bravoMessage.remove();
-            }, 6000);
+            }, 3000);
         }
     });
 
