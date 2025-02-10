@@ -2,9 +2,9 @@ const maxUpgrade1Level = 200;    // niveau max pour l'amélioration 1²
 const maxUpgrade2Level = 200;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 200;   // Nombre max d'autoclickers
 const supermarcheCost = 1000000; // Coût du supermarché
-const marchandisesCost = 500000; // Coût des marchandises
-const superviseurCost = 700000; // Coût du superviseur
-const agrandissementCost = 800000; // Coût de l'agrandissement
+const marchandisesCost = 1500000; // Coût des marchandises
+const superviseurCost = 2000000; // Coût du superviseur
+const agrandissementCost = 3000000; // Coût de l'agrandissement
 
 // Variables du jeu
 let points = 0;
@@ -163,10 +163,10 @@ function updateDisplay() {
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
         // Mettre à jour les boutons d'achat
-        document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché + 5 000p/sec (Coût: ${formatNumber(supermarcheCost)} points)`;
-        document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises + 500p/sec (Coût: ${formatNumber(marchandisesCost)} points)`;
-        document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur + 1 000p/sec (Coût: ${formatNumber(superviseurCost)} points)`;
-        document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement + 2 000p/sec (Coût: ${formatNumber(agrandissementCost)} points)`;
+        document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${formatNumber(supermarcheCost)} points)`;
+        document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} points)`;
+        document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur (Coût: ${formatNumber(superviseurCost)} points)`;
+        document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement (Coût: ${formatNumber(agrandissementCost)} points)`;
         document.getElementById('total-clicks').textContent = `Nombre total de clics : ${totalClicks}`;
 document.getElementById('total-points-earned').textContent = `Points gagnés au total : ${formatNumber(totalPointsEarned)}`;
 document.getElementById("total-points-spent").textContent = `Points dépensés au total : ${formatNumber(totalPointsSpent)}`;
@@ -551,7 +551,7 @@ document.getElementById('boutonSupermarche').addEventListener('click', function(
     if (!supermarcheAchete && points >= supermarcheCost) {
         points -= supermarcheCost; // Dépense les points
         totalPointsSpent += supermarcheCost;
-        autoclickers += 5000; // Augmente les points par seconde de 5000
+        autoclickerPower += 5000; // Augmente les points par seconde de 5000
         supermarcheAchete = true;
         disableButton('boutonSupermarche');
         updateDisplay();
@@ -563,7 +563,7 @@ document.getElementById('boutonMarchandises').addEventListener('click', function
     if (!marchandisesAchete && points >= marchandisesCost) {
         points -= marchandisesCost; // Dépense les points
         totalPointsSpent += marchandisesCost;
-        autoclickers += 500; // Augmente les points par seconde de 500
+        autoclickerPower += 500; // Augmente les points par seconde de 500
         marchandisesAchete = true;
         disableButton('boutonMarchandises');
         updateDisplay();
@@ -575,7 +575,7 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
     if (!superviseurAchete && points >= superviseurCost) {
         points -= superviseurCost; // Dépense les points
         totalPointsSpent += superviseurCost;
-        autoclickers += 1000; // Augmente les points par seconde de 1000
+        autoclickerPower += 1000; // Augmente les points par seconde de 1000
         superviseurAchete = true;
         disableButton('boutonSuperviseur');
         updateDisplay();
@@ -587,7 +587,7 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
     if (!agrandissementAchete && points >= agrandissementCost) {
         points -= agrandissementCost; // Dépense les points
         totalPointsSpent += marchandisesCost;
-        autoclickers += 2000; // Augmente les points par seconde de 2000
+        autoclickerPower += 2000; // Augmente les points par seconde de 2000
         agrandissementAchete = true;
         disableButton('boutonAgrandissement');
         updateDisplay();
