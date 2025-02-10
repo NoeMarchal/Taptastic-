@@ -32,10 +32,9 @@ let gameTime = 0; // en secondes
 
 // Mise à jour du temps de jeu chaque seconde
 setInterval(() => {
-    gameTime++;
-    updateTrophies(); // Met à jour les trophées
-}, 1000); // 1000 ms = 1 seconde
-
+    gameTime = Math.floor((Date.now() - gameStartTime) / 1000);
+    updateTrophies();
+}, 1000);
 // Liste des trophées et leurs conditions
 const trophies = [
     { name: "Débutant Clikers", condition: 10 },
@@ -61,6 +60,7 @@ const trophies = [
     { name: "500 000 Points", condition: "points >= 500000" }, // Nouveau trophée
     { name: "1 000 000 Points", condition: "points >= 1000000" }, // Nouveau trophée
     { name: "100 000 000 Points", condition: "points >= 100000000" }, // Nouveau trophée
+    { name: "Maître Ultime", condition: "unlockedTrophies.length >= trophies.length - 1" }, // Nouveau trophée
 ];
 
 // Éléments du DOM
@@ -202,7 +202,11 @@ function formatNumber(number) {
 }
 
 function updateTrophies() {
-    trophyList.innerHTML = ""; // Vide la liste actuelle
+    const trophyList = document.getElementById('trophy-list');
+    const trophyCountElement = document.getElementById('trophy-count');
+
+    // Vider la liste actuelle
+    trophyList.innerHTML = "";
 
     // Vérifier et débloquer les trophées
     trophies.forEach(trophy => {
@@ -240,27 +244,47 @@ function updateTrophies() {
             setTimeout(() => {
                 bravoMessage.remove();
             }, 3000);
+            if (trophy.name === "Maître Ultime") {
+                const ultimateMessage = document.createElement('div');
+                ultimateMessage.classList.add('ultimate-message');
+                ultimateMessage.textContent = "Félicitations, vous avez fini le jeu !";
+                document.body.appendChild(ultimateMessage);
+            
+                setTimeout(() => {
+                    ultimateMessage.remove();
+                }, 5000);
+            }
         }
     });
+
+    // Mettre à jour le compteur de trophées dans le <h2>
+    trophyCountElement.textContent = `${unlockedTrophies.length}/${trophies.length}`;
 
     // Afficher uniquement les trophées débloqués
-    unlockedTrophies.forEach(trophyName => {
-        // Trouver le trophée correspondant dans la liste `trophies`
-        const trophy = trophies.find(t => t.name === trophyName);
-        if (trophy) {
-            let li = document.createElement("li");
+    if (unlockedTrophies.length === 0) {
+        // Afficher un message si aucun trophée n'est débloqué
+        const li = document.createElement('li');
+        li.textContent = "Aucun trophée débloqué pour l’instant.";
+        trophyList.appendChild(li);
+    } else {
+        unlockedTrophies.forEach(trophyName => {
+            // Trouver le trophée correspondant dans la liste `trophies`
+            const trophy = trophies.find(t => t.name === trophyName);
+            if (trophy) {
+                const li = document.createElement('li');
 
-            // Texte du trophée
-            let trophyText = `✅ ${trophy.name}`;
+                // Texte du trophée
+                const trophyText = `✅ ${trophy.name}`;
 
-            // Progression (toujours 100% car le trophée est débloqué)
-            let progress = 100;
+                // Progression (toujours 100% car le trophée est débloqué)
+                const progress = 100;
 
-            // Ajouter l'élément à la liste
-            li.innerHTML = `${trophyText} - ${progress}%`;
-            trophyList.appendChild(li);
-        }
-    });
+                // Ajouter l'élément à la liste
+                li.innerHTML = `${trophyText} - ${progress}%`;
+                trophyList.appendChild(li);
+            }
+        });
+    }
 
     saveGame(); // Sauvegarde des trophées
 }
