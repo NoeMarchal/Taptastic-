@@ -61,6 +61,10 @@ const trophies = [
     { name: "1 000 000 Points", condition: "points >= 1000000" }, // Nouveau trophée
     { name: "100 000 000 Points", condition: "points >= 100000000" }, // Nouveau trophée
     { name: "Maître Ultime", condition: "unlockedTrophies.length >= trophies.length - 1" }, // Nouveau trophée
+    { name: "Supermarket Acheté", condition: "supermarcheAchete === true" },
+    { name: "Marchandises Achetées", condition: "marchandisesAchete === true" },
+    { name: "Superviseur Acheté", condition: "superviseurAchete === true" },
+    { name: "Agrandissement Acheté", condition: "agrandissementAchete === true" },
 ];
 
 // Éléments du DOM
@@ -216,7 +220,7 @@ function updateTrophies() {
 
         // Vérifier si la condition est une chaîne de caractères (pour les trophées dynamiques)
         if (typeof trophy.condition === 'string') {
-            // Évaluer la condition dynamiquement (pour les points ou les niveaux)
+            // Évaluer la condition dynamiquement
             conditionMet = eval(trophy.condition);
         } else if (trophy.name.includes("Joue")) {
             // Pour les trophées basés sur le temps de jeu
@@ -226,6 +230,7 @@ function updateTrophies() {
             conditionMet = (totalClicks >= trophy.condition);
         }
 
+        // Si la condition est remplie et que le trophée n'est pas déjà débloqué
         if (conditionMet && !unlockedTrophies.includes(trophy.name)) {
             unlockedTrophies.push(trophy.name);
 
@@ -246,12 +251,14 @@ function updateTrophies() {
             setTimeout(() => {
                 bravoMessage.remove();
             }, 3000);
+
+            // Si c'est le trophée "Maître Ultime"
             if (trophy.name === "Maître Ultime") {
                 const ultimateMessage = document.createElement('div');
                 ultimateMessage.classList.add('ultimate-message');
                 ultimateMessage.textContent = "Félicitations, vous avez fini le jeu !";
                 document.body.appendChild(ultimateMessage);
-            
+
                 setTimeout(() => {
                     ultimateMessage.remove();
                 }, 5000);
@@ -534,8 +541,6 @@ function resetGame() {
     // Sauvegarder et mettre à jour l'affichage
     saveGame();
     updateDisplay();
-    renderItemShop();
-    renderPlayerCollection();
 }
 
 function disableButton(buttonId) {

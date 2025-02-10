@@ -9,24 +9,27 @@ body {
 }
 
 /* Conteneur principal qui aligne les deux blocs */
-.container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 20px;
-    align-items: flex-start;
-    margin-top: -40px;
-    margin-left: 50px;
-}
 
 /* Styles des blocs "Jeu" et "Trophées" */
-.game-container, .trophies {
-    width: 35%;
+ .trophies {
+    width: 400px;
     padding: 20px;
     background-color: #cfc9c9;
     border-radius: 40px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
+    margin-left: 750px;
+}
+
+.game-container{
+    width: 400px;
+    padding: 20px;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-left: 750px;
+    margin-top: 20px;
 }
 
 /* Styles des trophées */
@@ -89,12 +92,12 @@ button, input, select, option {
 }
 
 .player-name {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 80px;
+    margin-top: -70px;
 }
 
 /* Style pour le formulaire de personnalisation */
@@ -109,6 +112,7 @@ button, input, select, option {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 230px;
 }
 
 /* Avatar dans le coin gauche */
