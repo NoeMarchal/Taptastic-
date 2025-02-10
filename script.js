@@ -40,7 +40,6 @@ setInterval(() => {
 const trophies = [
     { name: "Débutant Clikers", condition: 10 },
     { name: "Apprenti Clicker", condition: 100 },
-    { name: "Clicker Amateur", condition: 1000 },
     { name: "Clicker Confirmé", condition: 5000 },
     { name: "Clicker Pro", condition: 10000 },
     { name: "Joue 1h", condition: 3600 }, // 1 heure en secondes
