@@ -201,7 +201,6 @@ function formatNumber(number) {
     return number.toLocaleString();
 }
 
-
 function updateTrophies() {
     trophyList.innerHTML = ""; // Vide la liste actuelle
 
@@ -209,13 +208,16 @@ function updateTrophies() {
     trophies.forEach(trophy => {
         let conditionMet = false;
 
-        // Vérifier si la condition est une chaîne de caractères (pour les nouveaux trophées)
+        // Vérifier si la condition est une chaîne de caractères (pour les trophées dynamiques)
         if (typeof trophy.condition === 'string') {
-            // Évaluer la condition dynamiquement
+            // Évaluer la condition dynamiquement (pour les points ou les niveaux)
             conditionMet = eval(trophy.condition);
+        } else if (trophy.name.includes("Joue")) {
+            // Pour les trophées basés sur le temps de jeu
+            conditionMet = (gameTime >= trophy.condition);
         } else {
-            // Vérifier les conditions basées sur `totalClicks` ou `gameTime`
-            conditionMet = (totalClicks >= trophy.condition || gameTime >= trophy.condition);
+            // Pour les trophées basés sur les clics
+            conditionMet = (totalClicks >= trophy.condition);
         }
 
         if (conditionMet && !unlockedTrophies.includes(trophy.name)) {
