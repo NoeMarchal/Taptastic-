@@ -161,7 +161,7 @@ function loadGame() {
 function updateDisplay() {
     pointsDisplay.textContent = `Points: ${formatNumber(points)}`;
       // Mettre à jour les points par clic
-      document.getElementById('points-per-click').textContent = `Points par clic: ${pointsPerClick}`;
+      document.getElementById('points-per-click').textContent = `Points par clic: ${formatNumber(pointsPerClick)}`;
     document.getElementById("pps-display").textContent = `Points par seconde: ${formatNumber(autoclickers * autoclickerPower)}`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
