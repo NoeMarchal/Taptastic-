@@ -8,7 +8,7 @@ const agrandissementCost = 3000000; // Coût de l'agrandissement
 
 // Variables du jeu
 let points = 0;
-let pointsPerClick = 0;
+let pointsPerClick = 1;
 let upgrade1Cost = 100;
 let upgrade2Cost = 500;
 let autoclickerCost = 1000;
@@ -160,6 +160,8 @@ function loadGame() {
 // Mettre à jour l'affichage
 function updateDisplay() {
     pointsDisplay.textContent = `Points: ${formatNumber(points)}`;
+      // Mettre à jour les points par clic
+      document.getElementById('points-per-click').textContent = `Points par clic: ${pointsPerClick}`;
     document.getElementById("pps-display").textContent = `Points par seconde: ${formatNumber(autoclickers * autoclickerPower)}`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
@@ -300,7 +302,6 @@ function updateTrophies() {
 
     saveGame(); // Sauvegarde des trophées
 }
-
 // Fonction pour exporter la sauvegarde dans un fichier
 function exportSave() {
     const gameData = localStorage.getItem('incrementalGameSave');
@@ -401,10 +402,10 @@ newClickButton.addEventListener('click', () => {
     points += pointsGagnes;  
     totalPointsEarned += pointsGagnes;
 
+    // Mise à jour de l'affichage et des trophées
     updateDisplay();
     updateTrophies(); // Vérifie si un trophée doit être débloqué
 });
-
 
 //Amélioration1 
 upgrade1Button.addEventListener('click', () => {
@@ -599,7 +600,7 @@ document.getElementById('reset-game').addEventListener('click', () => {
 // Fonction pour réinitialiser le jeu //
 function resetGame() {
     points = 0;
-    pointsPerClick = 0;
+    pointsPerClick = 1;
     autoclickers = 0;
     autoclickerCost = 1000;
     upgrade1Cost = 100;
@@ -693,6 +694,16 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
     }
 });
 
+document.getElementById('toggle-arrow').addEventListener('click', function() {
+    const trophyList = document.getElementById('trophy-list');
+    const arrow = document.getElementById('toggle-arrow');
+
+    // Basculer la visibilité de la liste
+    trophyList.classList.toggle('visible');
+
+    // Basculer la rotation de la flèche
+    arrow.classList.toggle('rotated');
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //

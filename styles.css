@@ -263,3 +263,22 @@ footer a:hover {
     padding-top: 20px;
 }
 
+#trophy-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+#trophy-list.visible {
+    max-height: 500px; /* Ajustez cette valeur en fonction de la hauteur de votre liste */
+}
+
+#toggle-arrow {
+    cursor: pointer;
+    margin-left: 10px;
+    transition: transform 0.3s ease-out;
+}
+
+#toggle-arrow.rotated {
+    transform: rotate(180deg);
+}
