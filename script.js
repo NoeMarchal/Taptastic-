@@ -46,9 +46,9 @@ const trophies = [
     { name: "Amélioration 1 au niveau 50", condition: "upgrade1Level >= 50" },
     { name: "Amélioration 2 au niveau 50", condition: "upgrade2Level >= 50" },
     { name: "Autoclicker au niveau 50", condition: "autoclickers >= 50" },
-    { name: "Amélioration 1 au niveau 50", condition: "upgrade1Level >= 100" },
-    { name: "Amélioration 2 au niveau 50", condition: "upgrade2Level >= 100" },
-    { name: "Autoclicker au niveau 50", condition: "autoclickers >= 100" },
+    { name: "Amélioration 1 au niveau 100", condition: "upgrade1Level >= 100" },
+    { name: "Amélioration 2 au niveau 100", condition: "upgrade2Level >= 100" },
+    { name: "Autoclicker au niveau 100", condition: "autoclickers >= 100" },
     { name: "Amélioration 1 au niveau 150", condition: "upgrade1Level >= 150" },
     { name: "Amélioration 2 au niveau 150", condition: "upgrade2Level >= 150" },
     { name: "Autoclicker au niveau 150", condition: "autoclickers >= 150" },
@@ -200,8 +200,14 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
 
 
 function formatNumber(number) {
-    // Si le nombre est supérieur ou égal à 1 million
-    if (number >= 1000000) {
+
+    // Si le nombre est supérieur ou égal à 1 milliards 
+    if (number >= 1000000000) {
+    return (number / 1000000000).toFixed(1).replace(/\.0$/, '') + 'Mds';
+    }
+
+    // Si le nombre est supérieur ou égal à 1 million  
+    else if (number >= 1000000) {
         return (number / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
     }
     // Si le nombre est supérieur ou égal à 1 000
@@ -301,7 +307,7 @@ function updateTrophies() {
     }
 
     saveGame(); // Sauvegarde des trophées
-}
+}  
 // Fonction pour exporter la sauvegarde dans un fichier
 function exportSave() {
     const gameData = localStorage.getItem('incrementalGameSave');
@@ -652,6 +658,7 @@ document.getElementById('boutonSupermarche').addEventListener('click', function(
         points -= supermarcheCost; // Dépense les points
         totalPointsSpent += supermarcheCost;
         autoclickerPower += 5000; // Augmente les points par seconde de 5000
+        pointsPerClick +=5000;
         supermarcheAchete = true;
         disableButton('boutonSupermarche');
         updateDisplay();
@@ -664,6 +671,7 @@ document.getElementById('boutonMarchandises').addEventListener('click', function
         points -= marchandisesCost; // Dépense les points
         totalPointsSpent += marchandisesCost;
         autoclickerPower += 500; // Augmente les points par seconde de 500
+        pointsPerClick +=500;
         marchandisesAchete = true;
         disableButton('boutonMarchandises');
         updateDisplay();
@@ -676,6 +684,7 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
         points -= superviseurCost; // Dépense les points
         totalPointsSpent += superviseurCost;
         autoclickerPower += 1000; // Augmente les points par seconde de 1000
+        pointsPerClick +=1000;
         superviseurAchete = true;
         disableButton('boutonSuperviseur');
         updateDisplay();
@@ -688,6 +697,7 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
         points -= agrandissementCost; // Dépense les points
         totalPointsSpent += marchandisesCost;
         autoclickerPower += 2000; // Augmente les points par seconde de 2000
+        pointsPerClick +=2000;
         agrandissementAchete = true;
         disableButton('boutonAgrandissement');
         updateDisplay();
