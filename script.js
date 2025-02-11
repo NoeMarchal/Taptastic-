@@ -1,9 +1,3 @@
-
-// Initialiser Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
 const maxUpgrade1Level = 200;    // niveau max pour l'amélioration 1²
 const maxUpgrade2Level = 200;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 200;   // Nombre max d'autoclickers
@@ -35,8 +29,6 @@ let totalPointsSpent = 0;
 let gameStartTime = Date.now(); // Moment où le jeu commence
 let elapsedTime = 0; // Temps écoulé en secondes
 let gameTime = 0; // en secondes
-let userId = null;
-
 
 // Mise à jour du temps de jeu chaque seconde
 setInterval(() => {
@@ -90,51 +82,8 @@ const trophyList = document.getElementById("trophy-list");
 // Charger la sauvegarde
 loadGame();
 
-// Vérifier l'authentification au chargement
-auth.onAuthStateChanged(user => {
-    if (user) {
-        userId = user.uid;
-        document.getElementById("authModal").style.display = "none";
-        document.getElementById("gameContainer").style.display = "block";
-        loadGame();
-    } else {
-        document.getElementById("authModal").style.display = "flex";
-        document.getElementById("gameContainer").style.display = "none";
-    }
-});
-
-// Fonction de connexion
-function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.signInWithEmailAndPassword(email, password)
-        .then(() => console.log("Connexion réussie"))
-        .catch(error => alert(error.message));
-}
-
-// Fonction d'inscription
-function register() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            userId = userCredential.user.uid;
-            saveGame(); // Sauvegarde initiale
-        })
-        .catch(error => alert(error.message));
-}
-
-// Fonction de déconnexion
-function logout() {
-    auth.signOut();
-}
-
-
-function saveGame(userId) {
-    if (!userId) return; // Vérifier qu'un utilisateur est connecté
-
+// Sauvegarder la progression dans localStorage
+function saveGame() {
     const gameData = {
         points,
         pointsPerClick,
@@ -146,7 +95,7 @@ function saveGame(userId) {
         upgrade2Level,
         unlockedTrophies,
         playerName,
-        avatarSrc,
+        avatarSrc, // Sauvegarder l'avatar
         supermarcheAchete,
         marchandisesAchete,
         superviseurAchete,
@@ -154,53 +103,58 @@ function saveGame(userId) {
         totalClicks,
         totalPointsEarned,
         totalPointsSpent,
-        gameStartTime,
-        elapsedTime,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp() // Permet de garder une sauvegarde récente
-    };
+        gameStartTime, // Sauvegarder l'heure de début du jeu
+        elapsedTime, // Sauvegarder le temps écoulé
+    
 
-    db.collection("sauvegardes").doc(userId).set(gameData)
-        .then(() => console.log("Sauvegarde réussie !"))
-        .catch(error => console.error("Erreur de sauvegarde :", error));
+
+    };
+    localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
 
+// Charger la progression depuis localStorage
+function loadGame() {
+    const savedData = localStorage.getItem('incrementalGameSave');
+    if (savedData) {
+        const gameData = JSON.parse(savedData);
+        points = gameData.points;
+        pointsPerClick = gameData.pointsPerClick;
+        upgrade1Cost = gameData.upgrade1Cost;
+        upgrade2Cost = gameData.upgrade2Cost;
+        autoclickerCost = gameData.autoclickerCost;
+        autoclickers = gameData.autoclickers;
+        upgrade1Level = gameData.upgrade1Level || 0;
+        upgrade2Level = gameData.upgrade2Level || 0;
+        unlockedTrophies = gameData.unlockedTrophies || [];
+        playerName = gameData.playerName;
+        avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg"; // Charger l'avatar sauvegardé
+        supermarcheAchete = gameData.supermarcheAchete || false;
+        marchandisesAchete = gameData.marchandisesAchete || false;
+        superviseurAchete = gameData.superviseurAchete || false;
+        agrandissementAchete = gameData.agrandissementAchete || false;
+        totalClicks = gameData.totalClicks || 0;
+        totalPointsEarned = gameData.totalPointsEarned || 0;
+        totalPointsSpent = gameData.totalPointsSpent || 0;
+        gameStartTime = gameData.gameStartTime || Date.now(); // Charger l'heure de début du jeu
+        elapsedTime = gameData.elapsedTime || 0; // Charger le temps écoulé
+    }
 
-function loadGame(userId) {
-    if (!userId) return; // Vérifier qu'un utilisateur est connecté
 
-    db.collection("sauvegardes").doc(userId).get()
-        .then(doc => {
-            if (doc.exists) {
-                const gameData = doc.data();
-                points = gameData.points || 0;
-                pointsPerClick = gameData.pointsPerClick || 1;
-                upgrade1Cost = gameData.upgrade1Cost || 100;
-                upgrade2Cost = gameData.upgrade2Cost || 500;
-                autoclickerCost = gameData.autoclickerCost || 1000;
-                autoclickers = gameData.autoclickers || 0;
-                upgrade1Level = gameData.upgrade1Level || 0;
-                upgrade2Level = gameData.upgrade2Level || 0;
-                unlockedTrophies = gameData.unlockedTrophies || [];
-                playerName = gameData.playerName || "Nom du joueur";
-                avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg";
-                supermarcheAchete = gameData.supermarcheAchete || false;
-                marchandisesAchete = gameData.marchandisesAchete || false;
-                superviseurAchete = gameData.superviseurAchete || false;
-                agrandissementAchete = gameData.agrandissementAchete || false;
-                totalClicks = gameData.totalClicks || 0;
-                totalPointsEarned = gameData.totalPointsEarned || 0;
-                totalPointsSpent = gameData.totalPointsSpent || 0;
-                gameStartTime = gameData.gameStartTime || Date.now();
-                elapsedTime = gameData.elapsedTime || 0;
 
-                updateDisplay();
-                updateTrophies();
-                console.log("Sauvegarde chargée !");
-            } else {
-                console.log("Aucune sauvegarde trouvée.");
-            }
-        })
-        .catch(error => console.error("Erreur de chargement :", error));
+    // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
+    const savedAvatar = localStorage.getItem("selectedAvatar");
+    if (savedAvatar) {
+        avatarSrc = savedAvatar;
+        document.getElementById("avatar").src = savedAvatar;
+    }
+    // Désactiver les boutons déjà achetés
+    if (supermarcheAchete) disableButton('boutonSupermarche');
+    if (marchandisesAchete) disableButton('boutonMarchandises');
+    if (superviseurAchete) disableButton('boutonSuperviseur');
+    if (agrandissementAchete) disableButton('boutonAgrandissement');
+
+    updateDisplay();
+    updateTrophies();
 }
 
 // Mettre à jour l'affichage

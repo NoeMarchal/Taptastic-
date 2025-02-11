@@ -9,8 +9,6 @@
 </head>
 <body>
     <button id="reset-game">Réinitialiser le jeu </button>
-    <button onclick="saveGame(auth.currentUser?.uid)">Sauvegarder</button>
-
 
     <!-- Section Avatars et Nom -->
     <div class="container">
@@ -41,16 +39,7 @@
             <input type="text" id="name-input" placeholder="Entrez votre nom" />
         </div>
     </details>
-    <!-- Fenêtre popup -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <h2>Connexion / Inscription</h2>
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Mot de passe">
-            <button onclick="login()">Se connecter</button>
-            <button onclick="register()">S'inscrire</button>
-        </div>
-    </div>
+
     <!-- Conteneur principal du jeu -->
     <div class="trophies-container">    
         <div class="container">
@@ -128,11 +117,7 @@
     </div>
 </footer>
     <script src="script.js"></script>
-    <script src="firebase-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
 </body>
 </html>
