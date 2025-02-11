@@ -66,7 +66,7 @@ button, input, select, option {
 #reset-game {
     position: absolute;
     top: 20px;
-    right: 40px;
+    right: 50px;
     padding: 10px 20px;
     font-size: 16px;
     background-color: #dc3545;
@@ -74,11 +74,37 @@ button, input, select, option {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: x-large;
 }
 
 #reset-game:hover {
     background-color: #c82333;
 }
+
+/* Bouton de sauvegarde */
+#save-game {
+    position: absolute;
+    top: 80px;
+    right: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745; /* Vert */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: x-large;
+}
+
+#save-game:hover {
+    background-color: #218838; /* Vert foncé */
+}
+
+#save-game:active {
+    transform: scale(0.95);
+}
+
 
 /* Conteneur de l'avatar et du nom */
 .image {
@@ -236,3 +262,4 @@ footer a:hover {
     border-top: 1px solid #444;
     padding-top: 20px;
 }
+

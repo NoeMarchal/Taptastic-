@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button id="reset-game">Réinitialiser le jeu </button>
+    <button id="reset-game">🔄</button>
+<!-- Bouton pour afficher le popup de sauvegarde -->
+<button id="save-game" onclick="showSavePopup()">💾</button>
 
+<!-- Input caché pour charger une sauvegarde -->
+<input type="file" id="uploadSave" style="display: none" onchange="loadSave(event)">
+  
     <!-- Section Avatars et Nom -->
     <div class="container">
         <div class="user-info">
@@ -113,11 +118,16 @@
 
     <!-- Section Droits d'auteur -->
     <div class="footer-bottom">
-        <p>&copy; 2023 Noé Marchal. Tous droits réservés.</p>
+        <p>&copy; 2025 Noé Marchal. Tous droits réservés.</p>
     </div>
 </footer>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 </body>
 </html>

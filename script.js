@@ -301,6 +301,97 @@ function updateTrophies() {
     saveGame(); // Sauvegarde des trophées
 }
 
+// Fonction pour exporter la sauvegarde dans un fichier
+function exportSave() {
+    const gameData = localStorage.getItem('incrementalGameSave');
+    if (!gameData) {
+        Swal.fire("Erreur", "Aucune sauvegarde trouvée !", "error");
+        return;
+    }
+
+    const blob = new Blob([gameData], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'incrementalGameSave.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+// Fonction pour charger la sauvegarde depuis un fichier
+function loadSave(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const gameData = JSON.parse(e.target.result);
+
+            // Vérification de la structure des données avant de les appliquer
+            if (gameData) {
+                // Assurez-vous que toutes les variables sont bien mises à jour
+                points = gameData.points || points;
+                pointsPerClick = gameData.pointsPerClick || pointsPerClick;
+                upgrade1Cost = gameData.upgrade1Cost || upgrade1Cost;
+                upgrade2Cost = gameData.upgrade2Cost || upgrade2Cost;
+                autoclickerCost = gameData.autoclickerCost || autoclickerCost;
+                autoclickers = gameData.autoclickers || autoclickers;
+                upgrade1Level = gameData.upgrade1Level || upgrade1Level;
+                upgrade2Level = gameData.upgrade2Level || upgrade2Level;
+                unlockedTrophies = gameData.unlockedTrophies || unlockedTrophies;
+                playerName = gameData.playerName || playerName;
+                avatarSrc = gameData.avatarSrc || avatarSrc;
+                supermarcheAchete = gameData.supermarcheAchete || supermarcheAchete;
+                marchandisesAchete = gameData.marchandisesAchete || marchandisesAchete;
+                superviseurAchete = gameData.superviseurAchete || superviseurAchete;
+                agrandissementAchete = gameData.agrandissementAchete || agrandissementAchete;
+                totalClicks = gameData.totalClicks || totalClicks;
+                totalPointsEarned = gameData.totalPointsEarned || totalPointsEarned;
+                totalPointsSpent = gameData.totalPointsSpent || totalPointsSpent;
+                gameStartTime = gameData.gameStartTime || gameStartTime;
+                elapsedTime = gameData.elapsedTime || elapsedTime;
+                
+                // Recharge l'avatar si nécessaire
+                if (gameData.avatarSrc) {
+                    document.getElementById("avatar").src = gameData.avatarSrc;
+                }
+                
+                // Désactivation des boutons si nécessaire
+                if (gameData.supermarcheAchete) disableButton('boutonSupermarche');
+                if (gameData.marchandisesAchete) disableButton('boutonMarchandises');
+                if (gameData.superviseurAchete) disableButton('boutonSuperviseur');
+                if (gameData.agrandissementAchete) disableButton('boutonAgrandissement');
+
+                // Met à jour l'affichage du jeu
+                updateDisplay();
+                updateTrophies();
+
+                Swal.fire("Succès", "Sauvegarde chargée avec succès !", "success");
+            } else {
+                throw new Error("Données de sauvegarde invalides.");
+            }
+        } catch (error) {
+            Swal.fire("Erreur", "Erreur lors du chargement de la sauvegarde !", "error");
+        }
+    };
+    reader.readAsText(file);
+}
+
+// Fonction pour afficher le popup avec les options de sauvegarde
+function showSavePopup() {
+    Swal.fire({
+        title: 'Gestion de la sauvegarde',
+        html: `
+            <button onclick="exportSave()" class="swal2-confirm swal2-styled">Télécharger la sauvegarde</button>
+            <button onclick="document.getElementById('uploadSave').click()" class="swal2-cancel swal2-styled">Charger une sauvegarde</button>
+        `,
+        showCloseButton: true,
+        showConfirmButton: false,
+        showCancelButton: false
+    });
+}
+
+
 clickButton.replaceWith(clickButton.cloneNode(true)); // Évite les doublons d'écouteurs d'événements
 const newClickButton = document.getElementById('click-button');
 
