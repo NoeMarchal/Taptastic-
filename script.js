@@ -305,9 +305,9 @@ function updateTrophies() {
             }
         });
     }
-    updateTrophies();
+
     saveGame(); // Sauvegarde des trophées
-}  
+}
 // Fonction pour exporter la sauvegarde dans un fichier
 function exportSave() {
     const gameData = localStorage.getItem('incrementalGameSave');
