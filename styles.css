@@ -12,24 +12,25 @@ body {
 
 /* Styles des blocs "Jeu" et "Trophées" */
  .trophies {
-    width: 400px;
-    padding: 20px;
+    width: 30%;
+    padding: 2%;
     background-color: #cfc9c9;
     border-radius: 40px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
-    margin-left: 750px;
+    margin-left: 18%;
+    
 }
 
 .game-container{
-    width: 400px;
-    padding: 20px;
+    width:  30%;
+    padding: 2%;
     background-color: #cfc9c9;
     border-radius: 40px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
-    margin-left: 750px;
-    margin-top: 20px;
+    margin-left: 53%;
+    margin-top: -120px;
 }
 
 /* Styles des trophées */
@@ -110,30 +111,6 @@ button, input, select, option {
     transform: scale(0.95);
 }
 
-/* Bouton de sauvegarde */
-#bourse {
-    position: absolute;
-    top: 140px;
-    right: 50px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: blue;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-size: x-large;
-}
-
-#bourse:hover {
-    background-color: navy; /* Vert foncé */
-}
-
-#bourse:active {
-    transform: scale(0.95);
-}
-
 
 /* Conteneur de l'avatar et du nom */
 .image {
@@ -158,8 +135,7 @@ button, input, select, option {
 /* Style pour le formulaire de personnalisation */
 #customization-form {
     position: absolute;
-    top: 170px;
-    left: 7%;
+    margin-left: 9%;
     transform: translateX(-50%);
     background-color: #cfc9c9;
     padding: 10px;
@@ -178,29 +154,45 @@ button, input, select, option {
 }
 
 
-/* Conteneur principal et autres styles inchangés */
-.container {
-    text-align: center;
-}
 
 
 .upgrades {
     margin-top: 30px;
 }
 
-.entreprise-container, .stats-container {
-    width: 33%;
-    margin: 20px auto;
+.entreprise-supermarché{
+    width:  30%;
     padding: 20px;
     background-color: #cfc9c9;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
+    margin-left: 18%;
+    margin-top: -520px;
 }
-
+.entreprise-container{
+    width:  30%;
+    padding: 20px;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-left: 18%;
+    margin-top: 20px;
+}
+.stats-container{
+    width:  30%;
+    padding: 20px;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-left: 53%;
+    margin-top: -240px;
+}
 summary {
-    margin-left: -1330px;
-    margin-top: 140px;
+    margin-right: 85%;
+    margin-top: 10%;
     font-size: 0.9rem;
 }
 
@@ -243,6 +235,7 @@ footer {
     color: #fff;
     padding: 40px 20px;
     text-align: center;
+    width: 100%;
 }
 
 footer a {
