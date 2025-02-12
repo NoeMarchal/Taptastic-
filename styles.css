@@ -78,8 +78,13 @@ button, input, select, option {
 }
 
 #reset-game:hover {
-    background-color: #c82333;
+    background-color: #7e1620;
 }
+
+#reset-game:active {
+    transform: scale(0.95);
+}
+
 
 /* Bouton de sauvegarde */
 #save-game {
@@ -102,6 +107,30 @@ button, input, select, option {
 }
 
 #save-game:active {
+    transform: scale(0.95);
+}
+
+/* Bouton de sauvegarde */
+#bourse {
+    position: absolute;
+    top: 140px;
+    right: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: x-large;
+}
+
+#bourse:hover {
+    background-color: navy; /* Vert foncé */
+}
+
+#bourse:active {
     transform: scale(0.95);
 }
 

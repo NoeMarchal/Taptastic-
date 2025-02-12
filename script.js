@@ -82,6 +82,8 @@ const trophies = [
     { name: "Dévellopement dans le monde Acheté", condition: "DevellopementdanslemondeAchete === true" },
 ];
 
+
+
 // Éléments du DOM
 const pointsDisplay = document.getElementById('points');
 const clickButton = document.getElementById('click-button');
