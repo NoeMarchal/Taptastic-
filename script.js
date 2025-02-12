@@ -205,8 +205,8 @@ function updateDisplay() {
         document.getElementById('boutonMagasin').textContent = `Acheter un magasin de luxe  (Coût: ${formatNumber(MagasinCost)} points)`;
         document.getElementById('boutonMarchandisesdeluxe').textContent = `Acheter Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} points)`;
         document.getElementById('boutonNouvellecollection').textContent = `Acheter une nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} points)`;
-        document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(agrandissementCost)} points)`;
-        document.getElementById('total-clicks').textContent = `Nombre total de clics : ${totalClicks}`;
+        document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} points)`;
+        document.getElementById('total-clicks').textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
 document.getElementById('total-points-earned').textContent = `Points gagnés au total : ${formatNumber(totalPointsEarned)}`;
 document.getElementById("total-points-spent").textContent = `Points dépensés au total : ${formatNumber(totalPointsSpent)}`;
 
