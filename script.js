@@ -263,13 +263,13 @@ function updateTrophies() {
                 bravoMessage.remove();
             }, 3000);
 
-            // Si c'est le trophée "Maître Ultime"
             if (trophy.name === "Maître Ultime") {
+                console.log("Condition pour 'Maître Ultime' remplie !"); // Ajoutez ce log pour vérifier
                 const ultimateMessage = document.createElement('div');
                 ultimateMessage.classList.add('ultimate-message');
                 ultimateMessage.textContent = "Félicitations, vous avez fini le jeu !";
                 document.body.appendChild(ultimateMessage);
-
+            
                 setTimeout(() => {
                     ultimateMessage.remove();
                 }, 5000);
