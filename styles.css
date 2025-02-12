@@ -13,11 +13,10 @@ body {
 /* Styles des blocs "Jeu" et "Trophées" */
  .trophies {
     width: 30%;
-    padding: 2%;
+    padding: 1%;
     background-color: #cfc9c9;
     border-radius: 40px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
     margin-left: 18%;
     
 }
@@ -166,7 +165,7 @@ button, input, select, option {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
     margin-left: 18%;
-    margin-top: -36%;
+    margin-top: -38%;
 }
 .entreprise-container{
     width:  30%;
