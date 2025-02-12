@@ -5,6 +5,10 @@ const supermarcheCost = 1000000; // Coût du supermarché
 const marchandisesCost = 1500000; // Coût des marchandises
 const superviseurCost = 2000000; // Coût du superviseur
 const agrandissementCost = 3000000; // Coût de l'agrandissement
+const MagasinCost = 100000000; // Coût du supermarché
+const MarchandisesdeluxeCost = 150000000; // Coût des marchandises
+const NouvellecollectionCost = 200000000; // Coût du superviseur
+const DevellopementdanslemondeCost = 300000000; // Coût de l'agrandissement
 
 // Variables du jeu
 let points = 0;
@@ -23,6 +27,10 @@ let supermarcheAchete = false;
 let marchandisesAchete = false;
 let superviseurAchete = false;
 let agrandissementAchete = false;
+let MagasinAchete = false;
+let MarchandisesdeluxeAchete = false;
+let NouvellecollectionAchete = false;
+let DevellopementdanslemondeAchete = false;
 let totalClicks = 0;
 let totalPointsEarned = 0;
 let totalPointsSpent = 0;
@@ -68,6 +76,10 @@ const trophies = [
     { name: "Marchandises Achetées", condition: "marchandisesAchete === true" },
     { name: "Superviseur Acheté", condition: "superviseurAchete === true" },
     { name: "Agrandissement Acheté", condition: "agrandissementAchete === true" },
+    { name: "Magasin de luxe Acheté", condition: "MagasinAchete === true" },
+    { name: "Marchandises de luxe Achetées", condition: "MarchandisesdeluxeAchete === true" },
+    { name: "Nouvelles collections Acheté", condition: "NouvellecollectionAchete === true" },
+    { name: "Dévellopement dans le monde Acheté", condition: "DevellopementdanslemondeAchete === true" },
 ];
 
 // Éléments du DOM
@@ -105,6 +117,10 @@ function saveGame() {
         totalPointsSpent,
         gameStartTime, // Sauvegarder l'heure de début du jeu
         elapsedTime, // Sauvegarder le temps écoulé
+        MagasinAchete,
+        MarchandisesdeluxeAchete,
+        NouvellecollectionAchete,
+        DevellopementdanslemondeAchete,
     
 
 
@@ -132,6 +148,10 @@ function loadGame() {
         marchandisesAchete = gameData.marchandisesAchete || false;
         superviseurAchete = gameData.superviseurAchete || false;
         agrandissementAchete = gameData.agrandissementAchete || false;
+        MagasinAchete = gameData.MagasinAchete || false;
+        MarchandisesdeluxeAchete = gameData.MarchandisesdeluxeAchete || false;
+        NouvellecollectionAchete = gameData.NouvellecollectionAchete || false;
+        DevellopementdanslemondeAchete = gameData.DevellopementdanslemondeAchete || false;
         totalClicks = gameData.totalClicks || 0;
         totalPointsEarned = gameData.totalPointsEarned || 0;
         totalPointsSpent = gameData.totalPointsSpent || 0;
@@ -152,6 +172,10 @@ function loadGame() {
     if (marchandisesAchete) disableButton('boutonMarchandises');
     if (superviseurAchete) disableButton('boutonSuperviseur');
     if (agrandissementAchete) disableButton('boutonAgrandissement');
+    if (MagasinAchete) disableButton('boutonMagasin');
+    if (MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
+    if (NouvellecollectionAchete) disableButton('boutonNouvellecollection');
+    if (DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
 
     updateDisplay();
     updateTrophies();
@@ -176,6 +200,10 @@ function updateDisplay() {
         document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} points)`;
         document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur (Coût: ${formatNumber(superviseurCost)} points)`;
         document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement (Coût: ${formatNumber(agrandissementCost)} points)`;
+        document.getElementById('boutonMagasin').textContent = `Acheter un magasin de luxe  (Coût: ${formatNumber(MagasinCost)} points)`;
+        document.getElementById('boutonMarchandisesdeluxe').textContent = `Acheter Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} points)`;
+        document.getElementById('boutonNouvellecollection').textContent = `Acheter une nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} points)`;
+        document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(agrandissementCost)} points)`;
         document.getElementById('total-clicks').textContent = `Nombre total de clics : ${totalClicks}`;
 document.getElementById('total-points-earned').textContent = `Points gagnés au total : ${formatNumber(totalPointsEarned)}`;
 document.getElementById("total-points-spent").textContent = `Points dépensés au total : ${formatNumber(totalPointsSpent)}`;
@@ -352,6 +380,10 @@ function loadSave(event) {
                 marchandisesAchete = gameData.marchandisesAchete || marchandisesAchete;
                 superviseurAchete = gameData.superviseurAchete || superviseurAchete;
                 agrandissementAchete = gameData.agrandissementAchete || agrandissementAchete;
+                MagasinAchete = gameData.MagasinAchete || MagasinAchete;
+                MarchandisesdeluxeAchete = gameData.MarchandisesdeluxeAchete || MarchandisesdeluxeAchete;
+                NouvellecollectionAchete = gameData.NouvellecollectionAchete || NouvellecollectionAchete;
+                DevellopementdanslemondeAchete = gameData.DevellopementdanslemondeAchete || DevellopementdanslemondeAchete;
                 totalClicks = gameData.totalClicks || totalClicks;
                 totalPointsEarned = gameData.totalPointsEarned || totalPointsEarned;
                 totalPointsSpent = gameData.totalPointsSpent || totalPointsSpent;
@@ -368,6 +400,10 @@ function loadSave(event) {
                 if (gameData.marchandisesAchete) disableButton('boutonMarchandises');
                 if (gameData.superviseurAchete) disableButton('boutonSuperviseur');
                 if (gameData.agrandissementAchete) disableButton('boutonAgrandissement');
+                if (gameData.MagasinAchete) disableButton('boutonMagasin');
+                if (gameData.MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
+                if (gameData.NouvellecollectionAchete) disableButton('boutonNouvellecollection');
+                if (gameData.DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
 
                 // Met à jour l'affichage du jeu
                 updateDisplay();
@@ -620,6 +656,10 @@ function resetGame() {
     marchandisesAchete = false;
     superviseurAchete = false;
     agrandissementAchete = false;
+    MagasinAchete = false;
+    MarchandisesdeluxeAchete = false;
+    NouvellecollectionAchete = false;
+    DevellopementdanslemondeAchete = false;
     totalClicks = 0;
     totalPointsEarned = 0;
     totalPointsSpent = 0;
@@ -634,6 +674,10 @@ function resetGame() {
     document.getElementById('boutonMarchandises').disabled = false;
     document.getElementById('boutonSuperviseur').disabled = false;
     document.getElementById('boutonAgrandissement').disabled = false;
+    document.getElementById('boutonMagasin').disabled = false;
+    document.getElementById('boutonMarchandisesdeluxe').disabled = false;
+    document.getElementById('boutonNouvellecollection').disabled = false;
+    document.getElementById('boutonDevellopementdanslemonde').disabled = false;
 
 
     // Supprimer l'avatar sauvegardé
@@ -713,6 +757,59 @@ document.getElementById('toggle-arrow').addEventListener('click', function() {
 
     // Basculer la rotation de la flèche
     arrow.classList.toggle('rotated');
+});
+
+
+// Écouteur d'événement pour le bouton Magasin
+document.getElementById('boutonMagasin').addEventListener('click', function() {
+    if (!MagasinAchete && points >= MagasinCost) {
+        points -= MagasinCost; // Dépense les points
+        totalPointsSpent += MagasinCost;
+        autoclickerPower += 20000; // Augmente les points par seconde de 5000
+        pointsPerClick +=20000;
+        MagasinAchete = true;
+        disableButton('boutonMagasin');
+        updateDisplay();
+    }
+});
+
+// Écouteur d'événement pour le bouton Marchandises de luxe
+document.getElementById('boutonMarchandisesdeluxe').addEventListener('click', function() {
+    if (!MarchandisesdeluxeAchete && points >= MarchandisesdeluxeCost) {
+        points -= MarchandisesdeluxeCost; // Dépense les points
+        totalPointsSpent += MarchandisesdeluxeCost;
+        autoclickerPower += 50000; // Augmente les points par seconde de 500
+        pointsPerClick +=50000;
+        MarchandisesdeluxeAchete = true;
+        disableButton('boutonMarchandisesdeluxe');
+        updateDisplay();
+    }
+});
+
+// Écouteur d'événement pour le bouton Nouvelles collections
+document.getElementById('boutonNouvellecollection').addEventListener('click', function() {
+    if (!NouvellecollectionAchete && points >= NouvellecollectionCost) {
+        points -= NouvellecollectionCost; // Dépense les points
+        totalPointsSpent += NouvellecollectionCost;
+        autoclickerPower += 100000; // Augmente les points par seconde de 1000
+        pointsPerClick +=100000;
+        NouvellecollectionAchete = true;
+        disableButton('boutonNouvellecollection');
+        updateDisplay();
+    }
+});
+
+// Écouteur d'événement pour le bouton devellopement dans le monde 
+document.getElementById('boutonDevellopementdanslemonde').addEventListener('click', function() {
+    if (!DevellopementdanslemondeAchete && points >= DevellopementdanslemondeCost) {
+        points -= DevellopementdanslemondeCost; // Dépense les points
+        totalPointsSpent += DevellopementdanslemondeCost;
+        autoclickerPower += 200000; // Augmente les points par seconde de 2000
+        pointsPerClick +=200000;
+        DevellopementdanslemondeAchete = true;
+        disableButton('boutonDevellopementdanslemonde');
+        updateDisplay();
+    }
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
