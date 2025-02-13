@@ -186,14 +186,14 @@ summary {
 }
 
 @keyframes autoclickerEffect {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-20px); opacity: 0; }
+    0% { transform: translateY(0); opacity: 100; }
+    100% { transform: translateY(-20px); opacity: 100; }
 }
 
 .autoclicker-effect {
     position: absolute;
     font-size: 16px;
-    color: blue;
+    color: green;
     animation: autoclickerEffect 1s ease-out;
     pointer-events: none;
 }
@@ -395,4 +395,71 @@ footer a:hover {
 
 * {
     box-sizing: border-box;
+}
+
+.money-pop {
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    color: green;
+    pointer-events: none; 
+    animation: popUp 1s ease-out forwards;
+    transform: translate(-50%, -50%); /* Centre exactement sur le clic */
+    z-index: 9999;
+}
+
+@keyframes popUp {
+    0% {
+        opacity: 100;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -80%) scale(1.3);
+    }
+    100% {
+        opacity: 100;
+        transform: translate(-50%, -120%) scale(1);
+    }
+}
+.upgrade-button, .click-button {
+    transition: transform 0.4s ease, box-shadow 0.2s ease;
+}
+
+.upgrade-button:active, .click-button {
+    transform: scale(1.2);
+    box-shadow: 0px 0px 40px green;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0px 0px 20px rgba(0, 255, 0, 1);
+    }
+    100% {
+        box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
+    }
+}
+
+.upgrade-available {
+    animation: glow 1s infinite alternate;
+}
+
+/* Définir l'animation de rebond */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Classe pour appliquer l'animation */
+.bounce-animation {
+    animation: bounce 1s ease;
 }

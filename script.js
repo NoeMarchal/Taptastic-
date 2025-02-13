@@ -92,7 +92,7 @@ const trophies = [
     { name: "500 000 €", condition: "points >= 500000" }, // Nouveau trophée
     { name: "1 000 000 €", condition: "points >= 1000000" }, // Nouveau trophée
     { name: "100 000 000 €", condition: "points >= 100000000" }, // Nouveau trophée
-    { name: "Maître Ultime", condition: "unlockedTrophies.length >= trophies.length - 1" }, // Nouveau trophée
+    { name: "100 000 000 000 €", condition: "points >= 100000000000" }, // Nouveau trophée
     { name: "Supermarket Acheté", condition: "supermarcheAchete === true" },
     { name: "Marchandises Achetées", condition: "marchandisesAchete === true" },
     { name: "Superviseur Acheté", condition: "superviseurAchete === true" },
@@ -249,6 +249,12 @@ function updateDisplay() {
         document.getElementById('total-clicks').textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
 document.getElementById('total-points-earned').textContent = `€ gagnés au total : ${formatNumber(totalPointsEarned)}`;
 document.getElementById("total-points-spent").textContent = `€ dépensés au total : ${formatNumber(totalPointsSpent)}`;
+    document.getElementById('upgrade1').classList.toggle('upgrade-available', points >= upgrade1Cost);
+    document.getElementById('upgrade2').classList.toggle('upgrade-available', points >= upgrade2Cost);
+    document.getElementById('autoclicker-button').classList.toggle('upgrade-available', points >= autoclickerCost);
+    
+
+
 
 // Calcul des heures, minutes et secondes
 let hours = Math.floor(elapsedTime / 3600); // Diviser par 3600 pour obtenir les heures
@@ -338,18 +344,6 @@ function updateTrophies() {
             setTimeout(() => {
                 bravoMessage.remove();
             }, 3000);
-
-            if (trophy.name === "Maître Ultime") {
-                console.log("Condition pour 'Maître Ultime' remplie !"); // Ajoutez ce log pour vérifier
-                const ultimateMessage = document.createElement('div');
-                ultimateMessage.classList.add('ultimate-message');
-                ultimateMessage.textContent = "Félicitations, vous avez fini le jeu !";
-                document.body.appendChild(ultimateMessage);
-            
-                setTimeout(() => {
-                    ultimateMessage.remove();
-                }, 5000);
-            }
         }
     });
 
@@ -384,6 +378,7 @@ function updateTrophies() {
 
     saveGame(); // Sauvegarde des trophées
 }
+
 // Fonction pour exporter la sauvegarde dans un fichier
 function exportSave() {
     const gameData = localStorage.getItem('incrementalGameSave');
@@ -498,17 +493,40 @@ function showSavePopup() {
 clickButton.replaceWith(clickButton.cloneNode(true)); // Évite les doublons d'écouteurs d'événements
 const newClickButton = document.getElementById('click-button');
 
-newClickButton.addEventListener('click', () => {
-    totalClicks++;  // Seuls les clics manuels augmentent cette variable !
-    let pointsGagnes = pointsPerClick > 0 ? pointsPerClick : 1; // Toujours au moins 1 point
+newClickButton.addEventListener('click', (event) => {
+    totalClicks++;  
+    let pointsGagnes = pointsPerClick > 0 ? pointsPerClick : 1;
     points += pointsGagnes;  
     totalPointsEarned += pointsGagnes;
 
-    // Mise à jour de l'affichage et des trophées
+    // Création de l'effet visuel
+    const moneyEffect = document.createElement("span");
+    moneyEffect.classList.add("money-pop");
+    moneyEffect.textContent = `+${formatNumber(pointsGagnes)} 💰`;
+
+    document.body.appendChild(moneyEffect);
+
+    // Récupérer les coordonnées du bouton et du clic
+    const rect = newClickButton.getBoundingClientRect();
+    const x = event.clientX + window.scrollX; // Ajuste en cas de scroll
+    const y = event.clientY + window.scrollY; // Ajuste en cas de scroll
+
+    // Appliquer la position exacte sous le clic
+    moneyEffect.style.left = `${x}px`;
+    moneyEffect.style.top = `${y}px`;
+
+    // Supprime l'élément après l'animation
+    setTimeout(() => {
+        moneyEffect.remove();
+    }, 1000);
+
+    // Mise à jour de l'affichage
     updateDisplay();
     displayItems();
-    updateTrophies(); // Vérifie si un trophée doit être débloqué
+    updateTrophies();
 });
+
+
 
 //Amélioration1 
 upgrade1Button.addEventListener('click', () => {
@@ -602,7 +620,7 @@ setInterval(() => {
             // Créer un effet d'autoclicker
             const autoclickerEffect = document.createElement('div');
             autoclickerEffect.classList.add('autoclicker-effect');
-            autoclickerEffect.textContent = `+${formatNumber(gainedPoints)} €`;
+            autoclickerEffect.textContent = `+${formatNumber(gainedPoints)} € 💰`;
 
             // Placer l'effet près du bouton
             const rect = clickButton.getBoundingClientRect();
@@ -1028,6 +1046,9 @@ function addToBoughtItems(item) {
     const boughtItemElement = document.createElement('div');
     boughtItemElement.className = 'item bought';
 
+    // Calculer la différence entre la valeur actuelle et le prix initial
+    const difference = item.currentValue - item.cost;
+
     // Déterminer la couleur en fonction de la valeur actuelle
     if (item.currentValue > item.cost) {
         boughtItemElement.style.color = 'green'; // Valeur supérieure au prix initial
@@ -1040,18 +1061,25 @@ function addToBoughtItems(item) {
     // Afficher le nom de l'item et sa valeur actuelle
     boughtItemElement.textContent = `${item.name} - Valeur actuelle: ${formatNumber(item.currentValue)} €`;
 
+    // Créer un élément pour afficher la différence de valeur
+    const differenceElement = document.createElement('span');
+    differenceElement.textContent = ` (${difference >= 0 ? '+' : ''}${formatNumber(difference)} €)`;
+    differenceElement.style.color = difference >= 0 ? 'green' : 'red'; // Couleur en fonction du gain ou de la perte
+
     // Créer un bouton "Vendre"
     const sellButton = document.createElement('button');
     sellButton.textContent = 'Vendre';
     sellButton.className = 'sell-button';
     sellButton.addEventListener('click', () => sellItem(item));
 
-    // Ajouter le bouton "Vendre" à l'élément de l'item
+    // Ajouter la différence et le bouton "Vendre" à l'élément de l'item
+    boughtItemElement.appendChild(differenceElement);
     boughtItemElement.appendChild(sellButton);
 
     // Ajouter l'élément de l'item au conteneur de l'inventaire
     itemsBoughtContainer.appendChild(boughtItemElement);
 }
+
 
 function fluctuateItemValues() {
     items.forEach(item => {
