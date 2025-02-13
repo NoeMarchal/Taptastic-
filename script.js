@@ -1,7 +1,7 @@
 const maxUpgrade1Level = 500;    // niveau max pour l'amélioration 1²
 const maxUpgrade2Level = 200;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 200;   // Nombre max d'autoclickers
-const supermarcheCost = 1000000; // Coût du supermarché
+const supermarcheCost = 1200000; // Coût du supermarché
 const marchandisesCost = 1500000; // Coût des marchandises
 const superviseurCost = 2000000; // Coût du superviseur
 const agrandissementCost = 3000000; // Coût de l'agrandissement
@@ -106,7 +106,7 @@ const trophies = [
 // Liste des objets disponibles à l'achat
 const items = [
     { name: "Karaba", cost: 100 },
-    { name: "UN bon BK", cost: 1000 },
+    { name: "Un bon BK", cost: 1000 },
     { name: "Miltipla", cost: 132000 },
     { name: "Paye ta race", cost: 300000 },
     { name: "Give me money", cost: 1000000 },
@@ -239,11 +239,11 @@ function updateDisplay() {
         // Mettre à jour les boutons d'achat
         document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${formatNumber(supermarcheCost)} points)`;
         document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} points)`;
-        document.getElementById('boutonSuperviseur').textContent = `Acheter Superviseur (Coût: ${formatNumber(superviseurCost)} points)`;
-        document.getElementById('boutonAgrandissement').textContent = `Acheter Agrandissement (Coût: ${formatNumber(agrandissementCost)} points)`;
-        document.getElementById('boutonMagasin').textContent = `Acheter un magasin de luxe  (Coût: ${formatNumber(MagasinCost)} points)`;
-        document.getElementById('boutonMarchandisesdeluxe').textContent = `Acheter Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} points)`;
-        document.getElementById('boutonNouvellecollection').textContent = `Acheter une nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} points)`;
+        document.getElementById('boutonSuperviseur').textContent = `Embaucher un Superviseur (Coût: ${formatNumber(superviseurCost)} points)`;
+        document.getElementById('boutonAgrandissement').textContent = `Agrandissement du magasin (Coût: ${formatNumber(agrandissementCost)} points)`;
+        document.getElementById('boutonMagasin').textContent = `Magasin de luxe  (Coût: ${formatNumber(MagasinCost)} points)`;
+        document.getElementById('boutonMarchandisesdeluxe').textContent = `Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} points)`;
+        document.getElementById('boutonNouvellecollection').textContent = `Nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} points)`;
         document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} points)`;
         document.getElementById('total-clicks').textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
 document.getElementById('total-points-earned').textContent = `Points gagnés au total : ${formatNumber(totalPointsEarned)}`;
@@ -530,6 +530,15 @@ upgrade1Button.addEventListener('click', () => {
         displayItems();
         updateTrophies();
     }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(upgrade1Cost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
 });
 
 
@@ -563,6 +572,15 @@ upgrade2Button.addEventListener('click', () => {
         updateDisplay();
         updateTrophies();
         displayItems();
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(upgrade2Cost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
     }
 });
 
@@ -624,6 +642,15 @@ autoclickerButton.addEventListener('click', () => {
         updateDisplay();
         displayItems();
         updateTrophies();
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(autoclickerCost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
     }
 });
 
@@ -770,6 +797,15 @@ document.getElementById('boutonSupermarche').addEventListener('click', function(
         disableButton('boutonSupermarche');
         updateDisplay();
     }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(supermarcheCost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
 });
 
 // Écouteur d'événement pour le bouton Marchandises
@@ -782,6 +818,15 @@ document.getElementById('boutonMarchandises').addEventListener('click', function
         marchandisesAchete = true;
         disableButton('boutonMarchandises');
         updateDisplay();
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(marchandisesCost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
     }
 });
 
@@ -796,6 +841,15 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
         disableButton('boutonSuperviseur');
         updateDisplay();
     }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(superviseurAchete - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
 });
 
 // Écouteur d'événement pour le bouton Agrandissement
@@ -808,6 +862,15 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
         agrandissementAchete = true;
         disableButton('boutonAgrandissement');
         updateDisplay();
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(agrandissementCost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
     }
 });
 
@@ -834,6 +897,15 @@ document.getElementById('boutonMagasin').addEventListener('click', function() {
         disableButton('boutonMagasin');
         updateDisplay();
     }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(MagasinCost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
 });
 
 // Écouteur d'événement pour le bouton Marchandises de luxe
@@ -846,6 +918,15 @@ document.getElementById('boutonMarchandisesdeluxe').addEventListener('click', fu
         MarchandisesdeluxeAchete = true;
         disableButton('boutonMarchandisesdeluxe');
         updateDisplay();
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(MarchandisesdeluxeCost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
     }
 });
 
@@ -860,6 +941,15 @@ document.getElementById('boutonNouvellecollection').addEventListener('click', fu
         disableButton('boutonNouvellecollection');
         updateDisplay();
     }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(NouvellecollectionCost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
 });
 
 // Écouteur d'événement pour le bouton devellopement dans le monde 
@@ -872,6 +962,15 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
         DevellopementdanslemondeAchete = true;
         disableButton('boutonDevellopementdanslemonde');
         updateDisplay();
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(DevellopementdanslemondeCost - points)} points pour acheter.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
     }
 });
 
@@ -909,7 +1008,13 @@ function buyItem(item) {
         saveGame(); // Sauvegarder le jeu
         displayItems(); // Mettre à jour l'affichage des objets disponibles
     } else {
-        alert("Points insuffisants !");
+        Swal.fire({
+            icon: 'error',
+            title: 'Points insuffisants',
+            text: `Il vous manque ${formatNumber(item.cost - points)} points pour acheter "${item.name}".`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
     }
 }
 
