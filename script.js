@@ -1021,21 +1021,80 @@ function buyItem(item) {
 function addToBoughtItems(item) {
     const boughtItemElement = document.createElement('div');
     boughtItemElement.className = 'item bought';
-    boughtItemElement.textContent = item.name;
+
+    // Déterminer la couleur en fonction de la valeur actuelle
+    if (item.currentValue > item.cost) {
+        boughtItemElement.style.color = 'green'; // Valeur supérieure au prix initial
+    } else if (item.currentValue < item.cost) {
+        boughtItemElement.style.color = 'red'; // Valeur inférieure au prix initial
+    } else {
+        boughtItemElement.style.color = 'black'; // Valeur égale au prix initial
+    }
+
+    // Afficher le nom de l'item et sa valeur actuelle
+    boughtItemElement.textContent = `${item.name} - Valeur actuelle: ${formatNumber(item.currentValue)} points`;
+
+    // Créer un bouton "Vendre"
+    const sellButton = document.createElement('button');
+    sellButton.textContent = 'Vendre';
+    sellButton.className = 'sell-button';
+    sellButton.addEventListener('click', () => sellItem(item));
+
+    // Ajouter le bouton "Vendre" à l'élément de l'item
+    boughtItemElement.appendChild(sellButton);
+
+    // Ajouter l'élément de l'item au conteneur de l'inventaire
     itemsBoughtContainer.appendChild(boughtItemElement);
 }
 
-// Réafficher les objets achetés dans l'inventaire
-itemsBoughtContainer.innerHTML = ''; // Vider l'inventaire avant de réafficher
-boughtItems.forEach(itemName => {
-    const item = items.find(i => i.name === itemName); // Trouver l'objet dans la liste des items
-    if (item) {
-        addToBoughtItems(item); // Réafficher l'objet dans l'inventaire
-    }
-});
+function fluctuateItemValues() {
+    items.forEach(item => {
+        if (boughtItems.includes(item.name)) {
+            // Générer une fluctuation aléatoire entre -30% et +30% de la valeur initiale
+            const fluctuation = item.cost * (Math.random() * 0.6 - 0.3);
+            item.currentValue = Math.round(item.cost + fluctuation);
+        }
+    });
 
-// Initialisation
-displayItems();
+    // Mettre à jour l'affichage des items achetés
+    updateBoughtItemsDisplay();
+}
+
+function updateBoughtItemsDisplay() {
+    itemsBoughtContainer.innerHTML = ''; // Vider l'inventaire avant de réafficher
+    boughtItems.forEach(itemName => {
+        const item = items.find(i => i.name === itemName); // Trouver l'objet dans la liste des items
+        if (item) {
+            addToBoughtItems(item); // Réafficher l'objet dans l'inventaire
+        }
+    });
+}
+
+// Appeler la fonction de fluctuation toutes les 2 secondes
+setInterval(fluctuateItemValues, 2000);
+
+function sellItem(item) {
+    // Vérifier si l'item est bien dans la liste des objets achetés
+    if (!boughtItems.includes(item.name)) {
+        alert("Cet objet n'est pas dans votre inventaire !");
+        return;
+    }
+
+    // Ajouter la valeur actuelle de l'item aux points du joueur
+    points += item.currentValue;
+    totalPointsEarned += item.currentValue;
+
+    // Retirer l'item de la liste des objets achetés
+    boughtItems = boughtItems.filter(boughtItem => boughtItem !== item.name);
+
+    // Sauvegarder le jeu
+    saveGame();
+
+    // Mettre à jour l'affichage des items disponibles et de l'inventaire
+    displayItems();
+    updateBoughtItemsDisplay();
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
 (function() {
