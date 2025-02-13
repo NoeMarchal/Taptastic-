@@ -84,14 +84,14 @@ const trophies = [
     { name: "Amélioration 1 au niveau 500", condition: "upgrade1Level >= 500" },
     { name: "Amélioration 2 au niveau 500", condition: "upgrade2Level >= 500" },
     { name: "Autoclicker au niveau 500", condition: "autoclickers >= 500" },
-    { name: "1 000 Points", condition: "points >= 1000" }, // Nouveau trophée
-    { name: "5 000 Points", condition: "points >= 5000" }, // Nouveau trophée
-    { name: "10 000 Points", condition: "points >= 10000" }, // Nouveau trophée
-    { name: "50 000 Points", condition: "points >= 50000" }, // Nouveau trophée
-    { name: "100 000 Points", condition: "points >= 100000" }, // Nouveau trophée
-    { name: "500 000 Points", condition: "points >= 500000" }, // Nouveau trophée
-    { name: "1 000 000 Points", condition: "points >= 1000000" }, // Nouveau trophée
-    { name: "100 000 000 Points", condition: "points >= 100000000" }, // Nouveau trophée
+    { name: "1 000 €", condition: "points >= 1000" }, // Nouveau trophée
+    { name: "5 000 €", condition: "points >= 5000" }, // Nouveau trophée
+    { name: "10 000 €", condition: "points >= 10000" }, // Nouveau trophée
+    { name: "50 000 €", condition: "points >= 50000" }, // Nouveau trophée
+    { name: "100 000 €", condition: "points >= 100000" }, // Nouveau trophée
+    { name: "500 000 €", condition: "points >= 500000" }, // Nouveau trophée
+    { name: "1 000 000 €", condition: "points >= 1000000" }, // Nouveau trophée
+    { name: "100 000 000 €", condition: "points >= 100000000" }, // Nouveau trophée
     { name: "Maître Ultime", condition: "unlockedTrophies.length >= trophies.length - 1" }, // Nouveau trophée
     { name: "Supermarket Acheté", condition: "supermarcheAchete === true" },
     { name: "Marchandises Achetées", condition: "marchandisesAchete === true" },
@@ -224,30 +224,30 @@ function loadGame() {
 
 // Mettre à jour l'affichage
 function updateDisplay() {
-    pointsDisplay.textContent = `Points: ${formatNumber(points)}`;
+    pointsDisplay.textContent = `€: ${formatNumber(points)}`;
       // Mettre à jour les points par clic
-      document.getElementById('points-per-click').textContent = `Points par clic: ${formatNumber(pointsPerClick)}`;
-    document.getElementById("pps-display").textContent = `Points par seconde: ${formatNumber(autoclickers * autoclickerPower)}`;
+      document.getElementById('points-per-click').textContent = `€ par clic: ${formatNumber(pointsPerClick)}`;
+    document.getElementById("pps-display").textContent = `€ par seconde: ${formatNumber(autoclickers * autoclickerPower)}`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
-    upgrade1Button.textContent = `Amélioration 1 + 20p/click (Coût: ${formatNumber(upgrade1Cost)} points)`;
-    upgrade2Button.textContent = `Amélioration 2 + 50p/click (Coût: ${formatNumber(upgrade2Cost)} points)`;
-    autoclickerButton.textContent = `Acheter un Autoclicker + 250p/sec (Coût: ${formatNumber(autoclickerCost)} points)`;
+    upgrade1Button.textContent = `Amélioration 1 + 20p/click (Coût: ${formatNumber(upgrade1Cost)} €)`;
+    upgrade2Button.textContent = `Amélioration 2 + 50p/click (Coût: ${formatNumber(upgrade2Cost)} €)`;
+    autoclickerButton.textContent = `Acheter un Autoclicker + 250p/sec (Coût: ${formatNumber(autoclickerCost)} €)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
         // Mettre à jour les boutons d'achat
-        document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${formatNumber(supermarcheCost)} points)`;
-        document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} points)`;
-        document.getElementById('boutonSuperviseur').textContent = `Embaucher un Superviseur (Coût: ${formatNumber(superviseurCost)} points)`;
-        document.getElementById('boutonAgrandissement').textContent = `Agrandissement du magasin (Coût: ${formatNumber(agrandissementCost)} points)`;
-        document.getElementById('boutonMagasin').textContent = `Magasin de luxe  (Coût: ${formatNumber(MagasinCost)} points)`;
-        document.getElementById('boutonMarchandisesdeluxe').textContent = `Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} points)`;
-        document.getElementById('boutonNouvellecollection').textContent = `Nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} points)`;
-        document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} points)`;
+        document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${formatNumber(supermarcheCost)} €)`;
+        document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} €)`;
+        document.getElementById('boutonSuperviseur').textContent = `Embaucher un Superviseur (Coût: ${formatNumber(superviseurCost)} €)`;
+        document.getElementById('boutonAgrandissement').textContent = `Agrandissement du magasin (Coût: ${formatNumber(agrandissementCost)} €)`;
+        document.getElementById('boutonMagasin').textContent = `Magasin de luxe  (Coût: ${formatNumber(MagasinCost)} €)`;
+        document.getElementById('boutonMarchandisesdeluxe').textContent = `Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} €)`;
+        document.getElementById('boutonNouvellecollection').textContent = `Nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} €)`;
+        document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} €)`;
         document.getElementById('total-clicks').textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
-document.getElementById('total-points-earned').textContent = `Points gagnés au total : ${formatNumber(totalPointsEarned)}`;
-document.getElementById("total-points-spent").textContent = `Points dépensés au total : ${formatNumber(totalPointsSpent)}`;
+document.getElementById('total-points-earned').textContent = `€ gagnés au total : ${formatNumber(totalPointsEarned)}`;
+document.getElementById("total-points-spent").textContent = `€ dépensés au total : ${formatNumber(totalPointsSpent)}`;
 
 // Calcul des heures, minutes et secondes
 let hours = Math.floor(elapsedTime / 3600); // Diviser par 3600 pour obtenir les heures
@@ -533,8 +533,8 @@ upgrade1Button.addEventListener('click', () => {
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(upgrade1Cost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(upgrade1Cost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -576,8 +576,8 @@ upgrade2Button.addEventListener('click', () => {
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(upgrade2Cost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(upgrade2Cost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -596,7 +596,7 @@ setInterval(() => {
             // Créer un effet d'autoclicker
             const autoclickerEffect = document.createElement('div');
             autoclickerEffect.classList.add('autoclicker-effect');
-            autoclickerEffect.textContent = `+${formatNumber(gainedPoints)} points`;
+            autoclickerEffect.textContent = `+${formatNumber(gainedPoints)} €`;
 
             // Placer l'effet près du bouton
             const rect = clickButton.getBoundingClientRect();
@@ -646,8 +646,8 @@ autoclickerButton.addEventListener('click', () => {
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(autoclickerCost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(autoclickerCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -800,8 +800,8 @@ document.getElementById('boutonSupermarche').addEventListener('click', function(
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(supermarcheCost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(supermarcheCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -822,8 +822,8 @@ document.getElementById('boutonMarchandises').addEventListener('click', function
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(marchandisesCost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(marchandisesCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -844,8 +844,8 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(superviseurAchete - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(superviseurAchete - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -866,8 +866,8 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(agrandissementCost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(agrandissementCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -900,8 +900,8 @@ document.getElementById('boutonMagasin').addEventListener('click', function() {
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(MagasinCost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(MagasinCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -922,8 +922,8 @@ document.getElementById('boutonMarchandisesdeluxe').addEventListener('click', fu
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(MarchandisesdeluxeCost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(MarchandisesdeluxeCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -944,8 +944,8 @@ document.getElementById('boutonNouvellecollection').addEventListener('click', fu
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(NouvellecollectionCost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(NouvellecollectionCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -966,8 +966,8 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(DevellopementdanslemondeCost - points)} points pour acheter.`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(DevellopementdanslemondeCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -988,7 +988,7 @@ function displayItems() {
         // Créer un bouton pour chaque objet
         const itemButton = document.createElement('button');
         itemButton.className = 'item-button';
-        itemButton.textContent = `${item.name} - ${formatNumber(item.cost)} points`;
+        itemButton.textContent = `${item.name} - ${formatNumber(item.cost)} €`;
         itemButton.addEventListener('click', () => buyItem(item)); // Ajouter l'événement click
         itemsToBuyContainer.appendChild(itemButton); // Ajouter le bouton au conteneur
     });
@@ -1010,8 +1010,8 @@ function buyItem(item) {
     } else {
         Swal.fire({
             icon: 'error',
-            title: 'Points insuffisants',
-            text: `Il vous manque ${formatNumber(item.cost - points)} points pour acheter "${item.name}".`,
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(item.cost - points)} € pour acheter "${item.name}".`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
@@ -1032,7 +1032,7 @@ function addToBoughtItems(item) {
     }
 
     // Afficher le nom de l'item et sa valeur actuelle
-    boughtItemElement.textContent = `${item.name} - Valeur actuelle: ${formatNumber(item.currentValue)} points`;
+    boughtItemElement.textContent = `${item.name} - Valeur actuelle: ${formatNumber(item.currentValue)} €`;
 
     // Créer un bouton "Vendre"
     const sellButton = document.createElement('button');
