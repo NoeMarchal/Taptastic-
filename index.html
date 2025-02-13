@@ -117,7 +117,73 @@
         <!-- Les objets achetés seront ajoutés ici dynamiquement -->
     </div>
 </div>
-
+<div class="pari-container">
+    <h1>Betclick</h1>
+    <p>Vous avez <span id="tickets">0</span> tickets.</p>
+    <div class="ticket-options">
+        <label for="ticketType">Choisissez un ticket :</label>
+        <select id="ticketType">
+            <option value="100">Ticket Basique (100€)</option>
+            <option value="1000">Ticket Intermédiaire (1K€)</option>
+            <option value="10000">Ticket Avancé (10K€)</option>
+            <option value="1000000">Ticket Expert (1M€)</option>
+            <option value="100000000">Ticket Premium (100M€)</option>
+        </select>
+        <label for="ticketQuantity">Quantité :</label>
+        <select id="ticketQuantity">
+            <option value="1">1</option>
+            <option value="10">10</option>
+            <option value="100">100</option>
+        </select>
+        <p>Coût total : <span id="coutTotal">0</span> €</p>
+        <button id="acheterTicket">Acheter des tickets</button>
+    </div>
+    <label for="mise">Choisissez votre mise :</label>
+    <select id="mise">
+        <!-- Montants de 5K à 100K (par pas de 5K) -->
+        <option value="5000">5K</option>
+        <option value="10000">10K</option>
+        <option value="15000">15K</option>
+        <option value="20000">20K</option>
+        <option value="25000">25K</option>
+        <option value="30000">30K</option>
+        <option value="35000">35K</option>
+        <option value="40000">40K</option>
+        <option value="45000">45K</option>
+        <option value="50000">50K</option>
+        <option value="55000">55K</option>
+        <option value="60000">60K</option>
+        <option value="65000">65K</option>
+        <option value="70000">70K</option>
+        <option value="75000">75K</option>
+        <option value="80000">80K</option>
+        <option value="85000">85K</option>
+        <option value="90000">90K</option>
+        <option value="95000">95K</option>
+        <option value="100000">100K</option>
+        <option value="200000">200K</option>
+        <option value="300000">300K</option>
+        <option value="400000">400K</option>
+        <option value="500000">500K</option>
+        <option value="600000">600K</option>
+        <option value="700000">700K</option>
+        <option value="800000">800K</option>
+        <option value="900000">900K</option>
+        <option value="1000000">1M</option>
+        <option value="5000000">5M</option>
+        <option value="10000000">10M</option>
+        <option value="50000000">50M</option>
+        <option value="100000000">100M</option>
+    </select>
+    <button id="parier" disabled>Parier</button>
+    <p id="resultat"></p>
+    <div id="animation"></div>
+    <!-- Historique des paris -->
+    <div id="historique">
+        <h2>Historique des Paris</h2>
+        <ul id="historique-list"></ul>
+    </div>
+</div>
 <footer>
     <div class="footer-content">
         <!-- Section Contact -->

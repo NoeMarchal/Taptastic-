@@ -229,6 +229,128 @@ summary {
     margin-top: -16%; /* Espacement ajusté */
     margin-left: 53%;
 }
+.pari-container {
+    width: 30%;
+    padding: 2%;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-top: 2%; /* Espacement ajusté */
+    margin-left: 15%;
+}
+
+.ticket-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ticket-options label {
+    font-weight: bold;
+}
+
+.ticket-options select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#acheterTicket {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#acheterTicket:hover {
+    background-color: #218838;
+}
+
+#mise {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+#parier {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#parier:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#resultat {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#animation {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    display: none;
+}
+
+#animation.gagne {
+    color: green;
+    animation: flash 0.5s ease-in-out;
+}
+
+#animation.perdu {
+    color: red;
+    animation: flash 0.5s ease-in-out;
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+#historique {
+    margin-top: 30px;
+    text-align: left;
+}
+
+#historique h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#historique-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#historique-list li {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+#historique-list li.gagne {
+    color: green;
+}
+
+#historique-list li.perdu {
+    color: red;
+}
 
 /* Styles des boutons */
 button, input, select, option {

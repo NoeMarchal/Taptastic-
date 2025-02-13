@@ -39,6 +39,10 @@ let gameStartTime = Date.now(); // Moment où le jeu commence
 let elapsedTime = 0; // Temps écoulé en secondes
 let gameTime = 0; // en secondes
 let boughtItems = [];
+let historique = [];
+let tickets = 0;
+
+
 
 
 // Mise à jour du temps de jeu chaque seconde
@@ -116,6 +120,14 @@ const items = [
     { name: "Anti Matiere", cost:  1000000000000 }
 ];
 
+// Propriétés des tickets (coût, multiplicateur)
+const ticketProperties = {
+    100: { multiplicateur: 0.1 }, // Ticket Basique
+    1000: { multiplicateur: 0.2 }, // Ticket Intermédiaire
+    10000: { multiplicateur: 0.5 }, // Ticket Avancé
+    1000000: { multiplicateur: 1.0 }, // Ticket Expert
+    100000000: { multiplicateur: 2.0 } // Ticket Premium
+};
 
 // Éléments du DOM
 const pointsDisplay = document.getElementById('points');
@@ -125,9 +137,18 @@ const upgrade2Button = document.getElementById('upgrade2');
 const autoclickerButton = document.getElementById('autoclicker-button');
 const autoclickerCountDisplay = document.getElementById('autoclicker-count');
 const trophyList = document.getElementById("trophy-list");
-// Éléments du DOM
 const itemsToBuyContainer = document.getElementById('items-to-buy');
 const itemsBoughtContainer = document.getElementById('items-bought');
+const ticketsElement = document.getElementById("tickets");
+const ticketTypeSelect = document.getElementById("ticketType");
+const ticketQuantitySelect = document.getElementById("ticketQuantity");
+const coutTotalElement = document.getElementById("coutTotal");
+const acheterTicketButton = document.getElementById("acheterTicket");
+const miseSelect = document.getElementById("mise");
+const parierButton = document.getElementById("parier");
+const resultatElement = document.getElementById("resultat");
+const animationElement = document.getElementById("animation");
+const historiqueList = document.getElementById("historique-list");
 
 // Charger la sauvegarde
 loadGame();
@@ -160,6 +181,8 @@ function saveGame() {
         NouvellecollectionAchete,
         DevellopementdanslemondeAchete,
         boughtItems,
+        historique,
+        tickets,
     
 
 
@@ -197,6 +220,8 @@ function loadGame() {
         gameStartTime = gameData.gameStartTime || Date.now(); // Charger l'heure de début du jeu
         elapsedTime = gameData.elapsedTime || 0; // Charger le temps écoulé
         boughtItems = gameData.boughtItems ||[];
+        historique = gameData.historique ||[];
+        tickets = gameData.tickets;
     }
 
 
@@ -219,6 +244,7 @@ function loadGame() {
 
 
     updateDisplay();
+    updateUI();
     updateTrophies();
     displayItems();
 }
@@ -272,6 +298,8 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
 
     updateTrophies();
     displayItems();
+    updateUI();
+    updateCoutTotal();
     saveGame(); // Sauvegarde après chaque mise à jour
 }
 
@@ -432,6 +460,7 @@ function loadSave(event) {
                 gameStartTime = gameData.gameStartTime || gameStartTime;
                 elapsedTime = gameData.elapsedTime || elapsedTime;
                 boughtItems = gameData.boughtItems || []; // Charger la liste des objets achetés
+                tickets = gameData.tickets || tickets;
 
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
@@ -462,6 +491,8 @@ function loadSave(event) {
                 // Met à jour l'affichage du jeu
                 updateDisplay();
                 updateTrophies();
+                updateUI();
+                updateCoutTotal();
                 displayItems(); // Réafficher les objets disponibles dans la boutique
 
                 Swal.fire("Succès", "Sauvegarde chargée avec succès !", "success");
@@ -776,6 +807,8 @@ function resetGame() {
     elapsedTime = 0; // Temps écoulé en secondes
     gameTime = 0; // en secondes
     boughtItems = [];
+    historique = [];
+    tickets = 0;
     
 
 
@@ -800,6 +833,7 @@ function resetGame() {
     saveGame();
     updateDisplay();
     displayItems();
+    updateUI();
 }
 
 function disableButton(buttonId) {
@@ -1128,6 +1162,135 @@ function sellItem(item) {
     displayItems();
     updateBoughtItemsDisplay();
 }
+
+// Fonction pour mettre à jour l'affichage des points et des tickets
+function updateUI() {
+    pointsDisplay.textContent = formatNumber(points);
+    ticketsElement.textContent = formatNumber(tickets);
+    parierButton.disabled = tickets === 0; // Active/désactive le bouton "Parier"
+}
+
+// Fonction pour mettre à jour l'affichage du coût total
+function updateCoutTotal() {
+    const coutParTicket = parseInt(ticketTypeSelect.value); // Coût du ticket sélectionné
+    const quantite = parseInt(ticketQuantitySelect.value); // Quantité de tickets
+    const coutTotal = coutParTicket * quantite; // Coût total
+    coutTotalElement.textContent = formatNumber(coutTotal); // Affiche le coût total formaté
+}
+
+// Fonction pour acheter des tickets
+function acheterTickets() {
+    const coutParTicket = parseInt(ticketTypeSelect.value); // Coût du ticket sélectionné
+    const quantite = parseInt(ticketQuantitySelect.value); // Quantité de tickets
+    const coutTotal = coutParTicket * quantite; // Coût total
+
+    if (points >= coutTotal) {
+        points -= coutTotal; // Dédruit les points
+        tickets += quantite; // Ajoute les tickets
+        totalPointsSpent +=coutTotal;
+        updateUI(); // Met à jour l'interface
+        resultatElement.textContent = `Vous avez acheté ${formatNumber(quantite)} ticket(s) pour ${formatNumber(coutTotal)} points.`;
+    } else {
+        resultatElement.textContent = `Vous n'avez pas assez de points pour acheter ${formatNumber(quantite)} ticket(s).`;
+    }
+}
+
+// Fonction pour gérer le pari
+function parier() {
+    // Récupère la mise sélectionnée
+    const mise = parseInt(miseSelect.value);
+
+    // Vérifie si la mise est valide
+    if (isNaN(mise) || mise <= 0) {
+        resultatElement.textContent = "Mise invalide. Veuillez choisir une mise valide.";
+        return;
+    }
+
+    // Utilise un ticket
+    tickets -= 1;
+
+    // Récupère les propriétés du ticket sélectionné
+    const coutParTicket = parseInt(ticketTypeSelect.value);
+    const { multiplicateur } = ticketProperties[coutParTicket];
+
+    // Génère un nombre aléatoire entre 0 et 100
+    const resultat = Math.floor(Math.random() * 101);
+
+    // Détermine si le joueur gagne ou perd
+    if (resultat <= 30) { // 40% de chance de gagner
+        const gain = coutParTicket + Math.round(mise * multiplicateur); // Gain = prix du ticket + (mise * multiplicateur)
+        points += gain;
+        totalPointsEarned +=gain;
+        resultatElement.textContent = `Vous avez gagné ! Vous gagnez ${formatNumber(gain)} points.`;
+        animationElement.textContent = "Gagné !";
+        animationElement.className = "gagne";
+        updateHistorique("gagne", gain); // Ajoute à l'historique
+    } else { // 60% de chance de perdre
+        const perte = coutParTicket + mise; // Perte = prix du ticket + mise
+        points -= perte;
+        resultatElement.textContent = `Vous avez perdu ! Vous perdez ${formatNumber(perte)} points.`;
+        animationElement.textContent = "Perdu !";
+        animationElement.className = "perdu";
+        updateHistorique("perdu", perte); // Ajoute à l'historique
+    }
+
+    // Affiche l'animation
+    animationElement.style.display = "block";
+
+    // Cache l'animation après 1 seconde
+    setTimeout(() => {
+        animationElement.style.display = "none";
+    }, 1000);
+
+    // Réinitialise la mise à la première option
+    miseSelect.selectedIndex = 0;
+
+    // Met à jour l'affichage des points et des tickets
+    updateUI();
+
+    // Vérifie si le joueur a encore des points
+    if (points <= 0) {
+        resultatElement.textContent += " Vous n'avez plus de points. Fin du jeu.";
+        parierButton.disabled = true;
+    }
+}
+// Fonction pour mettre à jour l'historique des paris
+function updateHistorique(resultat, valeur) {
+    // Ajoute le résultat à l'historique
+    historique.push({ resultat, valeur });
+
+    // Garde uniquement les deux derniers résultats
+    if (historique.length > 2) {
+        historique.shift(); // Supprime le plus ancien résultat
+    }
+
+    // Vide la liste actuelle
+    historiqueList.innerHTML = "";
+
+    // Affiche les résultats dans l'historique
+    historique.forEach((res) => {
+        const li = document.createElement("li");
+        li.textContent = res.resultat === "gagne" 
+            ? `Gagné : +${formatNumber(res.valeur)} points` 
+            : `Perdu : -${formatNumber(res.valeur)} points`;
+        li.classList.add(res.resultat); // Ajoute une classe pour la couleur
+        historiqueList.appendChild(li);
+    });
+}
+
+// Ajoute des écouteurs d'événements pour mettre à jour le coût total
+ticketTypeSelect.addEventListener("change", updateCoutTotal);
+ticketQuantitySelect.addEventListener("change", updateCoutTotal);
+
+// Ajoute un écouteur d'événement au bouton "Acheter des tickets"
+acheterTicketButton.addEventListener("click", acheterTickets);
+
+// Ajoute un écouteur d'événement au bouton "Parier"
+parierButton.addEventListener("click", parier);
+
+// Initialise l'affichage des points, des tickets et du coût total
+updateUI();
+updateCoutTotal();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
