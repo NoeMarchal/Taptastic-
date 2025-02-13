@@ -105,10 +105,14 @@ const trophies = [
 
 // Liste des objets disponibles à l'achat
 const items = [
-    { name: "Épée", cost: 50 },
-    { name: "Bouclier", cost: 30 },
-    { name: "Potion", cost: 10 },
-    { name: "Arc", cost: 40 }
+    { name: "Karaba", cost: 100 },
+    { name: "UN bon BK", cost: 1000 },
+    { name: "Miltipla", cost: 132000 },
+    { name: "Paye ta race", cost: 300000 },
+    { name: "Give me money", cost: 1000000 },
+    { name: "Maison", cost: 300000000 },
+    { name: "Une Audi", cost: 1000000000 },
+    { name: "TP de Tondeurrrrrr", cost: 40000000000 }
 ];
 
 
@@ -875,19 +879,22 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
 
 function displayItems() {
     itemsToBuyContainer.innerHTML = ''; // Vider le conteneur
+
     items.forEach(item => {
         // Vérifier si l'objet a déjà été acheté
         if (boughtItems.includes(item.name)) {
             return; // Ne pas afficher l'objet s'il a déjà été acheté
         }
 
-        const itemElement = document.createElement('div');
-        itemElement.className = 'item';
-        itemElement.textContent = `${item.name} - ${formatNumber(item.cost)} points`;
-        itemElement.addEventListener('click', () => buyItem(item));
-        itemsToBuyContainer.appendChild(itemElement);
+        // Créer un bouton pour chaque objet
+        const itemButton = document.createElement('button');
+        itemButton.className = 'item-button';
+        itemButton.textContent = `${item.name} - ${formatNumber(item.cost)} points`;
+        itemButton.addEventListener('click', () => buyItem(item)); // Ajouter l'événement click
+        itemsToBuyContainer.appendChild(itemButton); // Ajouter le bouton au conteneur
     });
 }
+
 function buyItem(item) {
     if (boughtItems.includes(item.name)) {
         alert("Vous avez déjà acheté cet objet !");
@@ -895,7 +902,7 @@ function buyItem(item) {
     }
 
     if (points >= item.cost) {
-        points -= item.cost; // Retirer les points*
+        points -= item.cost; // Retirer les points
         totalPointsSpent += item.cost;
         boughtItems.push(item.name); // Ajouter l'objet à la liste des objets achetés
         addToBoughtItems(item); // Ajouter l'objet à l'inventaire
@@ -905,6 +912,7 @@ function buyItem(item) {
         alert("Points insuffisants !");
     }
 }
+
 function addToBoughtItems(item) {
     const boughtItemElement = document.createElement('div');
     boughtItemElement.className = 'item bought';
@@ -912,16 +920,14 @@ function addToBoughtItems(item) {
     itemsBoughtContainer.appendChild(boughtItemElement);
 }
 
-
-    // Réafficher les objets achetés dans l'inventaire
-    itemsBoughtContainer.innerHTML = ''; // Vider l'inventaire avant de réafficher
-    boughtItems.forEach(itemName => {
-        const item = items.find(i => i.name === itemName); // Trouver l'objet dans la liste des items
-        if (item) {
-            addToBoughtItems(item); // Réafficher l'objet dans l'inventaire
-        }
-    });
-
+// Réafficher les objets achetés dans l'inventaire
+itemsBoughtContainer.innerHTML = ''; // Vider l'inventaire avant de réafficher
+boughtItems.forEach(itemName => {
+    const item = items.find(i => i.name === itemName); // Trouver l'objet dans la liste des items
+    if (item) {
+        addToBoughtItems(item); // Réafficher l'objet dans l'inventaire
+    }
+});
 
 // Initialisation
 displayItems();
