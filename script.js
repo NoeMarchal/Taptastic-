@@ -305,25 +305,31 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
 
 
 function formatNumber(number) {
+    // Vérifie que la valeur est un nombre
+    if (typeof number !== 'number' || isNaN(number)) {
+        return '0'; // Retourne '0' si la valeur n'est pas un nombre
+    }
 
     // Si le nombre est supérieur ou égal à 1 Billion
     if (number >= 1000000000000) {
-    return (number / 1000000000000).toFixed(1).replace(/\.0$/, '') + 'Blns';
+        return (number / 1000000000000).toFixed(1).replace(/\.0$/, '') + 'Blns';
     }
 
-    // Si le nombre est supérieur ou égal à 1 milliards 
+    // Si le nombre est supérieur ou égal à 1 milliard
     if (number >= 1000000000) {
-    return (number / 1000000000).toFixed(1).replace(/\.0$/, '') + 'Mds';
+        return (number / 1000000000).toFixed(1).replace(/\.0$/, '') + 'Mds';
     }
 
-    // Si le nombre est supérieur ou égal à 1 million  
-    else if (number >= 1000000) {
+    // Si le nombre est supérieur ou égal à 1 million
+    if (number >= 1000000) {
         return (number / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
     }
+
     // Si le nombre est supérieur ou égal à 1 000
-    else if (number >= 1000) {
+    if (number >= 1000) {
         return (number / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
     }
+
     // Sinon, juste ajouter les séparateurs de milliers
     return number.toLocaleString();
 }
@@ -1294,3 +1300,132 @@ updateCoutTotal();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
+(function() {
+    let clickTimes = [];
+    let autoClickDetected = false;
+    let isConsoleOpen = false;
+
+    function detectAutoClick() {
+        const now = performance.now();
+        clickTimes.push(now);
+
+        if (clickTimes.length > 10) {
+            clickTimes.shift();
+        }
+
+        if (clickTimes.length >= 5) { 
+            let intervalSum = 0;
+            for (let i = 1; i < clickTimes.length; i++) {
+                intervalSum += (clickTimes[i] - clickTimes[i - 1]);
+            }
+
+            const avgInterval = intervalSum / (clickTimes.length - 1);
+
+            if (avgInterval < 100 && !autoClickDetected) {
+                autoClickDetected = true;
+                bloquerJeu("Auto-click détecté !", "Vous utilisez un auto-clicker. Ceci est interdit.");
+            }
+        }
+    }
+
+    function detectConsole() {
+        console.log('%c ', new Image());
+        console.clear();
+
+        setTimeout(() => {
+            if (window.outerHeight - window.innerHeight > 100 || window.outerWidth - window.innerWidth > 100) {
+                isConsoleOpen = true;
+                bloquerJeu("Triche détectée !", "La console est ouverte. Fermez-la immédiatement.");
+            }
+        }, 100);
+    }
+
+    function detectDebugger() {
+        setInterval(() => {
+            const start = performance.now();
+            debugger;
+            const duration = performance.now() - start;
+
+            if (duration > 100) {
+                bloquerJeu( "Oups !", "Une action interdite a été détectée.");
+            }
+        }, 1000);
+    }
+
+    function bloquerJeu(titre, message) {
+        document.body.innerHTML = "";
+        Swal.fire({
+            title: titre,
+            text: message,
+            icon: 'error',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false, 
+            allowEscapeKey: false, 
+            allowEnterKey: false,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        }).then(() => location.reload());
+    }
+
+    document.addEventListener("click", detectAutoClick);
+    document.addEventListener("touchstart", detectAutoClick);
+
+    setInterval(detectConsole, 1000);
+    detectDebugger();
+
+    document.addEventListener("keydown", function(event) {
+        if (["F12", "U"].includes(event.key) || (event.ctrlKey && event.shiftKey && ["I", "J", "C"].includes(event.key)) || (event.metaKey && event.altKey && event.key === "I")) {
+            event.preventDefault();
+            console.clear();
+            bloquerJeu("Triche détectée !", "Raccourci interdit.");
+        }
+    });
+
+    document.addEventListener("contextmenu", event => event.preventDefault());
+})();
+
+// Utilisation d'un outil externe pour modifier le jeu //
+
+setInterval(() => {
+    if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+        bloquerJeu("Environnement suspect détecté !", "Veuillez jouer normalement.");
+    }
+}, 1000);
+
+// Ralentissement de la vitesse d'exécution du jeu //
+
+setInterval(() => {
+    const start = performance.now();
+    for (let i = 0; i < 1000000; i++) {} 
+    const duration = performance.now() - start;
+    
+    if (duration > 500) { 
+        bloquerJeu("Interférence détectée !", "Veuillez jouer normalement.");
+    }
+}, 2000);
+
+// Utilisation script auto-click //
+
+let lastKeyPress = Date.now();
+
+document.addEventListener("keydown", (event) => {
+    let now = Date.now();
+    if (now - lastKeyPress < 50) {
+        bloquerJeu("Appuis trop rapides détectés !", "Veuillez jouer normalement.");
+    }
+    lastKeyPress = now;
+});
+
+// Désactivation mode développeur sur Chrome/Firefox //
+
+setInterval(() => {
+    let before = new Date().getTime();
+    debugger; // Pause forcée si les outils développeurs sont ouverts
+    let after = new Date().getTime();
+    
+    if (after - before > 100) { // Si un décalage est détecté, ça veut dire que le mode dev est activé
+        bloquerJeu("Mode développeur détecté !", "Veuillez désactiver vos outils.");
+    }
+}, 3000);
