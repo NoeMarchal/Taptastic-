@@ -1,6 +1,6 @@
-const maxUpgrade1Level = 500;    // niveau max pour l'amélioration 1²
-const maxUpgrade2Level = 500;   // Niveau max pour l'amélioration 2
-const maxAutoclickers = 500;   // Nombre max d'autoclickers
+const maxUpgrade1Level = 300;    // niveau max pour l'amélioration 1²
+const maxUpgrade2Level = 300;   // Niveau max pour l'amélioration 2
+const maxAutoclickers = 300;   // Nombre max d'autoclickers
 const supermarcheCost = 2200000; // Coût du supermarché
 const marchandisesCost = 3500000; // Coût des marchandises
 const superviseurCost = 4000000; // Coût du superviseur
@@ -76,19 +76,6 @@ const trophies = [
     { name: "Amélioration 1 au niveau 300", condition: "upgrade1Level >= 300" },
     { name: "Amélioration 2 au niveau 300", condition: "upgrade2Level >= 300" },
     { name: "Autoclicker au niveau 300", condition: "autoclickers >= 300" },
-    { name: "Amélioration 1 au niveau 350", condition: "upgrade1Level >= 350" },
-    { name: "Amélioration 2 au niveau 350", condition: "upgrade2Level >= 350" },
-    { name: "Autoclicker au niveau 350", condition: "autoclickers >= 350" },
-    { name: "Amélioration 1 au niveau 400", condition: "upgrade1Level >= 400" },
-    { name: "Amélioration 2 au niveau 400", condition: "upgrade2Level >= 400" },
-    { name: "Autoclicker au niveau 400", condition: "autoclickers >= 400" },
-    { name: "Amélioration 1 au niveau 450", condition: "upgrade1Level >= 450" },
-    { name: "Amélioration 2 au niveau 450", condition: "upgrade2Level >= 450" },
-    { name: "Autoclicker au niveau 450", condition: "autoclickers >= 450" },
-    { name: "Amélioration 1 au niveau 500", condition: "upgrade1Level >= 500" },
-    { name: "Amélioration 2 au niveau 500", condition: "upgrade2Level >= 500" },
-    { name: "Autoclicker au niveau 500", condition: "autoclickers >= 500" },
-    { name: "1 000 €", condition: "points >= 1000" }, // Nouveau trophée
     { name: "5 000 €", condition: "points >= 5000" }, // Nouveau trophée
     { name: "10 000 €", condition: "points >= 10000" }, // Nouveau trophée
     { name: "50 000 €", condition: "points >= 50000" }, // Nouveau trophée
@@ -1223,7 +1210,7 @@ function parier() {
     const resultat = Math.floor(Math.random() * 101);
 
     // Détermine si le joueur gagne ou perd
-    if (resultat <= 30) { // 40% de chance de gagner
+    if (resultat <= 20) { // 40% de chance de gagner
         const gain = coutParTicket + Math.round(mise * multiplicateur); // Gain = prix du ticket + (mise * multiplicateur)
         points += gain;
         totalPointsEarned +=gain;
