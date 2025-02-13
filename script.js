@@ -1,14 +1,14 @@
 const maxUpgrade1Level = 500;    // niveau max pour l'amélioration 1²
 const maxUpgrade2Level = 500;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 500;   // Nombre max d'autoclickers
-const supermarcheCost = 1200000; // Coût du supermarché
-const marchandisesCost = 1500000; // Coût des marchandises
-const superviseurCost = 2000000; // Coût du superviseur
-const agrandissementCost = 3000000; // Coût de l'agrandissement
-const MagasinCost = 100000000; // Coût du supermarché
-const MarchandisesdeluxeCost = 150000000; // Coût des marchandises
-const NouvellecollectionCost = 200000000; // Coût du superviseur
-const DevellopementdanslemondeCost = 300000000; // Coût de l'agrandissement
+const supermarcheCost = 2200000; // Coût du supermarché
+const marchandisesCost = 3500000; // Coût des marchandises
+const superviseurCost = 4000000; // Coût du superviseur
+const agrandissementCost = 6000000; // Coût de l'agrandissement
+const MagasinCost = 200000000; // Coût du supermarché
+const MarchandisesdeluxeCost = 250000000; // Coût des marchandises
+const NouvellecollectionCost = 300000000; // Coût du superviseur
+const DevellopementdanslemondeCost = 500000000; // Coût de l'agrandissement
 
 
 // Variables du jeu
@@ -112,7 +112,8 @@ const items = [
     { name: "Give me money", cost: 1000000 },
     { name: "Maison", cost: 300000000 },
     { name: "Une Audi", cost: 1000000000 },
-    { name: "TP de Tondeurrrrrr", cost: 40000000000 }
+    { name: "TP de Tondeurrrrrr", cost: 40000000000 },
+    { name: "Anti Matiere", cost:  1000000000000 }
 ];
 
 
@@ -270,6 +271,11 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
 
 
 function formatNumber(number) {
+
+    // Si le nombre est supérieur ou égal à 1 Billion
+    if (number >= 1000000000000) {
+    return (number / 1000000000000).toFixed(1).replace(/\.0$/, '') + 'Blns';
+    }
 
     // Si le nombre est supérieur ou égal à 1 milliards 
     if (number >= 1000000000) {
@@ -935,8 +941,8 @@ document.getElementById('boutonNouvellecollection').addEventListener('click', fu
     if (!NouvellecollectionAchete && points >= NouvellecollectionCost) {
         points -= NouvellecollectionCost; // Dépense les points
         totalPointsSpent += NouvellecollectionCost;
-        autoclickerPower += 100000; // Augmente les points par seconde de 1000
-        pointsPerClick +=100000;
+        autoclickerPower += 80000; // Augmente les points par seconde de 1000
+        pointsPerClick +=80000;
         NouvellecollectionAchete = true;
         disableButton('boutonNouvellecollection');
         updateDisplay();
@@ -957,8 +963,8 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
     if (!DevellopementdanslemondeAchete && points >= DevellopementdanslemondeCost) {
         points -= DevellopementdanslemondeCost; // Dépense les points
         totalPointsSpent += DevellopementdanslemondeCost;
-        autoclickerPower += 200000; // Augmente les points par seconde de 2000
-        pointsPerClick +=200000;
+        autoclickerPower += 100000; // Augmente les points par seconde de 2000
+        pointsPerClick +=100000;
         DevellopementdanslemondeAchete = true;
         disableButton('boutonDevellopementdanslemonde');
         updateDisplay();
