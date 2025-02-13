@@ -1,4 +1,4 @@
-const maxUpgrade1Level = 200;    // niveau max pour l'amélioration 1²
+const maxUpgrade1Level = 500;    // niveau max pour l'amélioration 1²
 const maxUpgrade2Level = 200;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 200;   // Nombre max d'autoclickers
 const supermarcheCost = 1000000; // Coût du supermarché
@@ -9,6 +9,7 @@ const MagasinCost = 100000000; // Coût du supermarché
 const MarchandisesdeluxeCost = 150000000; // Coût des marchandises
 const NouvellecollectionCost = 200000000; // Coût du superviseur
 const DevellopementdanslemondeCost = 300000000; // Coût de l'agrandissement
+
 
 // Variables du jeu
 let points = 0;
@@ -37,6 +38,8 @@ let totalPointsSpent = 0;
 let gameStartTime = Date.now(); // Moment où le jeu commence
 let elapsedTime = 0; // Temps écoulé en secondes
 let gameTime = 0; // en secondes
+let boughtItems = [];
+
 
 // Mise à jour du temps de jeu chaque seconde
 setInterval(() => {
@@ -63,6 +66,24 @@ const trophies = [
     { name: "Amélioration 1 au niveau 200", condition: "upgrade1Level >= 200" },
     { name: "Amélioration 2 au niveau 200", condition: "upgrade2Level >= 200" },
     { name: "Autoclicker au niveau 200", condition: "autoclickers >= 200" },
+    { name: "Amélioration 1 au niveau 250", condition: "upgrade1Level >= 250" },
+    { name: "Amélioration 2 au niveau 250", condition: "upgrade2Level >= 250" },
+    { name: "Autoclicker au niveau 250", condition: "autoclickers >= 250" },
+    { name: "Amélioration 1 au niveau 300", condition: "upgrade1Level >= 300" },
+    { name: "Amélioration 2 au niveau 300", condition: "upgrade2Level >= 300" },
+    { name: "Autoclicker au niveau 300", condition: "autoclickers >= 300" },
+    { name: "Amélioration 1 au niveau 350", condition: "upgrade1Level >= 350" },
+    { name: "Amélioration 2 au niveau 350", condition: "upgrade2Level >= 350" },
+    { name: "Autoclicker au niveau 350", condition: "autoclickers >= 350" },
+    { name: "Amélioration 1 au niveau 400", condition: "upgrade1Level >= 400" },
+    { name: "Amélioration 2 au niveau 400", condition: "upgrade2Level >= 400" },
+    { name: "Autoclicker au niveau 400", condition: "autoclickers >= 400" },
+    { name: "Amélioration 1 au niveau 450", condition: "upgrade1Level >= 450" },
+    { name: "Amélioration 2 au niveau 450", condition: "upgrade2Level >= 450" },
+    { name: "Autoclicker au niveau 450", condition: "autoclickers >= 450" },
+    { name: "Amélioration 1 au niveau 500", condition: "upgrade1Level >= 500" },
+    { name: "Amélioration 2 au niveau 500", condition: "upgrade2Level >= 500" },
+    { name: "Autoclicker au niveau 500", condition: "autoclickers >= 500" },
     { name: "1 000 Points", condition: "points >= 1000" }, // Nouveau trophée
     { name: "5 000 Points", condition: "points >= 5000" }, // Nouveau trophée
     { name: "10 000 Points", condition: "points >= 10000" }, // Nouveau trophée
@@ -82,6 +103,13 @@ const trophies = [
     { name: "Dévellopement dans le monde Acheté", condition: "DevellopementdanslemondeAchete === true" },
 ];
 
+// Liste des objets disponibles à l'achat
+const items = [
+    { name: "Épée", cost: 50 },
+    { name: "Bouclier", cost: 30 },
+    { name: "Potion", cost: 10 },
+    { name: "Arc", cost: 40 }
+];
 
 
 // Éléments du DOM
@@ -92,6 +120,9 @@ const upgrade2Button = document.getElementById('upgrade2');
 const autoclickerButton = document.getElementById('autoclicker-button');
 const autoclickerCountDisplay = document.getElementById('autoclicker-count');
 const trophyList = document.getElementById("trophy-list");
+// Éléments du DOM
+const itemsToBuyContainer = document.getElementById('items-to-buy');
+const itemsBoughtContainer = document.getElementById('items-bought');
 
 // Charger la sauvegarde
 loadGame();
@@ -123,6 +154,7 @@ function saveGame() {
         MarchandisesdeluxeAchete,
         NouvellecollectionAchete,
         DevellopementdanslemondeAchete,
+        boughtItems,
     
 
 
@@ -159,6 +191,7 @@ function loadGame() {
         totalPointsSpent = gameData.totalPointsSpent || 0;
         gameStartTime = gameData.gameStartTime || Date.now(); // Charger l'heure de début du jeu
         elapsedTime = gameData.elapsedTime || 0; // Charger le temps écoulé
+        boughtItems = gameData.boughtItems ||[];
     }
 
 
@@ -179,8 +212,10 @@ function loadGame() {
     if (NouvellecollectionAchete) disableButton('boutonNouvellecollection');
     if (DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
 
+
     updateDisplay();
     updateTrophies();
+    displayItems();
 }
 
 // Mettre à jour l'affichage
@@ -225,6 +260,7 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
 
 
     updateTrophies();
+    displayItems();
     saveGame(); // Sauvegarde après chaque mise à jour
 }
 
@@ -354,7 +390,6 @@ function exportSave() {
     a.click();
     document.body.removeChild(a);
 }
-// Fonction pour charger la sauvegarde depuis un fichier
 function loadSave(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -391,12 +426,13 @@ function loadSave(event) {
                 totalPointsSpent = gameData.totalPointsSpent || totalPointsSpent;
                 gameStartTime = gameData.gameStartTime || gameStartTime;
                 elapsedTime = gameData.elapsedTime || elapsedTime;
-                
+                boughtItems = gameData.boughtItems || []; // Charger la liste des objets achetés
+
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
                     document.getElementById("avatar").src = gameData.avatarSrc;
                 }
-                
+
                 // Désactivation des boutons si nécessaire
                 if (gameData.supermarcheAchete) disableButton('boutonSupermarche');
                 if (gameData.marchandisesAchete) disableButton('boutonMarchandises');
@@ -407,9 +443,21 @@ function loadSave(event) {
                 if (gameData.NouvellecollectionAchete) disableButton('boutonNouvellecollection');
                 if (gameData.DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
 
+                // Vider l'inventaire des objets achetés
+                itemsBoughtContainer.innerHTML = '';
+
+                // Réafficher les objets achetés dans l'inventaire
+                boughtItems.forEach(itemName => {
+                    const item = items.find(i => i.name === itemName); // Trouver l'objet dans la liste des items
+                    if (item) {
+                        addToBoughtItems(item); // Réafficher l'objet dans l'inventaire
+                    }
+                });
+
                 // Met à jour l'affichage du jeu
                 updateDisplay();
                 updateTrophies();
+                displayItems(); // Réafficher les objets disponibles dans la boutique
 
                 Swal.fire("Succès", "Sauvegarde chargée avec succès !", "success");
             } else {
@@ -448,6 +496,7 @@ newClickButton.addEventListener('click', () => {
 
     // Mise à jour de l'affichage et des trophées
     updateDisplay();
+    displayItems();
     updateTrophies(); // Vérifie si un trophée doit être débloqué
 });
 
@@ -474,6 +523,7 @@ upgrade1Button.addEventListener('click', () => {
         upgrade1Cost = Math.floor(upgrade1Cost + 500);
         upgrade1Level++;
         updateDisplay();
+        displayItems();
         updateTrophies();
     }
 });
@@ -508,6 +558,7 @@ upgrade2Button.addEventListener('click', () => {
         upgrade2Level++;
         updateDisplay();
         updateTrophies();
+        displayItems();
     }
 });
 
@@ -567,6 +618,7 @@ autoclickerButton.addEventListener('click', () => {
         autoclickers++;
         autoclickerCost = Math.floor(autoclickerCost + 10000);
         updateDisplay();
+        displayItems();
         updateTrophies();
     }
 });
@@ -668,6 +720,7 @@ function resetGame() {
     gameStartTime = Date.now(); // Moment où le jeu commence
     elapsedTime = 0; // Temps écoulé en secondes
     gameTime = 0; // en secondes
+    boughtItems = [];
     
 
 
@@ -685,9 +738,13 @@ function resetGame() {
     // Supprimer l'avatar sauvegardé
     localStorage.removeItem("selectedAvatar");
 
+     // Vider l'inventaire des objets achetés
+     itemsBoughtContainer.innerHTML = '';
+
     // Sauvegarder et mettre à jour l'affichage
     saveGame();
     updateDisplay();
+    displayItems();
 }
 
 function disableButton(buttonId) {
@@ -814,6 +871,60 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
     }
 });
 
+
+
+function displayItems() {
+    itemsToBuyContainer.innerHTML = ''; // Vider le conteneur
+    items.forEach(item => {
+        // Vérifier si l'objet a déjà été acheté
+        if (boughtItems.includes(item.name)) {
+            return; // Ne pas afficher l'objet s'il a déjà été acheté
+        }
+
+        const itemElement = document.createElement('div');
+        itemElement.className = 'item';
+        itemElement.textContent = `${item.name} - ${formatNumber(item.cost)} points`;
+        itemElement.addEventListener('click', () => buyItem(item));
+        itemsToBuyContainer.appendChild(itemElement);
+    });
+}
+function buyItem(item) {
+    if (boughtItems.includes(item.name)) {
+        alert("Vous avez déjà acheté cet objet !");
+        return; // Arrêter la fonction si l'objet a déjà été acheté
+    }
+
+    if (points >= item.cost) {
+        points -= item.cost; // Retirer les points*
+        totalPointsSpent += item.cost;
+        boughtItems.push(item.name); // Ajouter l'objet à la liste des objets achetés
+        addToBoughtItems(item); // Ajouter l'objet à l'inventaire
+        saveGame(); // Sauvegarder le jeu
+        displayItems(); // Mettre à jour l'affichage des objets disponibles
+    } else {
+        alert("Points insuffisants !");
+    }
+}
+function addToBoughtItems(item) {
+    const boughtItemElement = document.createElement('div');
+    boughtItemElement.className = 'item bought';
+    boughtItemElement.textContent = item.name;
+    itemsBoughtContainer.appendChild(boughtItemElement);
+}
+
+
+    // Réafficher les objets achetés dans l'inventaire
+    itemsBoughtContainer.innerHTML = ''; // Vider l'inventaire avant de réafficher
+    boughtItems.forEach(itemName => {
+        const item = items.find(i => i.name === itemName); // Trouver l'objet dans la liste des items
+        if (item) {
+            addToBoughtItems(item); // Réafficher l'objet dans l'inventaire
+        }
+    });
+
+
+// Initialisation
+displayItems();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
 (function() {

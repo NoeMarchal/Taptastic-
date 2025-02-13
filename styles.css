@@ -228,7 +228,26 @@ summary {
     margin-top: -16%; /* Espacement ajusté */
     margin-left: 53%;
 }
-
+.shop-container {
+    width: 30%;
+    padding: 2%;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-top: 1%; /* Espacement ajusté */
+    margin-left: 53%;
+}
+.inventory-container {
+    width: 30%;
+    padding: 2%;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-top: -9%; /* Espacement ajusté */
+    margin-left: 18%;
+}
 footer {
     background-color: #333;
     color: #fff;
@@ -322,4 +341,8 @@ footer a:hover {
 
 * {
     box-sizing: border-box;
+}
+.item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
