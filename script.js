@@ -1118,7 +1118,7 @@ function sellItem(item) {
 
             const avgInterval = intervalSum / (clickTimes.length - 1);
 
-            if (avgInterval < 50 && !autoClickDetected) {
+            if (avgInterval < 100 && !autoClickDetected) {
                 autoClickDetected = true;
                 bloquerJeu("Auto-click détecté !", "Vous utilisez un auto-clicker. Ceci est interdit.");
             }
