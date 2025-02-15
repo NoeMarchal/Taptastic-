@@ -1374,7 +1374,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const pariContainer = document.querySelector('.pari-container'); // Conteneur des paris
     const resetButton = document.getElementById('reset-game');
 
-    const supermarcheContainercost = 1000001; // Coût pour débloquer le supermarché
+    const supermarcheContainercost = 1100000; // Coût pour débloquer le supermarché
     const magasinContainercost = 100000000; // Coût pour débloquer le magasin de luxe (100M points)
     const shopAndInventoryCost = 600000; // Coût pour débloquer les deux conteneurs (shop et inventory)
     const pariContainerCost = 400000; // Coût pour débloquer le conteneur des paris
