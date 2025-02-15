@@ -1285,6 +1285,107 @@ parierButton.addEventListener("click", parier);
 updateUI();
 updateCoutTotal();
 
+function buyContainersupermarché(container) {
+    const Supermarchécost = 11 ; // Coût du conteneur
+    if (points >= Supermarchécost) {
+        points -= Supermarchécost;
+        totalPointsSpent += Supermarchécost;
+        container.classList.remove('locked');
+        container.style.cursor = 'pointer';
+        container.onclick = null; // Désactive l'événement onclick après l'achat
+        Swal.fire({
+            icon: 'success', // Icône de succès
+            title: 'Félicitations !', // Titre de l'alerte
+            text: 'Vous avez acheté le supermarché avec succès.', // Message de félicitations
+            confirmButtonText: 'OK', // Texte du bouton
+            confirmButtonColor: '#4CAF50', // Couleur du bouton (vert)
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(Supermarchécost - points)} € pour acheter le supermarché .`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
+}
+function buyContainermagasins(container) {
+    const magasinsCost = 100000000 ; // Coût du conteneur
+    if (points >= magasinsCost) {
+        points -= magasinsCost;
+        totalPointsSpent += magasinsCost;
+        container.classList.remove('locked');
+        container.style.cursor = 'pointer';
+        container.onclick = null; // Désactive l'événement onclick après l'achat
+        Swal.fire({
+            icon: 'success', // Icône de succès
+            title: 'Félicitations !', // Titre de l'alerte
+            text: 'Vous avez acheté le magasin de luxe avec succès.', // Message de félicitations
+            confirmButtonText: 'OK', // Texte du bouton
+            confirmButtonColor: '#4CAF50', // Couleur du bouton (vert)
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(magasinsCost - points)} € pour acheter le magasin de luxe .`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
+}
+function buyContainershop(container) {
+    const shopCost = 800000000 ; // Coût du conteneur
+    if (points >= shopCost) {
+        points -= shopCost;
+        totalPointsSpent += shopCost;
+        container.classList.remove('locked');
+        container.style.cursor = 'pointer';
+        container.onclick = null; // Désactive l'événement onclick après l'achat
+        Swal.fire({
+            icon: 'success', // Icône de succès
+            title: 'Félicitations !', // Titre de l'alerte
+            text: 'Vous avez débloqués le shop.', // Message de félicitations
+            confirmButtonText: 'OK', // Texte du bouton
+            confirmButtonColor: '#4CAF50', // Couleur du bouton (vert)
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(shopCost - points)} € pour acheter le shop .`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
+}
+function buyContainerpari(container) {
+    const paricost = 250000 ; // Coût du conteneur
+    if (points >= paricost) {
+        points -= paricost;
+        totalPointsSpent += paricost;
+        container.classList.remove('locked');
+        container.style.cursor = 'pointer';
+        container.onclick = null; // Désactive l'événement onclick après l'achat
+        Swal.fire({
+            icon: 'success', // Icône de succès
+            title: 'Félicitations !', // Titre de l'alerte
+            text: 'Vous avez débloqués les paris.', // Message de félicitations
+            confirmButtonText: 'OK', // Texte du bouton
+            confirmButtonColor: '#4CAF50', // Couleur du bouton (vert)
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Argents insuffisants',
+            text: `Il vous manque ${formatNumber(paricost - points)} € pour le centre des paris.`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4CAF50',
+        });
+    }
+}
+
 const music = document.getElementById("background-music");
 const musicButton = document.getElementById("music-button");
 
