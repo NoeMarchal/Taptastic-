@@ -583,25 +583,40 @@ footer a:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
     margin-left: 18%;
-    margin-top: -35%;
-    cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
+    margin-top: -34%;
+    cursor: pointer; /* Curseur pour indiquer que c'est cliquable */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .entreprise-supermarché.locked {
-    background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
-    cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
-    opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
+    background-color: #a8a8a8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: not-allowed; /* Curseur "non autorisé" quand c'est verrouillé */
+    opacity: 0.7;
 }
 
 .entreprise-supermarché.locked::after {
-    content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
+    content: "🔒 Verrouillé (Cliquez pour acheter)"; /* Indication pour l'utilisateur */
     display: block;
     margin-top: 10px;
     font-size: 14px;
     color: #555;
 }
+
+.entreprise-supermarché.unlocked {
+    background-color: #cfc9c9;
+    cursor: pointer; /* Curseur normal quand c'est débloqué */
+    opacity: 1;
+}
+
+.entreprise-supermarché.unlocked::after {
+    content: "✅ Débloqué"; /* Indication que c'est débloqué */
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+}
+
 .entreprise-magasins {
     width:  30%;
     padding: 20px;

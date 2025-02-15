@@ -11,6 +11,7 @@ const NouvellecollectionCost = 300000000; // Coût du superviseur
 const DevellopementdanslemondeCost = 500000000; // Coût de l'agrandissement
 
 
+
 // Variables du jeu
 let points = 0;
 let pointsPerClick = 1;
@@ -41,6 +42,7 @@ let gameTime = 0; // en secondes
 let boughtItems = [];
 let historique = [];
 let tickets = 0;
+
 
 
 
@@ -421,13 +423,13 @@ function loadSave(event) {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
         try {
             const gameData = JSON.parse(e.target.result);
 
             // Vérification de la structure des données avant de les appliquer
             if (gameData) {
-                // Assurez-vous que toutes les variables sont bien mises à jour
+                // Charger les variables de base
                 points = gameData.points || points;
                 pointsPerClick = gameData.pointsPerClick || pointsPerClick;
                 upgrade1Cost = gameData.upgrade1Cost || upgrade1Cost;
@@ -439,6 +441,15 @@ function loadSave(event) {
                 unlockedTrophies = gameData.unlockedTrophies || unlockedTrophies;
                 playerName = gameData.playerName || playerName;
                 avatarSrc = gameData.avatarSrc || avatarSrc;
+                totalClicks = gameData.totalClicks || totalClicks;
+                totalPointsEarned = gameData.totalPointsEarned || totalPointsEarned;
+                totalPointsSpent = gameData.totalPointsSpent || totalPointsSpent;
+                gameStartTime = gameData.gameStartTime || gameStartTime;
+                elapsedTime = gameData.elapsedTime || elapsedTime;
+                boughtItems = gameData.boughtItems || [];
+                tickets = gameData.tickets || tickets;
+
+                // Charger les états d'achat des entreprises
                 supermarcheAchete = gameData.supermarcheAchete || supermarcheAchete;
                 marchandisesAchete = gameData.marchandisesAchete || marchandisesAchete;
                 superviseurAchete = gameData.superviseurAchete || superviseurAchete;
@@ -447,13 +458,6 @@ function loadSave(event) {
                 MarchandisesdeluxeAchete = gameData.MarchandisesdeluxeAchete || MarchandisesdeluxeAchete;
                 NouvellecollectionAchete = gameData.NouvellecollectionAchete || NouvellecollectionAchete;
                 DevellopementdanslemondeAchete = gameData.DevellopementdanslemondeAchete || DevellopementdanslemondeAchete;
-                totalClicks = gameData.totalClicks || totalClicks;
-                totalPointsEarned = gameData.totalPointsEarned || totalPointsEarned;
-                totalPointsSpent = gameData.totalPointsSpent || totalPointsSpent;
-                gameStartTime = gameData.gameStartTime || gameStartTime;
-                elapsedTime = gameData.elapsedTime || elapsedTime;
-                boughtItems = gameData.boughtItems || []; // Charger la liste des objets achetés
-                tickets = gameData.tickets || tickets;
 
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
@@ -469,6 +473,8 @@ function loadSave(event) {
                 if (gameData.MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
                 if (gameData.NouvellecollectionAchete) disableButton('boutonNouvellecollection');
                 if (gameData.DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
+
+                
 
                 // Vider l'inventaire des objets achetés
                 itemsBoughtContainer.innerHTML = '';
