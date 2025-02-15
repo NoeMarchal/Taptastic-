@@ -11,6 +11,9 @@
     <button id="reset-game">🗑️</button>
 <!-- Bouton pour afficher le popup de sauvegarde -->
 <button id="save-game" onclick="showSavePopup()">💾</button>
+<audio id="background-music" src="Songs\back_music.mp3" loop></audio>
+<button id="music-button" onclick="toggleMusic()">🔇</button>
+
 
 <!-- Input caché pour charger une sauvegarde -->
 <input type="file" id="uploadSave" style="display: none" onchange="loadSave(event)">
@@ -73,7 +76,7 @@
                 </div>
             </div>
         </div>
-  <div class="entreprise-supermarché">
+        <div class="entreprise-supermarché locked" onclick="buyContainersupermarché(this)">
     <h2>Supermarché</h2>
     <p>Achete une entreprise pour gagner plus de points</br>
         oublie pas les améliorations pour aller encore plus vite ;)
@@ -84,7 +87,7 @@
     <button id="boutonAgrandissement">Acheter Agrandissement (Coût: 3 000 000 points)</button>
     
 </div>
-<div class="entreprise-container">
+<div class="entreprise-magasins locked" onclick="buyContainermagasins(this)">
     <h2>Magasin de luxe</h2>
     <p>Achete un magasin de luxe pour gagner plus de points</br>
         oublie pas les améliorations pour aller encore plus vite ;)
@@ -104,20 +107,20 @@
 
 </div>
 
-<div class="shop-container">
+<div class="shop locked" onclick="buyContainershop(this)">
     <h2>Objets disponibles</h2>
     <div id="items-to-buy">
         <!-- Les objets disponibles à l'achat seront ajoutés ici dynamiquement -->
     </div>
 </div>
 
-<div class="inventory-container">
+<div class="inventory-container locked"onclick="buyContainershop(this)">
     <h2>Objets achetés</h2>
     <div id="items-bought">
         <!-- Les objets achetés seront ajoutés ici dynamiquement -->
     </div>
 </div>
-<div class="pari-container">
+<div class="pari-container locked" onclick="buyContainerpari(this)">
     <h1>Betclick</h1>
     <p>Vous avez <span id="tickets">0</span> tickets.</p>
     <div class="ticket-options">

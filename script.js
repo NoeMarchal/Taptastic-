@@ -245,9 +245,9 @@ function updateDisplay() {
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
-    upgrade1Button.textContent = `Amélioration 1 + 20p/click (Coût: ${formatNumber(upgrade1Cost)} €)`;
-    upgrade2Button.textContent = `Amélioration 2 + 50p/click (Coût: ${formatNumber(upgrade2Cost)} €)`;
-    autoclickerButton.textContent = `Acheter un Autoclicker + 250p/sec (Coût: ${formatNumber(autoclickerCost)} €)`;
+    upgrade1Button.textContent = `Amélioration 1 + 20€/click (Coût: ${formatNumber(upgrade1Cost)} €)`;
+    upgrade2Button.textContent = `Amélioration 2 + 50€/click (Coût: ${formatNumber(upgrade2Cost)} €)`;
+    autoclickerButton.textContent = `Acheter un Autoclicker + 250€/sec (Coût: ${formatNumber(autoclickerCost)} €)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
         // Mettre à jour les boutons d'achat
@@ -1182,9 +1182,9 @@ function acheterTickets() {
         tickets += quantite; // Ajoute les tickets
         totalPointsSpent +=coutTotal;
         updateUI(); // Met à jour l'interface
-        resultatElement.textContent = `Vous avez acheté ${formatNumber(quantite)} ticket(s) pour ${formatNumber(coutTotal)} points.`;
+        resultatElement.textContent = `Vous avez acheté ${formatNumber(quantite)} ticket(s) pour ${formatNumber(coutTotal)} €.`;
     } else {
-        resultatElement.textContent = `Vous n'avez pas assez de points pour acheter ${formatNumber(quantite)} ticket(s).`;
+        resultatElement.textContent = `Vous n'avez pas assez de € pour acheter ${formatNumber(quantite)} ticket(s).`;
     }
 }
 
@@ -1214,14 +1214,14 @@ function parier() {
         const gain = coutParTicket + Math.round(mise * multiplicateur); // Gain = prix du ticket + (mise * multiplicateur)
         points += gain;
         totalPointsEarned +=gain;
-        resultatElement.textContent = `Vous avez gagné ! Vous gagnez ${formatNumber(gain)} points.`;
+        resultatElement.textContent = `Vous avez gagné ! Vous gagnez ${formatNumber(gain)} €.`;
         animationElement.textContent = "Gagné !";
         animationElement.className = "gagne";
         updateHistorique("gagne", gain); // Ajoute à l'historique
     } else { // 60% de chance de perdre
         const perte = coutParTicket + mise; // Perte = prix du ticket + mise
         points -= perte;
-        resultatElement.textContent = `Vous avez perdu ! Vous perdez ${formatNumber(perte)} points.`;
+        resultatElement.textContent = `Vous avez perdu ! Vous perdez ${formatNumber(perte)} €.`;
         animationElement.textContent = "Perdu !";
         animationElement.className = "perdu";
         updateHistorique("perdu", perte); // Ajoute à l'historique
@@ -1243,7 +1243,7 @@ function parier() {
 
     // Vérifie si le joueur a encore des points
     if (points <= 0) {
-        resultatElement.textContent += " Vous n'avez plus de points. Fin du jeu.";
+        resultatElement.textContent += " Vous n'avez plus d'€. Fin du jeu.";
         parierButton.disabled = true;
     }
 }
@@ -1264,8 +1264,8 @@ function updateHistorique(resultat, valeur) {
     historique.forEach((res) => {
         const li = document.createElement("li");
         li.textContent = res.resultat === "gagne" 
-            ? `Gagné : +${formatNumber(res.valeur)} points` 
-            : `Perdu : -${formatNumber(res.valeur)} points`;
+            ? `Gagné : +${formatNumber(res.valeur)} €` 
+            : `Perdu : -${formatNumber(res.valeur)} €`;
         li.classList.add(res.resultat); // Ajoute une classe pour la couleur
         historiqueList.appendChild(li);
     });
@@ -1284,6 +1284,33 @@ parierButton.addEventListener("click", parier);
 // Initialise l'affichage des points, des tickets et du coût total
 updateUI();
 updateCoutTotal();
+
+const music = document.getElementById("background-music");
+const musicButton = document.getElementById("music-button");
+
+
+// Fonction pour activer/désactiver la musique
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+    updateMusicIcon();
+}
+
+// Met à jour l'icône du bouton en fonction de l'état de la musique
+function updateMusicIcon() {
+    if (music.paused) {
+        musicButton.textContent = "🔇"; // Icône barrée si musique coupée
+    } else {
+        musicButton.textContent = "🔊"; // Icône normale si musique activée
+    }
+}
+
+// S'assure que l'icône est correcte même après un arrêt manuel
+music.addEventListener("pause", updateMusicIcon);
+music.addEventListener("play", updateMusicIcon);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //

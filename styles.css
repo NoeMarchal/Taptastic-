@@ -111,6 +111,28 @@ button, input, select, option {
     transform: scale(0.95);
 }
 
+#music-button   {
+    position: absolute;
+    top: 140px;
+    right: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgb(167, 165, 165); /* gris clair */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: x-large;
+}
+
+#music-button:hover {
+    background-color: grey; /* Vert foncé */
+}
+
+#music-button:active {
+    transform: scale(0.95);
+}
 
 /* Conteneur de l'avatar et du nom */
 .image {
@@ -158,26 +180,6 @@ button, input, select, option {
     margin-top: 30px;
 }
 
-.entreprise-supermarché{
-    width:  30%;
-    padding: 20px;
-    background-color: #cfc9c9;
-    border-radius: 40px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    margin-left: 18%;
-    margin-top: -35%;
-}
-.entreprise-container{
-    width:  30%;
-    padding: 20px;
-    background-color: #cfc9c9;
-    border-radius: 40px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    margin-left: 18%;
-    margin-top: 1%;
-}
 
 summary {
     margin-right: 85%;
@@ -370,19 +372,6 @@ button:hover, input:hover, select:hover {
     background-color: #f0f0f0; /* Changement de couleur au survol */
 }
 
-/* Styles des conteneurs */
-.shop-container, .inventory-container {
-    width: 45%; /* Largeur des conteneurs */
-    padding: 20px;
-    background-color: #cfc9c9; /* Couleur de fond */
-    border-radius: 40px; /* Bordures arrondies */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Ombre */
-    text-align: center;
-    margin: 10px; /* Espacement entre les conteneurs */
-    display: inline-block; /* Afficher côte à côte */
-    vertical-align: top; /* Aligner en haut */
-    box-sizing: border-box; /* Inclure le padding dans la largeur */
-}
 
 /* Styles pour les conteneurs d'items */
 #items-to-buy, #items-bought {
@@ -584,4 +573,132 @@ footer a:hover {
 /* Classe pour appliquer l'animation */
 .bounce-animation {
     animation: bounce 1s ease;
+}
+
+.entreprise-supermarché {
+    width: 30%;
+    padding: 20px;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-left: 18%;
+    margin-top: -35%;
+    cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
+}
+
+.entreprise-supermarché.locked {
+    background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
+    cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
+    opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
+}
+
+.entreprise-supermarché.locked::after {
+    content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+.entreprise-magasins {
+    width:  30%;
+    padding: 20px;
+    background-color: #cfc9c9;
+    border-radius: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-left: 18%;
+    margin-top: 1%;
+    cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
+}
+
+.entreprise-magasins.locked {
+    background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
+    cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
+    opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
+}
+
+.entreprise-magasins.locked::after {
+    content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+.shop {
+    width: 45%; /* Largeur des conteneurs */
+    padding: 20px;
+    background-color: #cfc9c9; /* Couleur de fond */
+    border-radius: 40px; /* Bordures arrondies */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Ombre */
+    text-align: center;
+    margin: 10px; /* Espacement entre les conteneurs */
+    display: inline-block; /* Afficher côte à côte */
+    vertical-align: top; /* Aligner en haut */
+    box-sizing: border-box; /* Inclure le padding dans la largeur */
+    cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
+}
+
+.shop.locked {
+    background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
+    cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
+    opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
+}
+
+.shop.locked::after {
+    content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.inventory-container {
+    width: 45%; /* Largeur des conteneurs */
+    padding: 20px;
+    background-color: #cfc9c9; /* Couleur de fond */
+    border-radius: 40px; /* Bordures arrondies */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Ombre */
+    text-align: center;
+    margin: 10px; /* Espacement entre les conteneurs */
+    display: inline-block; /* Afficher côte à côte */
+    vertical-align: top; /* Aligner en haut */
+    box-sizing: border-box; /* Inclure le padding dans la largeur */
+    cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
+}
+
+.inventory-container.locked {
+    background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
+    cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
+    opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
+}
+
+.inventory-container.locked::after {
+    content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+.pari-container.locked {
+    background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
+    cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
+    opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
+}
+
+.pari-container.locked::after {
+    content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
 }
