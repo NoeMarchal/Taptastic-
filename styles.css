@@ -134,6 +134,29 @@ button, input, select, option {
     transform: scale(0.95);
 }
 
+#infoButton   {
+    position: absolute;
+    top: 200px;
+    right: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgb(130, 130, 243); /* bleu clair */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: x-large;
+}
+
+#infoButton:hover {
+    background-color: blue; /* bleu foncé */
+}
+
+#infoButton:active {
+    transform: scale(0.95);
+}
+
 /* Conteneur de l'avatar et du nom */
 .image {
     display: flex;

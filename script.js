@@ -1503,6 +1503,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.getElementById('infoButton').addEventListener('click', function() {
+    Swal.fire({
+        title: 'Informations sur le jeu',
+        html: `
+            <h3>Taptastic</h3>
+            <p>Bienvenue dans le jeu que j'ai créé ! Voici un aperçu des mécaniques :</p>
+            <ul>
+                <li><strong>Le clicker :</strong> Clique sur le bouton cliquez-moi pour gagner de des € et hesite pas a améliorer et achter un autoclicker !</li>
+                <li><strong>Supermarché et Magasin de luxe :</strong> achete des magasin pour augmenter tes revenus !</li>
+                <li><strong>Les items :</strong>Ici, tu peut acheter et vendre tes items avec des plus value !</li>
+                <li><strong>les paris :</strong>Ici, tu dois acheter des ticket pour jouer et tenter de gagner beaucoup, mais attention tu peut aller dans le negatif !</li>
+                <!-- Ajoutez autant de mécaniques que nécessaire -->
+            </ul>
+            <p>Amusez-vous bien !</p>
+        `,
+        icon: 'info',
+        confirmButtonText: 'Fermer'
+    });
+});
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
 (function() {
