@@ -778,7 +778,7 @@ document.getElementById('reset-game').addEventListener('click', () => {
 });
 
 
-// Fonction pour réinitialiser le jeu //
+// Fonction pour réinitialiser le jeu
 function resetGame() {
     points = 0;
     pointsPerClick = 1;
@@ -808,8 +808,6 @@ function resetGame() {
     boughtItems = [];
     historique = [];
     tickets = 0;
-    
-
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -821,12 +819,53 @@ function resetGame() {
     document.getElementById('boutonNouvellecollection').disabled = false;
     document.getElementById('boutonDevellopementdanslemonde').disabled = false;
 
-
     // Supprimer l'avatar sauvegardé
     localStorage.removeItem("selectedAvatar");
 
-     // Vider l'inventaire des objets achetés
-     itemsBoughtContainer.innerHTML = '';
+    // Vider l'inventaire des objets achetés
+    itemsBoughtContainer.innerHTML = '';
+
+    // Réinitialiser le conteneur du supermarché
+    localStorage.removeItem('supermarcheAchete1');
+    const supermarcheContainer = document.getElementById('supermarcheContainer');
+    if (supermarcheContainer) {
+        supermarcheContainer.classList.add('locked');
+        const buttons = supermarcheContainer.querySelectorAll('button');
+        buttons.forEach(button => button.disabled = true);
+    }
+
+    // Réinitialiser le conteneur du magasin de luxe
+    localStorage.removeItem('magasinAchete1');
+    const magasinContainer = document.getElementById('magasinContainer');
+    if (magasinContainer) {
+        magasinContainer.classList.add('locked');
+        const buttons = magasinContainer.querySelectorAll('button');
+        buttons.forEach(button => button.disabled = true);
+    }
+
+    // Réinitialiser les conteneurs du shop et de l'inventaire
+    localStorage.removeItem('shopAndInventoryAchete');
+    const shopContainer = document.querySelector('.shop');
+    const inventoryContainer = document.querySelector('.inventory-container');
+    if (shopContainer) {
+        shopContainer.classList.add('locked');
+        const buttons = shopContainer.querySelectorAll('button');
+        buttons.forEach(button => button.disabled = true);
+    }
+    if (inventoryContainer) {
+        inventoryContainer.classList.add('locked');
+        const buttons = inventoryContainer.querySelectorAll('button');
+        buttons.forEach(button => button.disabled = true);
+    }
+
+    // Réinitialiser le conteneur des paris
+    localStorage.removeItem('pariContainerAchete');
+    const pariContainer = document.querySelector('.pari-container');
+    if (pariContainer) {
+        pariContainer.classList.add('locked');
+        const buttons = pariContainer.querySelectorAll('button');
+        buttons.forEach(button => button.disabled = true);
+    }
 
     // Sauvegarder et mettre à jour l'affichage
     saveGame();
@@ -834,6 +873,8 @@ function resetGame() {
     displayItems();
     updateUI();
 }
+
+
 
 function disableButton(buttonId) {
     const button = document.getElementById(buttonId);
@@ -1324,6 +1365,143 @@ function updateMusicIcon() {
 // S'assure que l'icône est correcte même après un arrêt manuel
 music.addEventListener("pause", updateMusicIcon);
 music.addEventListener("play", updateMusicIcon);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+document.addEventListener('DOMContentLoaded', function() {
+    const supermarcheContainer = document.getElementById('supermarcheContainer');
+    const magasinContainer = document.getElementById('magasinContainer');
+    const shopContainer = document.querySelector('.shop'); // Conteneur des objets disponibles
+    const inventoryContainer = document.querySelector('.inventory-container'); // Conteneur des objets achetés
+    const pariContainer = document.querySelector('.pari-container'); // Conteneur des paris
+    const resetButton = document.getElementById('reset-game');
+
+    const supermarcheContainercost = 1000000; // Coût pour débloquer le supermarché
+    const magasinContainercost = 100000000; // Coût pour débloquer le magasin de luxe (100M points)
+    const shopAndInventoryCost = 600000; // Coût pour débloquer les deux conteneurs (shop et inventory)
+    const pariContainerCost = 400000; // Coût pour débloquer le conteneur des paris
+
+    // Fonction pour vérifier l'état d'un conteneur
+    function checkContainerState(container, localStorageKey) {
+        if (localStorage.getItem(localStorageKey) === 'true') {
+            container.classList.remove('locked');
+            // Activer les boutons à l'intérieur du conteneur
+            const buttons = container.querySelectorAll('button');
+            buttons.forEach(button => button.disabled = false);
+        } else {
+            container.classList.add('locked');
+            // Désactiver les boutons à l'intérieur du conteneur
+            const buttons = container.querySelectorAll('button');
+            buttons.forEach(button => button.disabled = true);
+        }
+    }
+
+    // Vérifie l'état des conteneurs au chargement de la page
+    checkContainerState(supermarcheContainer, 'supermarcheAchete1');
+    checkContainerState(magasinContainer, 'magasinAchete1');
+    checkContainerState(shopContainer, 'shopAndInventoryAchete');
+    checkContainerState(inventoryContainer, 'shopAndInventoryAchete');
+    checkContainerState(pariContainer, 'pariContainerAchete');
+
+    // Gestion du clic sur le conteneur du supermarché
+    supermarcheContainer.addEventListener('click', function() {
+        if (supermarcheContainer.classList.contains('locked')) {
+            if (points >= supermarcheContainercost) {
+                points -= supermarcheContainercost; // Déduire les points
+                totalPointsSpent += supermarcheContainercost;
+                localStorage.setItem('supermarcheAchete1', 'true');
+                checkContainerState(supermarcheContainer, 'supermarcheAchete1');
+                Swal.fire({
+                    title: 'Achat réussi!',
+                    text: 'Vous avez débloqué le supermarché!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Points insuffisants',
+                    text: `Il vous manque ${formatNumber(supermarcheContainercost - points)} € pour débloquer le Supermarché.`,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+    });
+
+    // Gestion du clic sur le conteneur du magasin de luxe
+    magasinContainer.addEventListener('click', function() {
+        if (magasinContainer.classList.contains('locked')) {
+            if (points >= magasinContainercost) {
+                points -= magasinContainercost; // Déduire les points
+                totalPointsSpent += magasinContainercost;
+                localStorage.setItem('magasinAchete1', 'true');
+                checkContainerState(magasinContainer, 'magasinAchete1');
+                Swal.fire({
+                    title: 'Achat réussi!',
+                    text: 'Vous avez débloqué le magasin de luxe!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Points insuffisants',
+                    text: `Il vous manque ${formatNumber(magasinContainercost - points)} € pour débloquer le magasin de luxe.`,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+    });
+
+    // Gestion du clic sur le conteneur du shop et de l'inventaire
+    shopContainer.addEventListener('click', function() {
+        if (shopContainer.classList.contains('locked')) {
+            if (points >= shopAndInventoryCost) {
+                points -= shopAndInventoryCost; // Déduire les points
+                totalPointsSpent += shopAndInventoryCost;
+                localStorage.setItem('shopAndInventoryAchete', 'true');
+                checkContainerState(shopContainer, 'shopAndInventoryAchete');
+                checkContainerState(inventoryContainer, 'shopAndInventoryAchete');
+                Swal.fire({
+                    title: 'Achat réussi!',
+                    text: 'Vous avez débloqué les items',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Points insuffisants',
+                    text: `Il vous manque ${formatNumber(shopAndInventoryCost - points)} € pour débloquer les items.`,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+    });
+
+    // Gestion du clic sur le conteneur des paris
+    pariContainer.addEventListener('click', function() {
+        if (pariContainer.classList.contains('locked')) {
+            if (points >= pariContainerCost) {
+                points -= pariContainerCost; // Déduire les points
+                totalPointsSpent += pariContainerCost;
+                localStorage.setItem('pariContainerAchete', 'true');
+                checkContainerState(pariContainer, 'pariContainerAchete');
+                Swal.fire({
+                    title: 'Achat réussi!',
+                    text: 'Vous avez débloqué le conteneur des paris!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Points insuffisants',
+                    text: `Il vous manque ${formatNumber(pariContainerCost - points)} € pour débloquer le centre des paris.`,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+    });
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////partie de alexis /////////////////////////////////////////////////////////////////////////////////////////
 // Anti auto-clicker + debugger bloquer //
