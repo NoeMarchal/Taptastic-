@@ -896,7 +896,7 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
         Swal.fire({
             icon: 'error',
             title: 'Argents insuffisants',
-            text: `Il vous manque ${formatNumber(superviseurAchete - points)} € pour acheter.`,
+            text: `Il vous manque ${formatNumber(superviseurCost - points)} € pour acheter.`,
             confirmButtonText: 'OK',
             confirmButtonColor: '#4CAF50',
         });
