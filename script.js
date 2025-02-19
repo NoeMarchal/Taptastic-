@@ -1332,16 +1332,9 @@ parierButton.addEventListener("click", parier);
 updateUI();
 updateCoutTotal();
 
+// Sélection des éléments
 const music = document.getElementById("background-music");
 const musicButton = document.getElementById("music-button");
-
-// Lecture automatique avec interaction utilisateur (évite les blocages des navigateurs)
-document.addEventListener("click", () => {
-    if (music.paused) {
-        music.play().catch(error => console.log("Lecture bloquée :", error));
-        updateMusicIcon();
-    }
-}, { once: true });
 
 // Fonction pour activer/désactiver la musique
 function toggleMusic() {
@@ -1365,14 +1358,19 @@ function updateMusicIcon() {
 // S'assure que l'icône est correcte même après un arrêt manuel
 music.addEventListener("pause", updateMusicIcon);
 music.addEventListener("play", updateMusicIcon);
-// Sélectionnez l'élément audio
-const backgroundMusic = document.getElementById('background-music');
 
-// Fonction pour couper la musique
+// Couper la musique lorsque l'utilisateur quitte la page
 function stopMusic() {
-    backgroundMusic.pause(); // Mettre en pause la musique
-    backgroundMusic.currentTime = 0; // Remettre la musique au début (optionnel)
+    music.pause(); // Mettre en pause la musique
+    music.currentTime = 0; // Remettre la musique au début (optionnel)
 }
+
+// Écouter les événements de déchargement de la page
+window.addEventListener("beforeunload", stopMusic);
+window.addEventListener("pagehide", stopMusic);
+
+// Ajouter un écouteur d'événement au bouton pour activer/désactiver la musique
+musicButton.addEventListener("click", toggleMusic);
 
 // Écouter les événements de déchargement de la page
 window.addEventListener('beforeunload', stopMusic);
