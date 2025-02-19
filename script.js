@@ -1339,7 +1339,7 @@ const musicButton = document.getElementById("music-button");
 // Fonction pour activer/désactiver la musique
 function toggleMusic() {
     if (music.paused) {
-        music.play();
+        music.play().catch(error => console.log("Lecture bloquée :", error));
     } else {
         music.pause();
     }
@@ -1359,7 +1359,7 @@ function updateMusicIcon() {
 music.addEventListener("pause", updateMusicIcon);
 music.addEventListener("play", updateMusicIcon);
 
-// Couper la musique lorsque l'utilisateur quitte la page
+// Fonction pour couper la musique
 function stopMusic() {
     music.pause(); // Mettre en pause la musique
     music.currentTime = 0; // Remettre la musique au début (optionnel)
@@ -1368,6 +1368,21 @@ function stopMusic() {
 // Écouter les événements de déchargement de la page
 window.addEventListener("beforeunload", stopMusic);
 window.addEventListener("pagehide", stopMusic);
+
+// Écouter les changements de visibilité de la page
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+        stopMusic(); // Couper la musique
+    }
+});
+
+// Écouter les événements de focus et de blur
+window.addEventListener("blur", stopMusic);
+window.addEventListener("focus", () => {
+    if (!music.paused) {
+        music.play().catch(error => console.log("Lecture bloquée :", error));
+    }
+});
 
 // Ajouter un écouteur d'événement au bouton pour activer/désactiver la musique
 musicButton.addEventListener("click", toggleMusic);
