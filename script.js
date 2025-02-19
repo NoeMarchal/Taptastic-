@@ -1,10 +1,10 @@
 const maxUpgrade1Level = 300;    // niveau max pour l'amélioration 1²
 const maxUpgrade2Level = 300;   // Niveau max pour l'amélioration 2
 const maxAutoclickers = 300;   // Nombre max d'autoclickers
-const supermarcheCost = 2200000; // Coût du supermarché
-const marchandisesCost = 3500000; // Coût des marchandises
-const superviseurCost = 4000000; // Coût du superviseur
-const agrandissementCost = 6000000; // Coût de l'agrandissement
+const supermarcheCost = 1400000; // Coût du supermarché
+const marchandisesCost = 2500000; // Coût des marchandises
+const superviseurCost = 3000000; // Coût du superviseur
+const agrandissementCost = 5000000; // Coût de l'agrandissement
 const MagasinCost = 200000000; // Coût du supermarché
 const MarchandisesdeluxeCost = 250000000; // Coût des marchandises
 const NouvellecollectionCost = 300000000; // Coût du superviseur
@@ -1384,9 +1384,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const pariContainer = document.querySelector('.pari-container'); // Conteneur des paris
     const resetButton = document.getElementById('reset-game');
 
-    const supermarcheContainercost = 1100000; // Coût pour débloquer le supermarché
-    const magasinContainercost = 100000000; // Coût pour débloquer le magasin de luxe (100M points)
-    const shopAndInventoryCost = 600000; // Coût pour débloquer les deux conteneurs (shop et inventory)
+    const supermarcheContainercost = 500000; // Coût pour débloquer le supermarché
+    const magasinContainercost = 60000000; // Coût pour débloquer le magasin de luxe (100M points)
+    const shopAndInventoryCost = 300000; // Coût pour débloquer les deux conteneurs (shop et inventory)
     const pariContainerCost = 400000; // Coût pour débloquer le conteneur des paris
 
     // Fonction pour vérifier l'état d'un conteneur
