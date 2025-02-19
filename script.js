@@ -1365,6 +1365,18 @@ function updateMusicIcon() {
 // S'assure que l'icône est correcte même après un arrêt manuel
 music.addEventListener("pause", updateMusicIcon);
 music.addEventListener("play", updateMusicIcon);
+// Sélectionnez l'élément audio
+const backgroundMusic = document.getElementById('background-music');
+
+// Fonction pour couper la musique
+function stopMusic() {
+    backgroundMusic.pause(); // Mettre en pause la musique
+    backgroundMusic.currentTime = 0; // Remettre la musique au début (optionnel)
+}
+
+// Écouter les événements de déchargement de la page
+window.addEventListener('beforeunload', stopMusic);
+window.addEventListener('pagehide', stopMusic);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', function() {
     const supermarcheContainer = document.getElementById('supermarcheContainer');
