@@ -963,6 +963,7 @@ body {
 
   .player-name {
     font-size: 2rem; /* Réduire encore la taille du nom du joueur */
+    top: 44%;
   }
 
   button,
@@ -989,7 +990,7 @@ body {
   }
 
   .avatar-container img {
-    width: 25%; /* Ajuster la taille de l'avatar */
+    width: 30%; /* Ajuster la taille de l'avatar */
   }
 
   .footer-content {
@@ -1017,7 +1018,9 @@ body {
   summary {
     margin-top: 3%; /* Marge en haut minimale */
     font-size: 0.75rem; /* Taille de police encore plus petite */
-    width: 50%;
+    width: 90%; /* Largeur presque totale */
+    margin-left: 5%; /* Pas de marge à gauche */
+    text-align: left; /* Alignement du texte à gauche */
   }
   #customization-form {
     width: 40%; /* Largeur presque totale pour les très petits écrans */
