@@ -190,7 +190,23 @@ option {
   align-items: center;
   width: 17%;
 }
-
+#customization-form label {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  /* Styles pour les champs de sélection et de texte */
+#customization-form select,
+#customization-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+}
 /* Avatar dans le coin gauche */
 .avatar-container img {
   width: 10%;
@@ -456,52 +472,71 @@ select:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Style de base du footer */
 footer {
-  background-color: #333;
-  color: #fff;
-  padding: 40px 20px;
-  text-align: center;
-  width: 100%;
-}
-
-footer a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 10px;
-  font-size: 18px;
-}
-
-footer a:hover {
-  text-decoration: underline;
-  font-size: 18px;
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-around;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-section {
-  margin: 20px;
-  text-align: left;
-}
-
-.footer-section h3 {
-  margin-bottom: 15px;
-  font-size: 18px;
-}
-
-.footer-section p {
-  margin: 5px 0;
-}
-
-.footer-bottom {
-  margin-top: 20px;
-  border-top: 1px solid #444;
-  padding-top: 20px;
-}
+    background-color: #333; /* Couleur de fond sombre */
+    color: #fff; /* Texte en blanc */
+    padding: 40px 20px; /* Espacement intérieur */
+    text-align: center; /* Centrage du texte */
+    width: 100%; /* Largeur totale */
+    font-family: Arial, sans-serif; /* Police de caractères */
+  }
+  
+  /* Liens dans le footer */
+  footer a {
+    color: #fff; /* Texte en blanc */
+    text-decoration: none; /* Pas de soulignement par défaut */
+    margin: 0 10px; /* Espacement entre les liens */
+    font-size: 18px; /* Taille de police */
+    transition: color 0.3s ease, text-decoration 0.3s ease; /* Animation fluide */
+  }
+  
+  /* Effet au survol des liens */
+  footer a:hover {
+    text-decoration: underline; /* Soulignement au survol */
+    color: #f0f0f0; /* Légère variation de couleur au survol */
+  }
+  
+  /* Conteneur principal du footer */
+  .footer-content {
+    display: flex; /* Disposition en flexbox */
+    justify-content: space-around; /* Espacement égal entre les sections */
+    max-width: 1200px; /* Largeur maximale */
+    margin: 0 auto; /* Centrage horizontal */
+    flex-wrap: wrap; /* Passage à la ligne sur les petits écrans */
+  }
+  
+  /* Sections du footer */
+  .footer-section {
+    margin: 20px; /* Espacement autour des sections */
+    text-align: left; /* Alignement du texte à gauche */
+    flex: 1; /* Flexibilité pour occuper l'espace disponible */
+    min-width: 200px; /* Largeur minimale pour éviter le sur-compressement */
+  }
+  
+  /* Titres des sections */
+  .footer-section h3 {
+    margin-bottom: 15px; /* Espacement sous le titre */
+    font-size: 18px; /* Taille de police */
+    color: #fff; /* Texte en blanc */
+  }
+  
+  /* Paragraphes dans les sections */
+  .footer-section p {
+    margin: 5px 0; /* Espacement entre les paragraphes */
+    color: #ccc; /* Texte en gris clair */
+    font-size: 16px; /* Taille de police */
+  }
+  
+  /* Section inférieure du footer */
+  .footer-bottom {
+    margin-top: 20px; /* Espacement au-dessus de la section */
+    border-top: 1px solid #444; /* Bordure supérieure */
+    padding-top: 20px; /* Espacement intérieur */
+    font-size: 14px; /* Taille de police */
+    color: #ccc; /* Texte en gris clair */
+  }
+  
 
 #trophy-list {
   max-height: 0;
@@ -766,7 +801,56 @@ footer a:hover {
   font-size: 14px;
   color: #555;
 }
-
+/* Pour les écrans ultra-larges (2560px et plus) */
+@media (min-width: 2560px) {
+    body {
+      font-size: 20px; /* Encore plus grand pour les écrans 2K/4K */
+      touch-action: manipulation; /* Désactive le zoom à double toucher */
+    }
+  
+    .game-container,
+    .trophies,
+    .stats-container,
+    .pari-container,
+    .entreprise-supermarché,
+    .entreprise-magasins,
+    .shop,
+    .inventory-container {
+      width: 15%; /* Encore plus étroit pour éviter l'étirement excessif */
+    }
+  
+    .player-name {
+      font-size: 5rem; /* Encore plus grand pour les écrans 4K */
+    }
+  
+    button,
+    input,
+    select,
+    option {
+      padding: 20px 40px; /* Boutons encore plus grands */
+      font-size: 20px;
+    }
+  
+    #reset-game,
+    #save-game,
+    #music-button,
+    #infoButton {
+      top: 50px; /* Ajuster la position des boutons */
+      right: 150px;
+    }
+  
+    .avatar-container img {
+      width: 20%; /* Ajuster la taille de l'avatar */
+    }
+  
+    .money-pop {
+      font-size: 28px; /* Texte plus grand pour les animations */
+    }
+  
+    .ultimate-message {
+      font-size: 28px; /* Texte plus grand pour les messages */
+    }
+  }
 /* Pour les écrans larges (1920px et plus) */
 @media (min-width: 1920px) {
   body {
@@ -817,57 +901,6 @@ footer a:hover {
 
   .ultimate-message {
     font-size: 24px; /* Texte plus grand pour les messages */
-  }
-}
-
-/* Pour les écrans ultra-larges (2560px et plus) */
-@media (min-width: 2560px) {
-  body {
-    font-size: 20px; /* Encore plus grand pour les écrans 2K/4K */
-    touch-action: manipulation; /* Désactive le zoom à double toucher */
-  }
-
-  .game-container,
-  .trophies,
-  .stats-container,
-  .pari-container,
-  .entreprise-supermarché,
-  .entreprise-magasins,
-  .shop,
-  .inventory-container {
-    width: 15%; /* Encore plus étroit pour éviter l'étirement excessif */
-  }
-
-  .player-name {
-    font-size: 5rem; /* Encore plus grand pour les écrans 4K */
-  }
-
-  button,
-  input,
-  select,
-  option {
-    padding: 20px 40px; /* Boutons encore plus grands */
-    font-size: 20px;
-  }
-
-  #reset-game,
-  #save-game,
-  #music-button,
-  #infoButton {
-    top: 50px; /* Ajuster la position des boutons */
-    right: 150px;
-  }
-
-  .avatar-container img {
-    width: 20%; /* Ajuster la taille de l'avatar */
-  }
-
-  .money-pop {
-    font-size: 28px; /* Texte plus grand pour les animations */
-  }
-
-  .ultimate-message {
-    font-size: 28px; /* Texte plus grand pour les messages */
   }
 }
 
@@ -924,7 +957,8 @@ body {
   .shop,
   .inventory-container {
     width: 90%; /* Prendre presque toute la largeur de l'écran */
-    margin: 10px auto; /* Centrer les conteneurs */
+    margin: 15px auto; /* Centrer les conteneurs */
+
   }
 
   .player-name {
@@ -955,6 +989,48 @@ body {
   }
 
   .avatar-container img {
-    width: 20%; /* Ajuster la taille de l'avatar */
+    width: 25%; /* Ajuster la taille de l'avatar */
+  }
+
+  .footer-content {
+    flex-direction: column; /* Empiler les sections verticalement */
+    align-items: center; /* Centrer les sections */
+    text-align: center; /* Centrer le texte */
+  }
+
+  .footer-section {
+    text-align: center; /* Centrer le texte dans les sections */
+    margin: 10px 0; /* Réduire l'espacement entre les sections */
+  }
+
+  .footer-section h3 {
+    margin-bottom: 10px; /* Réduire l'espacement sous le titre */
+  }
+
+  .footer-section p {
+    margin: 5px 0; /* Espacement entre les paragraphes */
+  }
+
+  .footer-bottom {
+    text-align: center; /* Centrer le texte */
+  }
+  summary {
+    margin-top: 3%; /* Marge en haut minimale */
+    font-size: 0.75rem; /* Taille de police encore plus petite */
+    width: 50%;
+  }
+  #customization-form {
+    width: 40%; /* Largeur presque totale pour les très petits écrans */
+    right: 35%;
+  }
+
+  #customization-form label {
+    font-size: 0.85rem; /* Taille de police encore plus petite */
+  }
+
+  #customization-form select,
+  #customization-form input[type="text"] {
+    padding: 5px; /* Padding minimal */
+    font-size: 0.85rem; /* Taille de police encore plus petite */
   }
 }
