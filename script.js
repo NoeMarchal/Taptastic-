@@ -1372,9 +1372,9 @@ window.addEventListener("pagehide", stopMusic);
 // Ajouter un écouteur d'événement au bouton pour activer/désactiver la musique
 musicButton.addEventListener("click", toggleMusic);
 
-// Écouter les événements de déchargement de la page
-window.addEventListener('beforeunload', stopMusic);
-window.addEventListener('pagehide', stopMusic);
+// Désactiver la lecture automatique au chargement de la page
+music.pause(); // S'assurer que la musique est en pause au départ
+updateMusicIcon(); // Mettre à jour l'icône du bouton
 //////////////////////////////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', function() {
     const supermarcheContainer = document.getElementById('supermarcheContainer');

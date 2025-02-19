@@ -24,8 +24,11 @@
     <button id="reset-game">🗑️</button>
 <!-- Bouton pour afficher le popup de sauvegarde -->
 <button id="save-game" onclick="showSavePopup()">💾</button>
-<audio id="background-music" src="Songs\back_music.mp3" loop></audio>
-<button id="music-button" onclick="toggleMusic()">🔇</button>
+<audio id="background-music" loop>
+    <source src="Songs\back_music.mp3" type="audio/mpeg">
+    Votre navigateur ne supporte pas l'élément audio.
+</audio>
+<button id="music-button">🔇</button>
 <button id="infoButton" style="font-size: 24px;">ℹ️</button>
 
 
