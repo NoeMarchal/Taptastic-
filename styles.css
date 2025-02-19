@@ -6,6 +6,7 @@ body {
   text-align: center;
   margin: 0;
   padding: 0;
+  touch-action: manipulation; /* Désactive le zoom à double toucher */
 }
 
 /* Conteneur principal qui aligne les deux blocs */
@@ -770,6 +771,7 @@ footer a:hover {
 @media (min-width: 1920px) {
   body {
     font-size: 18px; /* Augmenter la taille de la police pour une meilleure lisibilité */
+    touch-action: manipulation; /* Désactive le zoom à double toucher */
   }
 
   .game-container,
@@ -822,6 +824,7 @@ footer a:hover {
 @media (min-width: 2560px) {
   body {
     font-size: 20px; /* Encore plus grand pour les écrans 2K/4K */
+    touch-action: manipulation; /* Désactive le zoom à double toucher */
   }
 
   .game-container,
@@ -877,6 +880,7 @@ body {
 @media (max-width: 1024px) {
   body {
     font-size: 14px;
+    touch-action: manipulation; /* Désactive le zoom à double toucher */
   }
 
   .game-container,
@@ -908,6 +912,7 @@ body {
 @media (max-width: 768px) {
   body {
     font-size: 12px;
+    touch-action: manipulation; /* Désactive le zoom à double toucher */
   }
 
   .game-container,
