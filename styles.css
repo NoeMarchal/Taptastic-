@@ -41,7 +41,6 @@ button, input[type="button"], input[type="submit"], select {
   transition: all 0.3s ease;
   backdrop-filter: blur(5px); /* Effet de flou */
   min-width: 120px; /* Largeur minimale pour éviter les boutons trop étroits */
-  text-align: center; /* Centrer le texte */
   margin: 5px;
   -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
   outline: none; /* Supprime le contour au focus (optionnel) */
@@ -56,6 +55,13 @@ button:hover, input[type="button"]:hover, input[type="submit"]:hover {
 /* Effet de clic */
 button:active, input[type="button"]:active, input[type="submit"]:active {
   transform: scale(0.95); /* Légère réduction de taille au clic */
+}
+
+/* Désactiver l'effet de clic pour les boutons désactivés */
+button:disabled:active, 
+input[type="button"]:disabled:active, 
+input[type="submit"]:disabled:active {
+    transform: none;
 }
 
 /* Textes et titres */
@@ -297,6 +303,15 @@ details summary::marker {
   background-color: #262728;
   color: #757576;
 }
+
+button:disabled {
+  background-color: #b4b0b0; /* Gris clair */
+  color: #888888; /* Texte grisé */
+  cursor: not-allowed;
+  border: 1px solid #bbbbbb;
+  opacity: 0.6;
+}
+
 
 /* Réglages pour les très petits écrans (smartphones) */
 @media (max-width: 480px) {

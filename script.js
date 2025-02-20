@@ -167,6 +167,7 @@ function saveGame() {
         boughtItems,
         historique,
         tickets,
+        autoclickerPower
 
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
@@ -204,6 +205,7 @@ function loadGame() {
         boughtItems = gameData.boughtItems ||[];
         historique = gameData.historique ||[];
         tickets = gameData.tickets;
+        autoclickerPower = gameData.autoclickerPower;
     }
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
@@ -222,6 +224,9 @@ function loadGame() {
     if (MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
     if (NouvellecollectionAchete) disableButton('boutonNouvellecollection');
     if (DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
+    if (upgrade1Level) disableButton('upgrade1');
+    if (upgrade2Level) disableButton('upgrade2');
+    if (autoclickers) disableButton('autoclicker-button');
 
     updateDisplay();
     updateUI();
@@ -430,6 +435,7 @@ function loadSave(event) {
                 MarchandisesdeluxeAchete = gameData.MarchandisesdeluxeAchete || MarchandisesdeluxeAchete;
                 NouvellecollectionAchete = gameData.NouvellecollectionAchete || NouvellecollectionAchete;
                 DevellopementdanslemondeAchete = gameData.DevellopementdanslemondeAchete || DevellopementdanslemondeAchete;
+                autoclickerPower = gameData.autoclickerPower || autoclickerPower;
 
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
@@ -445,7 +451,9 @@ function loadSave(event) {
                 if (gameData.MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
                 if (gameData.NouvellecollectionAchete) disableButton('boutonNouvellecollection');
                 if (gameData.DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
-
+                if (gameData.upgrade1Level) disableButton('upgrade1');
+                if (gameData.upgrade2Level) disableButton('upgrade2');
+                if (gameData.autoclickers) disableButton('autoclicker-button');
                 // Vider l'inventaire des objets achetés
                 itemsBoughtContainer.innerHTML = '';
 
@@ -483,7 +491,6 @@ function showSavePopup() {
             <button onclick="exportSave()" class="swal2-confirm swal2-styled">Télécharger la sauvegarde</button>
             <button onclick="document.getElementById('uploadSave').click()" class="swal2-cancel swal2-styled">Charger une sauvegarde</button>
         `,
-        showCloseButton: true,
         showConfirmButton: false,
         showCancelButton: false,
         didOpen: () => {
@@ -511,7 +518,7 @@ newClickButton.addEventListener('click', (event) => {
 //Amélioration1 
 upgrade1Button.addEventListener('click', () => {
     if (upgrade1Level >= maxUpgrade1Level) {
-        // Afficher un message d'erreur stylisé avec SweetAlert2
+        disableButton('upgrade1');
         Swal.fire({
             position: "center",
             icon: "warning",
@@ -553,10 +560,7 @@ upgrade1Button.addEventListener('click', () => {
 // Amélioration 2
 upgrade2Button.addEventListener('click', () => {
     if (upgrade2Level >= maxUpgrade2Level) {
-        // Jouer un son d'erreur
-        const errorSound = new Audio('error-sound.mp3');
-        errorSound.play();
-
+        disableButton('upgrade2');
         // Afficher un message d'erreur stylisé avec SweetAlert2
         Swal.fire({
             position: "center",
@@ -611,7 +615,8 @@ setInterval(() => {
 
 // Achat d'un autoclicker
 autoclickerButton.addEventListener('click', () => {
-    if (autoclickers >= maxAutoclickers) {
+    if (autoclickers >= maxAutoclickers)
+        {disableButton('autoclicker-button'); 
             Swal.fire({
                 position: "center",
                 icon: "warning",
@@ -708,11 +713,16 @@ document.getElementById('reset-game').addEventListener('click', () => {
             resetGame();  
             updateDisplay();  
 
-            Swal.fire(
-                'Réinitialisé !',
-                'Votre progression a été supprimée.',
-                'success'
-            );
+            Swal.fire({
+                title: 'Réinitialisation',
+                text: 'Toutes vos données sont réinitilisées.',
+                icon: 'success',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                didOpen: () => {
+                    document.querySelector('.swal2-popup').style.borderRadius = '20px';
+                }
+            })
         }
     });
 });
@@ -747,6 +757,7 @@ function resetGame() {
     boughtItems = [];
     historique = [];
     tickets = 0;
+    autoclickerPower = 250;
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -757,6 +768,9 @@ function resetGame() {
     document.getElementById('boutonMarchandisesdeluxe').disabled = false;
     document.getElementById('boutonNouvellecollection').disabled = false;
     document.getElementById('boutonDevellopementdanslemonde').disabled = false;
+    document.getElementById('upgrade1').disabled = false;
+    document.getElementById('upgrade2').disabled = false;
+    document.getElementById('autoclicker-button').disabled = false;
 
     // Supprimer l'avatar sauvegardé
     localStorage.removeItem("selectedAvatar");
@@ -803,6 +817,7 @@ document.getElementById('boutonSupermarche').addEventListener('click', function(
             }
           });
     }
+    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Marchandises
@@ -829,6 +844,7 @@ document.getElementById('boutonMarchandises').addEventListener('click', function
             }
           });
     }
+    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Superviseur
@@ -855,6 +871,7 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
             }
           });
     }
+    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Agrandissement
@@ -881,6 +898,7 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
             }
           });
     }
+    saveGame();
 });
 
 document.getElementById('toggle-arrow').addEventListener('click', function() {
@@ -918,6 +936,7 @@ document.getElementById('boutonMagasin').addEventListener('click', function() {
             }
           });
     }
+    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Marchandises de luxe
@@ -944,6 +963,7 @@ document.getElementById('boutonMarchandisesdeluxe').addEventListener('click', fu
             }
           });
     }
+    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Nouvelles collections
@@ -970,6 +990,7 @@ document.getElementById('boutonNouvellecollection').addEventListener('click', fu
             }
           });
     }
+    saveGame();
 });
 
 // Écouteur d'événement pour le bouton devellopement dans le monde 
@@ -996,6 +1017,7 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
             }
           });
     }
+    saveGame();
 });
 
 function displayItems() {
