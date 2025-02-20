@@ -43,6 +43,8 @@ button, input[type="button"], input[type="submit"], select {
   min-width: 120px; /* Largeur minimale pour éviter les boutons trop étroits */
   text-align: center; /* Centrer le texte */
   margin: 5px;
+  -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
+  outline: none; /* Supprime le contour au focus (optionnel) */
 }
 
 /* Effet de survol */
@@ -85,10 +87,7 @@ h3 {
   transition: transform 0.3s ease;
 }
 
-button, input[type="button"], input[type="submit"], select {
-  -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
-  outline: none; /* Supprime le contour au focus (optionnel) */
-}
+
 
 .avatar-container img:hover {
   transform: scale(1.1);
@@ -316,10 +315,6 @@ details summary::marker {
     padding: 4px 8px; /* Padding minimal pour les smartphones */
     font-size: 10px; /* Taille de police minimale */
     min-width: 80px; /* Largeur minimale très réduite */
-  }
-  button, input[type="button"], input[type="submit"], select {
-    -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
-    outline: none; /* Supprime le contour au focus (optionnel) */
   }
 
   /* Titres */
