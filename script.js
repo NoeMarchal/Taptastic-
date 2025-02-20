@@ -139,11 +139,11 @@ const parierButton = document.getElementById("parier");
 const resultatElement = document.getElementById("resultat");
 const animationElement = document.getElementById("animation");
 const historiqueList = document.getElementById("historique-list");
-const buyAIButton = document.querySelector(".buyAI");
-const aiControls = document.querySelector(".aiControls");
-const strategySelect = document.querySelector(".strategy");
-const startInvestmentButton = document.querySelector(".startInvestment");
-const investmentLog = document.querySelector(".investmentLog");
+const buyAIButton = document.getElementById(".buyAI");
+const aiControls = document.getElementById(".aiControls");
+const strategySelect = document.getElementById(".strategy");
+const startInvestmentButton = document.getElementById(".startInvestment");
+const investmentLog = document.getElementById(".investmentLog");
 // Charger la sauvegarde
 loadGame();
 
