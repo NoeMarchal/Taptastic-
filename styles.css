@@ -85,6 +85,11 @@ h3 {
   transition: transform 0.3s ease;
 }
 
+button, input[type="button"], input[type="submit"], select {
+  -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
+  outline: none; /* Supprime le contour au focus (optionnel) */
+}
+
 .avatar-container img:hover {
   transform: scale(1.1);
 }
@@ -94,6 +99,16 @@ h3 {
   color: #fff;
   margin-top: 15px;
   font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 /* Effet de survol sur les éléments interactifs */
