@@ -129,18 +129,6 @@ h3 {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Section des statistiques */
-.stats-container p {
-  font-size: 1rem;
-  margin: 10px 0;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* Section des paris */
-.pari-container {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
 /* Footer */
 footer {
   background-color: rgba(0, 0, 0, 0.8);
