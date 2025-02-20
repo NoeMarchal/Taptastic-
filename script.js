@@ -305,6 +305,36 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
     saveGame(); // Sauvegarde après chaque mise à jour
 }
 
+function formatNumber(number) {
+    // Vérifie que la valeur est un nombre
+    if (typeof number !== 'number' || isNaN(number)) {
+        return '0'; // Retourne '0' si la valeur n'est pas un nombre
+    }
+
+    // Si le nombre est supérieur ou égal à 1 Billion
+    if (number >= 1000000000000) {
+        return (number / 1000000000000).toFixed(1).replace(/\.0$/, '') + 'Blns';
+    }
+
+    // Si le nombre est supérieur ou égal à 1 milliard
+    if (number >= 1000000000) {
+        return (number / 1000000000).toFixed(1).replace(/\.0$/, '') + 'Mds';
+    }
+
+    // Si le nombre est supérieur ou égal à 1 million
+    if (number >= 1000000) {
+        return (number / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+
+    // Si le nombre est supérieur ou égal à 1 000
+    if (number >= 1000) {
+        return (number / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+
+    // Sinon, juste ajouter les séparateurs de milliers
+    return number.toLocaleString();
+}
+
 function updateTrophies() {
     const trophyList = document.getElementById('trophy-list');
     const trophyCountElement = document.getElementById('trophy-count');
