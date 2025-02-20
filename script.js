@@ -340,17 +340,6 @@ function updateTrophies() {
                 spread: 500, 
                 origin: { y: 0.6 } 
             });
-
-            // Afficher "Bravo !"
-            const bravoMessage = document.createElement('div');
-            bravoMessage.classList.add('bravo-message');
-            bravoMessage.textContent = "Bravo !";
-            document.body.appendChild(bravoMessage);
-
-            // Supprimer le message après 3 secondes
-            setTimeout(() => {
-                bravoMessage.remove();
-            }, 3000);
         }
     });
 

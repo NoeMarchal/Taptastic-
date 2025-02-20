@@ -1,5 +1,5 @@
 /* Styles de base */
-body {
+html,body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: #000; /* Fond noir pour un look élégant */
   color: #fff; /* Texte blanc */
@@ -7,6 +7,8 @@ body {
   padding: 0;
   line-height: 1.6;
   touch-action: manipulation;
+  overflow-x: hidden; /* Empêche le scroll horizontal */
+  width: 100vw;
 }
 
 /* Conteneurs principaux */
@@ -38,6 +40,10 @@ button, input[type="button"], input[type="submit"], select {
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px); /* Effet de flou sur les boutons */
+  button, input[type="button"], input[type="submit"], select {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
 }
 
 button:hover, input[type="button"]:hover, input[type="submit"]:hover {
