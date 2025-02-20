@@ -9,6 +9,12 @@ const MagasinCost = 200000000; // Coût du supermarché
 const MarchandisesdeluxeCost = 250000000; // Coût des marchandises
 const NouvellecollectionCost = 300000000; // Coût du superviseur
 const DevellopementdanslemondeCost = 500000000; // Coût de l'agrandissement
+const aiCost = 30000000000; // Coût de l'IA : 30 milliards
+const minReturn = 15000000000; // 15 milliards min de gains
+const maxReturn = 60000000000; // 60 milliards max de gains
+const minLoss = 15000000000; // 15 milliards min de perte
+const maxLoss = 60000000000; // -0 milliards max de perte avec 0 en plus a la fin 
+const investmentAmount = 10000000000; // 10 milliards investis à chaque tour
 
 // Variables du jeu
 let points = 0;
@@ -167,6 +173,8 @@ function saveGame() {
         boughtItems,
         historique,
         tickets,
+        aiPurchased, 
+        investmentHistory
 
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
@@ -204,7 +212,15 @@ function loadGame() {
         boughtItems = gameData.boughtItems ||[];
         historique = gameData.historique ||[];
         tickets = gameData.tickets;
-    }
+        aiPurchased = gameData.aiPurchased || false;
+        investmentHistory = gameData.investmentHistory || [];
+
+         if (aiPurchased) {
+             document.querySelector(".buyAI").style.display = "none";
+             document.querySelector(".aiControls").style.display = "block";
+    }}
+    // 🎯 Recharger les investissements précédents
+    investmentHistory.forEach(log => addInvestmentLog(log));
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
     const savedAvatar = localStorage.getItem("selectedAvatar");
@@ -430,6 +446,15 @@ function loadSave(event) {
                 MarchandisesdeluxeAchete = gameData.MarchandisesdeluxeAchete || MarchandisesdeluxeAchete;
                 NouvellecollectionAchete = gameData.NouvellecollectionAchete || NouvellecollectionAchete;
                 DevellopementdanslemondeAchete = gameData.DevellopementdanslemondeAchete || DevellopementdanslemondeAchete;
+                aiPurchased = gameData.aiPurchased || false;
+                investmentHistory = gameData.investmentHistory || [];
+        
+                 if (aiPurchased) {
+                     document.querySelector(".buyAI").style.display = "none";
+                     document.querySelector(".aiControls").style.display = "block";
+                 }
+                 // 🎯 Recharger les investissements précédents
+                 investmentHistory.forEach(log => addInvestmentLog(log));
 
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
@@ -747,6 +772,15 @@ function resetGame() {
     boughtItems = [];
     historique = [];
     tickets = 0;
+    aiPurchased = false;
+    investmentHistory = [];
+    
+    // Réactiver les boutons désactivés
+    document.querySelectorAll("button").forEach(btn => btn.disabled = false);
+    
+    // Réafficher les éléments masqués
+    document.querySelector(".buyAI").style.display = "block";
+    document.querySelector(".aiControls").style.display = "none";
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -1351,3 +1385,94 @@ document.getElementById('infoButton').addEventListener('click', function() {
         }
     });
 });
+
+buyAIButton.addEventListener("click", () => {
+    if (points >= aiCost) {
+        points -= aiCost;
+        totalPointsSpent += aiCost;
+        aiPurchased = true;
+        updateDisplay();
+        aiControls.style.display = "block";
+        buyAIButton.style.display = "none";
+        saveGame();
+    } else {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Fond insuffisant",
+            text: `Il vous manque ${formatNumber(aiCost - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        });
+    }
+});
+
+
+startInvestmentButton.addEventListener("click", () => {
+    if (points < investmentAmount) {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Fond insuffisant",
+            text: `Il vous manque ${formatNumber(investmentAmount - points)} € pour investir.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        });
+        return;
+    }
+
+
+    let strategy = strategySelect.value;
+    let gainOrLoss;
+    let message;
+
+    points -= investmentAmount; // Décompter l'investissement
+    totalPointsSpent += investmentAmount;
+
+    let randomValue = Math.random();
+    let successRate = strategy === "prudente" ? 0.5 : 0.4; // 50% de réussite en mode prudent, 40% en agressif
+
+    if (randomValue < successRate) {
+        let profit = Math.floor(Math.random() * (maxReturn - minReturn) + minReturn);
+        points += profit;
+        totalPointsEarned += profit;
+        gainOrLoss = `<span style="color:green;">+${formatNumber(profit)}</span>`;
+        message = `✅ L'IA a réussi ! Gain de ${gainOrLoss} d'€`;
+    } else {
+        let loss = Math.floor(Math.random() * (maxLoss - minLoss) + minLoss);
+        points -= loss;
+        totalPointsSpent += loss;
+        gainOrLoss = `<span style="color:red;">-${formatNumber(loss)}</span>`;
+        message = `❌ Mauvaise prédiction... Perte de ${gainOrLoss} d'€`;
+    }
+
+    updateDisplay();
+    addInvestmentLog(message);
+    saveGame(); // ✅ Sauvegarde immédiate
+});
+
+// 🚀 AFFICHAGE DES LOGS (2 DERNIERS UNIQUEMENT)
+function addInvestmentLog(message) {
+    let li = document.createElement("li");
+    li.innerHTML = message;
+    investmentLog.prepend(li);
+
+    while (investmentLog.children.length > 2) {
+        investmentLog.removeChild(investmentLog.lastChild);
+    }
+}
+
+// Fonction pour formater les nombres en K, M, B, T
+function formatNumber(num) {
+    if (num >= 1e12) return (num / 1e12).toFixed(0) + "Blns";
+    if (num >= 1e9) return (num / 1e9).toFixed(0) + "Mds";
+    if (num >= 1e6) return (num / 1e6).toFixed(0) + "M";
+    if (num >= 1e3) return (num / 1e3).toFixed(0) + "K";
+    return num.toLocaleString(); // Sinon, affichage classique
+}
