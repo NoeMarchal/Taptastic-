@@ -1469,10 +1469,10 @@ function addInvestmentLog(message) {
 }
 
 // Fonction pour formater les nombres en K, M, B, T
-function formatNumber(num) {
-    if (num >= 1e12) return (num / 1e12).toFixed(0) + "Blns";
-    if (num >= 1e9) return (num / 1e9).toFixed(0) + "Mds";
-    if (num >= 1e6) return (num / 1e6).toFixed(0) + "M";
-    if (num >= 1e3) return (num / 1e3).toFixed(0) + "K";
-    return num.toLocaleString(); // Sinon, affichage classique
+function formatNumber(number) {
+    if (number >= 1e12) return (number / 1e12).toFixed(0) + "Blns";
+    if (number >= 1e9) return (number / 1e9).toFixed(0) + "Mds";
+    if (number >= 1e6) return (number / 1e6).toFixed(0) + "M";
+    if (number >= 1e3) return (number / 1e3).toFixed(0) + "K";
+    return number.toLocaleString(); // Sinon, affichage classique
 }
