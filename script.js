@@ -167,8 +167,6 @@ function saveGame() {
         boughtItems,
         historique,
         tickets,
-    
-
 
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
@@ -208,14 +206,13 @@ function loadGame() {
         tickets = gameData.tickets;
     }
 
-
-
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
     const savedAvatar = localStorage.getItem("selectedAvatar");
     if (savedAvatar) {
         avatarSrc = savedAvatar;
         document.getElementById("avatar").src = savedAvatar;
     }
+
     // Désactiver les boutons déjà achetés
     if (supermarcheAchete) disableButton('boutonSupermarche');
     if (marchandisesAchete) disableButton('boutonMarchandises');
@@ -226,7 +223,6 @@ function loadGame() {
     if (NouvellecollectionAchete) disableButton('boutonNouvellecollection');
     if (DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
 
-
     updateDisplay();
     updateUI();
     updateTrophies();
@@ -235,10 +231,9 @@ function loadGame() {
 
 // Mettre à jour l'affichage
 function updateDisplay() {
-    pointsDisplay.textContent = `€: ${formatNumber(points)}`;
-      // Mettre à jour les points par clic
-      document.getElementById('points-per-click').textContent = `€ par clic: ${formatNumber(pointsPerClick)}`;
-    document.getElementById("pps-display").textContent = `€ par seconde: ${formatNumber(autoclickers * autoclickerPower)}`;
+    pointsDisplay.textContent = `${formatNumber(points)} €`;
+    document.getElementById('points-per-click').textContent = `${formatNumber(pointsPerClick)}€ /click  `;
+    document.getElementById("pps-display").textContent = `${formatNumber(autoclickers * autoclickerPower)}€ /sec`;
     document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
     document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
     autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
@@ -246,26 +241,22 @@ function updateDisplay() {
     upgrade2Button.textContent = `Amélioration 2 + 50€/click (Coût: ${formatNumber(upgrade2Cost)} €)`;
     autoclickerButton.textContent = `Acheter un Autoclicker + 250€/sec (Coût: ${formatNumber(autoclickerCost)} €)`;
     document.getElementById("player-name").textContent = playerName;
-    document.getElementById("avatar").src = avatarSrc; // Utiliser la valeur de avatarSrc
-        // Mettre à jour les boutons d'achat
-        document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${formatNumber(supermarcheCost)} €)`;
-        document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} €)`;
-        document.getElementById('boutonSuperviseur').textContent = `Embaucher un Superviseur (Coût: ${formatNumber(superviseurCost)} €)`;
-        document.getElementById('boutonAgrandissement').textContent = `Agrandissement du magasin (Coût: ${formatNumber(agrandissementCost)} €)`;
-        document.getElementById('boutonMagasin').textContent = `Magasin de luxe  (Coût: ${formatNumber(MagasinCost)} €)`;
-        document.getElementById('boutonMarchandisesdeluxe').textContent = `Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} €)`;
-        document.getElementById('boutonNouvellecollection').textContent = `Nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} €)`;
-        document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} €)`;
-        document.getElementById('total-clicks').textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
-        document.getElementById('total-points-earned').textContent = `€ gagnés au total : ${formatNumber(totalPointsEarned)}`;
-        document.getElementById("total-points-spent").textContent = `€ dépensés au total : ${formatNumber(totalPointsSpent)}`;
-        document.getElementById('upgrade1').classList.toggle('upgrade-available', points >= upgrade1Cost);
-        document.getElementById('upgrade2').classList.toggle('upgrade-available', points >= upgrade2Cost);
-        document.getElementById('autoclicker-button').classList.toggle('upgrade-available', points >= autoclickerCost);
+    document.getElementById("avatar").src = avatarSrc; 
+    document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${formatNumber(supermarcheCost)} €)`;
+    document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} €)`;
+    document.getElementById('boutonSuperviseur').textContent = `Embaucher un Superviseur (Coût: ${formatNumber(superviseurCost)} €)`;
+    document.getElementById('boutonAgrandissement').textContent = `Agrandissement du magasin (Coût: ${formatNumber(agrandissementCost)} €)`;
+    document.getElementById('boutonMagasin').textContent = `Magasin de luxe  (Coût: ${formatNumber(MagasinCost)} €)`;
+    document.getElementById('boutonMarchandisesdeluxe').textContent = `Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} €)`;
+    document.getElementById('boutonNouvellecollection').textContent = `Nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} €)`;
+    document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} €)`;
+    document.getElementById('total-clicks').textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
+    document.getElementById('total-points-earned').textContent = `€ gagnés au total : ${formatNumber(totalPointsEarned)}`;
+    document.getElementById("total-points-spent").textContent = `€ dépensés au total : ${formatNumber(totalPointsSpent)}`;
+    document.getElementById('upgrade1').classList.toggle('upgrade-available', points >= upgrade1Cost);
+    document.getElementById('upgrade2').classList.toggle('upgrade-available', points >= upgrade2Cost);
+    document.getElementById('autoclicker-button').classList.toggle('upgrade-available', points >= autoclickerCost);
     
-
-
-
 // Calcul des heures, minutes et secondes
 let hours = Math.floor(elapsedTime / 3600); // Diviser par 3600 pour obtenir les heures
 let minutes = Math.floor((elapsedTime % 3600) / 60); // Diviser le reste des secondes par 60 pour obtenir les minutes
@@ -279,14 +270,12 @@ seconds = seconds < 10 ? '0' + seconds : seconds;
 // Afficher l'heure au format hh:mm:ss
 document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}:${minutes}:${seconds}`;
 
-
     updateTrophies();
     displayItems();
     updateUI();
     updateCoutTotal();
     saveGame(); // Sauvegarde après chaque mise à jour
 }
-
 
 function formatNumber(number) {
     // Vérifie que la valeur est un nombre
@@ -413,6 +402,7 @@ function exportSave() {
     a.click();
     document.body.removeChild(a);
 }
+
 function loadSave(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -443,8 +433,6 @@ function loadSave(event) {
                 elapsedTime = gameData.elapsedTime || elapsedTime;
                 boughtItems = gameData.boughtItems || [];
                 tickets = gameData.tickets || tickets;
-
-                // Charger les états d'achat des entreprises
                 supermarcheAchete = gameData.supermarcheAchete || supermarcheAchete;
                 marchandisesAchete = gameData.marchandisesAchete || marchandisesAchete;
                 superviseurAchete = gameData.superviseurAchete || superviseurAchete;
@@ -468,8 +456,6 @@ function loadSave(event) {
                 if (gameData.MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
                 if (gameData.NouvellecollectionAchete) disableButton('boutonNouvellecollection');
                 if (gameData.DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
-
-                
 
                 // Vider l'inventaire des objets achetés
                 itemsBoughtContainer.innerHTML = '';
@@ -514,7 +500,6 @@ function showSavePopup() {
     });
 }
 
-
 clickButton.replaceWith(clickButton.cloneNode(true)); // Évite les doublons d'écouteurs d'événements
 const newClickButton = document.getElementById('click-button');
 
@@ -524,34 +509,11 @@ newClickButton.addEventListener('click', (event) => {
     points += pointsGagnes;  
     totalPointsEarned += pointsGagnes;
 
-    // Création de l'effet visuel
-    const moneyEffect = document.createElement("span");
-    moneyEffect.classList.add("money-pop");
-    moneyEffect.textContent = `+${formatNumber(pointsGagnes)} 💰`;
-
-    document.body.appendChild(moneyEffect);
-
-    // Récupérer les coordonnées du bouton et du clic
-    const rect = newClickButton.getBoundingClientRect();
-    const x = event.clientX + window.scrollX; // Ajuste en cas de scroll
-    const y = event.clientY + window.scrollY; // Ajuste en cas de scroll
-
-    // Appliquer la position exacte sous le clic
-    moneyEffect.style.left = `${x}px`;
-    moneyEffect.style.top = `${y}px`;
-
-    // Supprime l'élément après l'animation
-    setTimeout(() => {
-        moneyEffect.remove();
-    }, 1000);
-
     // Mise à jour de l'affichage
     updateDisplay();
     displayItems();
     updateTrophies();
 });
-
-
 
 //Amélioration1 
 upgrade1Button.addEventListener('click', () => {
@@ -589,8 +551,6 @@ upgrade1Button.addEventListener('click', () => {
         });
     }
 });
-
-
 
 // Amélioration 2
 upgrade2Button.addEventListener('click', () => {
@@ -638,35 +598,13 @@ setInterval(() => {
         let gainedPoints = autoclickers * autoclickerPower;
         points += gainedPoints;
         totalPointsEarned += gainedPoints;
-
-        // Vérifier si le bouton de clic existe
-        const clickButton = document.getElementById('click-button');
-        if (clickButton) {
-            // Créer un effet d'autoclicker
-            const autoclickerEffect = document.createElement('div');
-            autoclickerEffect.classList.add('autoclicker-effect');
-            autoclickerEffect.textContent = `+${formatNumber(gainedPoints)} € 💰`;
-
-            // Placer l'effet près du bouton
-            const rect = clickButton.getBoundingClientRect();
-            autoclickerEffect.style.left = `${rect.left + window.scrollX + 50}px`;
-            autoclickerEffect.style.top = `${rect.top + window.scrollY}px`;
-
-            document.body.appendChild(autoclickerEffect);
-
-            // Supprimer l'effet après l'animation
-            setTimeout(() => {
-                autoclickerEffect.remove();
-            }, 1000);
-        }
-
         updateDisplay();
     }
-    // Mettre à jour le temps écoulé
+
+// Mettre à jour le temps écoulé
     elapsedTime = Math.floor((Date.now() - gameStartTime) / 1000); // Temps écoulé en secondes
     updateDisplay(); // Appeler pour mettre à jour l'affichage du temps
 }, 1000);
-
 
 // Achat d'un autoclicker
 autoclickerButton.addEventListener('click', () => {
@@ -702,7 +640,6 @@ autoclickerButton.addEventListener('click', () => {
         });
     }
 });
-
 
 function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
@@ -772,7 +709,6 @@ document.getElementById('reset-game').addEventListener('click', () => {
     });
 });
 
-
 // Fonction pour réinitialiser le jeu
 function resetGame() {
     points = 0;
@@ -826,8 +762,6 @@ function resetGame() {
     displayItems();
     updateUI();
 }
-
-
 
 function disableButton(buttonId) {
     const button = document.getElementById(buttonId);
@@ -936,7 +870,6 @@ document.getElementById('toggle-arrow').addEventListener('click', function() {
     arrow.classList.toggle('rotated');
 });
 
-
 // Écouteur d'événement pour le bouton Magasin
 document.getElementById('boutonMagasin').addEventListener('click', function() {
     if (!MagasinAchete && points >= MagasinCost) {
@@ -1025,8 +958,6 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
     }
 });
 
-
-
 function displayItems() {
     itemsToBuyContainer.innerHTML = ''; // Vider le conteneur
 
@@ -1107,7 +1038,6 @@ function addToBoughtItems(item) {
     itemsBoughtContainer.appendChild(boughtItemElement);
 }
 
-
 function fluctuateItemValues() {
     items.forEach(item => {
         if (boughtItems.includes(item.name)) {
@@ -1158,7 +1088,6 @@ function sellItem(item) {
 
 // Fonction pour mettre à jour l'affichage des points et des tickets
 function updateUI() {
-    pointsDisplay.textContent = formatNumber(points);
     ticketsElement.textContent = formatNumber(tickets);
     parierButton.disabled = tickets === 0; // Active/désactive le bouton "Parier"
 }
@@ -1247,6 +1176,7 @@ function parier() {
         parierButton.disabled = true;
     }
 }
+
 // Fonction pour mettre à jour l'historique des paris
 function updateHistorique(resultat, valeur) {
     // Ajoute le résultat à l'historique
@@ -1363,6 +1293,3 @@ document.getElementById('infoButton').addEventListener('click', function() {
         confirmButtonText: 'Fermer'
     });
 });
-
-
-        

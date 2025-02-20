@@ -22,17 +22,14 @@
 </head>
 <body>
     <button id="reset-game">🗑️</button>
-<!-- Bouton pour afficher le popup de sauvegarde -->
-<button id="save-game" onclick="showSavePopup()">💾</button>
-<audio id="background-music" loop>
+    <button id="save-game" onclick="showSavePopup()">💾</button>
+    <button id="music-button">🔇</button>
+    <button id="infoButton" style="font-size: 24px;">ℹ</button>
+    <audio id="background-music" loop>
     <source src="Songs\back_music.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l'élément audio.
-</audio>
-<button id="music-button">🔇</button>
-<button id="infoButton" style="font-size: 24px;">ℹ️</button>
+    </audio>
 
-
-<!-- Input caché pour charger une sauvegarde -->
 <input type="file" id="uploadSave" style="display: none" onchange="loadSave(event)">
   
     <!-- Section Avatars et Nom -->
@@ -65,15 +62,13 @@
         </div>
     </details>
 
-    <!-- Conteneur principal du jeu -->  
             <div class="trophies">
                 <h2>Trophées : <span id="trophy-count">0/23</span> <span id="toggle-arrow">▼</span></h2>
                 <ul id="trophy-list">
                     <li>Aucun trophée débloqué pour l’instant.</li>
                 </ul>
             </div>
-        </div>
-    </div>
+
     <div class="game-container">
             <h1>Clicker</h1>
             <p id="points">€: 0</p>
@@ -93,6 +88,7 @@
                 </div>
             </div>
         </div>
+
         <div class="entreprise-supermarché locked" id="supermarcheContainer">
             <h2>Supermarché</h2>
             <p>Achete une entreprise pour gagner plus d'€</br>
@@ -103,6 +99,7 @@
             <button id="boutonSuperviseur">Acheter Superviseur (Coût: 3M €)</button>
             <button id="boutonAgrandissement">Acheter Agrandissement (Coût: 5M €)</button>
         </div>
+
 <div class="entreprise-magasins locked" id="magasinContainer">
     <h2>Magasin de luxe</h2>
     <p>Achete un magasin de luxe pour gagner plus de €</br>
@@ -114,6 +111,7 @@
     <button id="boutonDevellopementdanslemonde">Dévelloper dans le monde (Coût: 500M €)</button>
     
 </div>
+
 <div class="stats-container">
     <h2>Statistiques : </h2>
     <p id="total-clicks">Nombre total de clics : 0</p>
@@ -136,6 +134,7 @@
         <!-- Les objets achetés seront ajoutés ici dynamiquement -->
     </div>
 </div>
+
 <div class="pari-container locked">
     <h1>Betclick</h1>
     <p>Vous avez <span id="tickets">0</span> tickets.</p>
@@ -203,6 +202,7 @@
         <ul id="historique-list"></ul>
     </div>
 </div>
+
 <footer>
     <div class="footer-content">
         <!-- Section Contact -->
@@ -229,13 +229,13 @@
         <p>&copy; 2025 Noé Marchal. Tous droits réservés.</p>
     </div>
 </footer>
+
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 </body>
 </html>

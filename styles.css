@@ -1,542 +1,164 @@
 /* Styles de base */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #000; /* Fond noir pour un look élégant */
+  color: #fff; /* Texte blanc */
   margin: 0;
   padding: 0;
-  touch-action: manipulation; /* Désactive le zoom à double toucher */
+  line-height: 1.6;
+  touch-action: manipulation;
 }
 
-/* Conteneur principal qui aligne les deux blocs */
-
-/* Styles des blocs "Jeu" et "Trophées" */
-.trophies {
-  width: 30%;
-  padding: 2%;
-  background-color: #cfc9c9;
-  border-radius: 40px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  margin-left: 18%;
-  text-align: center;
+/* Conteneurs principaux */
+.container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container {
+  background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
+  border-radius: 20px;
+  backdrop-filter: blur(10px); /* Effet de flou pour un look moderne */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure subtile */
+  margin: 20px auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 1200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.game-container {
-  width: 30%;
-  padding: 2%;
-  background-color: #cfc9c9;
-  border-radius: 40px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  margin-left: 53%;
-  margin-top: -9%;
+.container:hover, .game-container:hover, .trophies:hover, .stats-container:hover, .pari-container:hover, .entreprise-supermarché:hover, .entreprise-magasins:hover, .shop:hover, .inventory-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Styles des trophées */
+/* Boutons */
+button, input[type="button"], input[type="submit"], select {
+  background-color: rgba(255, 255, 255, 0.1); /* Boutons semi-transparents */
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px); /* Effet de flou sur les boutons */
+}
+
+button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+button:active, input[type="button"]:active, input[type="submit"]:active {
+  transform: scale(0.95);
+}
+
+/* Textes et titres */
+h1, h2, h3 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 3rem;
+  letter-spacing: -1px;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Avatar et nom du joueur */
+.avatar-container img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.avatar-container img:hover {
+  transform: scale(1.1);
+}
+
+.player-name {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Effet de survol sur les éléments interactifs */
+.upgrade-button, .click-button, .item-button {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upgrade-button:hover, .click-button:hover, .item-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Section des trophées */
 .trophies ul {
   list-style: none;
   padding: 0;
 }
 
 .trophies li {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 5px 0;
-  padding: 5px;
-  background-color: #cfc9c9;
-  border-radius: 5px;
-  display: block;
-}
-
-/* Styles des boutons */
-button,
-input,
-select,
-option {
-  display: inline-block;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
-}
-
-/* Bouton de réinitialisation */
-#reset-game {
-  position: absolute;
-  top: 20px;
-  right: 50px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: x-large;
-}
-
-#reset-game:hover {
-  background-color: #7e1620;
-}
-
-#reset-game:active {
-  transform: scale(0.95);
-}
-
-/* Bouton de sauvegarde */
-#save-game {
-  position: absolute;
-  top: 80px;
-  right: 50px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #28a745; /* Vert */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-size: x-large;
-}
-
-#save-game:hover {
-  background-color: #218838; /* Vert foncé */
-}
-
-#save-game:active {
-  transform: scale(0.95);
-}
-
-#music-button {
-  position: absolute;
-  top: 140px;
-  right: 50px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: rgb(167, 165, 165); /* gris clair */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-size: x-large;
-}
-
-#music-button:hover {
-  background-color: grey; /* Vert foncé */
-}
-
-#music-button:active {
-  transform: scale(0.95);
-}
-
-#infoButton {
-  position: absolute;
-  top: 200px;
-  right: 50px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: rgb(130, 130, 243); /* bleu clair */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-size: x-large;
-}
-
-#infoButton:hover {
-  background-color: blue; /* bleu foncé */
-}
-
-#infoButton:active {
-  transform: scale(0.95);
-}
-
-/* Conteneur de l'avatar et du nom */
-.image {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  position: absolute;
-  top: 10px;
-  left: 50px;
-}
-
-.player-name {
-  font-size: 3.6rem;
-  font-weight: bold;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: -6%;
-}
-
-/* Style pour le formulaire de personnalisation */
-#customization-form {
-  position: absolute;
-  margin-left: 9%;
-  transform: translateX(-50%);
-  background-color: #cfc9c9;
-  padding: 1%;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 17%;
-}
-#customization-form label {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  /* Styles pour les champs de sélection et de texte */
-#customization-form select,
-#customization-form input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   font-size: 1rem;
-  background-color: #fff;
-  color: #333;
-}
-/* Avatar dans le coin gauche */
-.avatar-container img {
-  width: 10%;
-  border-radius: 50%;
-}
-
-.upgrades {
-  margin-top: 30px;
+  font-weight: 500;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
 }
 
-summary {
-  margin-right: 85%;
-  margin-top: 10%;
-  font-size: 0.9rem;
+.trophies li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-@keyframes autoclickerEffect {
-  0% {
-    transform: translateY(0);
-    opacity: 100;
-  }
-  100% {
-    transform: translateY(-20px);
-    opacity: 100;
-  }
+/* Section des statistiques */
+.stats-container p {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.autoclicker-effect {
-  position: absolute;
-  font-size: 16px;
-  color: green;
-  animation: autoclickerEffect 1s ease-out;
-  pointer-events: none;
-}
-
-/* Style pour le message "Bravo" */
-.bravo-message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 48px;
-  font-weight: bold;
-  color: gold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  animation: blink 1s infinite;
-  z-index: 1000;
-}
-
-/* Animation de clignotement */
-@keyframes blink {
-  0%,
-  50%,
-  100% {
-    opacity: 1;
-  }
-  25%,
-  75% {
-    opacity: 0;
-  }
-}
-
-.stats-container {
-  width: 30%;
-  padding: 2%;
-  background-color: #cfc9c9;
-  border-radius: 40px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  margin-top: -16%; /* Espacement ajusté */
-  margin-left: 53%;
-}
+/* Section des paris */
 .pari-container {
-  width: 30%;
-  padding: 2%;
-  background-color: #cfc9c9;
-  border-radius: 40px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  margin-top: 2%; /* Espacement ajusté */
-  margin-left: 15%;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-.ticket-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.ticket-options label {
-  font-weight: bold;
-}
-
-.ticket-options select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-#acheterTicket {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#acheterTicket:hover {
-  background-color: #218838;
-}
-
-#mise {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-#parier {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#parier:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-#resultat {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-#animation {
-  margin-top: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  display: none;
-}
-
-#animation.gagne {
-  color: green;
-  animation: flash 0.5s ease-in-out;
-}
-
-#animation.perdu {
-  color: red;
-  animation: flash 0.5s ease-in-out;
-}
-
-@keyframes flash {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-#historique {
-  margin-top: 30px;
-  text-align: left;
-}
-
-#historique h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-#historique-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-#historique-list li {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-#historique-list li.gagne {
-  color: green;
-}
-
-#historique-list li.perdu {
-  color: red;
-}
-
-/* Styles des boutons */
-button,
-input,
-select,
-option {
-  display: inline-block;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
-  cursor: pointer; /* Ajouter un curseur pointer pour les boutons */
-}
-
-button:hover,
-input:hover,
-select:hover {
-  background-color: #f0f0f0; /* Changement de couleur au survol */
-}
-
-/* Styles pour les conteneurs d'items */
-#items-to-buy,
-#items-bought {
-  height: 300px; /* Hauteur fixe */
-  overflow-y: auto; /* Barre de défilement verticale */
-  border: 1px solid #ddd; /* Bordure légère */
-  padding: 10px;
-  background-color: #f9f9f9; /* Fond légèrement gris */
-  border-radius: 20px; /* Bordures arrondies */
-  margin-top: 10px; /* Espacement avec le titre */
-}
-
-/* Styles pour les boutons d'items */
-.item-button {
-  display: block; /* Afficher en bloc pour occuper toute la largeur */
-  width: calc(100% - 20px); /* Largeur ajustée */
-  margin: 5px auto; /* Centrer les boutons */
-  padding: 10px 20px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: left; /* Aligner le texte à gauche */
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.item-button:hover {
-  background-color: #f0f0f0; /* Changement de couleur au survol */
-}
-
-/* Styles pour les items achetés */
-.item.bought {
-  padding: 10px;
-  margin: 5px;
-  background-color: #e0e0e0; /* Fond gris pour les items achetés */
-  border-radius: 30px; /* Bordures arrondies */
-  font-size: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Style de base du footer */
+/* Footer */
 footer {
-    background-color: #333; /* Couleur de fond sombre */
-    color: #fff; /* Texte en blanc */
-    padding: 40px 20px; /* Espacement intérieur */
-    text-align: center; /* Centrage du texte */
-    width: 100%; /* Largeur totale */
-    font-family: Arial, sans-serif; /* Police de caractères */
-  }
-  
-  /* Liens dans le footer */
-  footer a {
-    color: #fff; /* Texte en blanc */
-    text-decoration: none; /* Pas de soulignement par défaut */
-    margin: 0 10px; /* Espacement entre les liens */
-    font-size: 18px; /* Taille de police */
-    transition: color 0.3s ease, text-decoration 0.3s ease; /* Animation fluide */
-  }
-  
-  /* Effet au survol des liens */
-  footer a:hover {
-    text-decoration: underline; /* Soulignement au survol */
-    color: #f0f0f0; /* Légère variation de couleur au survol */
-  }
-  
-  /* Conteneur principal du footer */
-  .footer-content {
-    display: flex; /* Disposition en flexbox */
-    justify-content: space-around; /* Espacement égal entre les sections */
-    max-width: 1200px; /* Largeur maximale */
-    margin: 0 auto; /* Centrage horizontal */
-    flex-wrap: wrap; /* Passage à la ligne sur les petits écrans */
-  }
-  
-  /* Sections du footer */
-  .footer-section {
-    margin: 20px; /* Espacement autour des sections */
-    text-align: left; /* Alignement du texte à gauche */
-    flex: 1; /* Flexibilité pour occuper l'espace disponible */
-    min-width: 200px; /* Largeur minimale pour éviter le sur-compressement */
-  }
-  
-  /* Titres des sections */
-  .footer-section h3 {
-    margin-bottom: 15px; /* Espacement sous le titre */
-    font-size: 18px; /* Taille de police */
-    color: #fff; /* Texte en blanc */
-  }
-  
-  /* Paragraphes dans les sections */
-  .footer-section p {
-    margin: 5px 0; /* Espacement entre les paragraphes */
-    color: #ccc; /* Texte en gris clair */
-    font-size: 16px; /* Taille de police */
-  }
-  
-  /* Section inférieure du footer */
-  .footer-bottom {
-    margin-top: 20px; /* Espacement au-dessus de la section */
-    border-top: 1px solid #444; /* Bordure supérieure */
-    padding-top: 20px; /* Espacement intérieur */
-    font-size: 14px; /* Taille de police */
-    color: #ccc; /* Texte en gris clair */
-  }
-  
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #4e73df;
+}
 
 #trophy-list {
   max-height: 0;
@@ -568,386 +190,28 @@ footer {
 #trophy-list.visible::-webkit-scrollbar-thumb:hover {
   background: #555; /* Couleur de la barre de défilement au survol */
 }
-.ultimate-message {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #4caf50;
-  color: white;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  font-size: 18px;
-}
 
-* {
-  box-sizing: border-box;
-}
-
-.money-pop {
-  position: absolute;
-  font-size: 18px;
-  font-weight: bold;
-  color: green;
-  pointer-events: none;
-  animation: popUp 1s ease-out forwards;
-  transform: translate(-50%, -50%); /* Centre exactement sur le clic */
-  z-index: 9999;
-}
-
-@keyframes popUp {
-  0% {
-    opacity: 100;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -80%) scale(1.3);
-  }
-  100% {
-    opacity: 100;
-    transform: translate(-50%, -120%) scale(1);
-  }
-}
-.upgrade-button,
-.click-button {
-  transition: transform 0.4s ease, box-shadow 0.2s ease;
-}
-
-.upgrade-button:active,
-.click-button {
-  transform: scale(1.2);
-  box-shadow: 0px 0px 40px green;
-}
-
-@keyframes glow {
-  0% {
-    box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
-  }
-  50% {
-    box-shadow: 0px 0px 20px rgba(0, 255, 0, 1);
-  }
-  100% {
-    box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
-  }
-}
-
-.upgrade-available {
-  animation: glow 1s infinite alternate;
-}
-
-/* Définir l'animation de rebond */
-@keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-20px);
-  }
-  60% {
-    transform: translateY(-10px);
-  }
-}
-
-/* Classe pour appliquer l'animation */
-.bounce-animation {
-  animation: bounce 1s ease;
-}
-
-.entreprise-supermarché {
-  width: 30%;
-  padding: 20px;
-  background-color: #cfc9c9;
-  border-radius: 40px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  margin-left: 18%;
-  margin-top: -34%;
-  cursor: pointer; /* Curseur pour indiquer que c'est cliquable */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.entreprise-magasins {
-  width: 30%;
-  padding: 20px;
-  background-color: #cfc9c9;
-  border-radius: 40px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  margin-left: 18%;
-  margin-top: 1%;
-  cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
-}
-
-.shop {
-  width: 45%; /* Largeur des conteneurs */
-  padding: 20px;
-  background-color: #cfc9c9; /* Couleur de fond */
-  border-radius: 40px; /* Bordures arrondies */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Ombre */
-  text-align: center;
-  margin: 10px; /* Espacement entre les conteneurs */
-  display: inline-block; /* Afficher côte à côte */
-  vertical-align: top; /* Aligner en haut */
-  box-sizing: border-box; /* Inclure le padding dans la largeur */
-  cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
-}
-
-
-.inventory-container {
-  width: 45%; /* Largeur des conteneurs */
-  padding: 20px;
-  background-color: #cfc9c9; /* Couleur de fond */
-  border-radius: 40px; /* Bordures arrondies */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Ombre */
-  text-align: center;
-  margin: 10px; /* Espacement entre les conteneurs */
-  display: inline-block; /* Afficher côte à côte */
-  vertical-align: top; /* Aligner en haut */
-  box-sizing: border-box; /* Inclure le padding dans la largeur */
-  cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
-}
-/* Pour les écrans ultra-larges (2560px et plus) */
-@media (min-width: 2560px) {
-    body {
-      font-size: 20px; /* Encore plus grand pour les écrans 2K/4K */
-      touch-action: manipulation; /* Désactive le zoom à double toucher */
-    }
-  
-    .game-container,
-    .trophies,
-    .stats-container,
-    .pari-container,
-    .entreprise-supermarché,
-    .entreprise-magasins,
-    .shop,
-    .inventory-container {
-      width: 15%; /* Encore plus étroit pour éviter l'étirement excessif */
-    }
-  
-    .player-name {
-      font-size: 5rem; /* Encore plus grand pour les écrans 4K */
-    }
-  
-    button,
-    input,
-    select,
-    option {
-      padding: 20px 40px; /* Boutons encore plus grands */
-      font-size: 20px;
-    }
-  
-    #reset-game,
-    #save-game,
-    #music-button,
-    #infoButton {
-      top: 50px; /* Ajuster la position des boutons */
-      right: 150px;
-    }
-  
-    .avatar-container img {
-      width: 20%; /* Ajuster la taille de l'avatar */
-    }
-  
-    .money-pop {
-      font-size: 28px; /* Texte plus grand pour les animations */
-    }
-  
-    .ultimate-message {
-      font-size: 28px; /* Texte plus grand pour les messages */
-    }
-  }
-/* Pour les écrans larges (1920px et plus) */
-@media (min-width: 1920px) {
-  body {
-    font-size: 18px; /* Augmenter la taille de la police pour une meilleure lisibilité */
-    touch-action: manipulation; /* Désactive le zoom à double toucher */
-  }
-
-  .game-container,
-  .trophies,
-  .stats-container,
-  .pari-container,
-  .entreprise-supermarché,
-  .entreprise-magasins,
-  .shop,
-  .inventory-container {
-    width: 20%; /* Réduire la largeur des conteneurs pour éviter qu'ils ne s'étirent trop */
-    margin: 20px auto; /* Espacement plus important */
-  }
-
-  .player-name {
-    font-size: 4.5rem; /* Augmenter la taille du nom du joueur */
-  }
-
-  button,
-  input,
-  select,
-  option {
-    padding: 15px 30px; /* Boutons plus grands */
-    font-size: 18px; /* Texte plus grand */
-  }
-
-  #reset-game,
-  #save-game,
-  #music-button,
-  #infoButton {
-    top: 30px; /* Ajuster la position des boutons */
-    right: 100px;
-  }
-
-  .avatar-container img {
-    width: 15%; /* Ajuster la taille de l'avatar */
-  }
-
-  /* Ajuster les animations et les effets pour les grands écrans */
-  .money-pop {
-    font-size: 24px; /* Texte plus grand pour les animations */
-  }
-
-  .ultimate-message {
-    font-size: 24px; /* Texte plus grand pour les messages */
-  }
-}
-
-/* Styles de base pour les écrans larges (ordinateurs) */
-body {
-  font-size: 16px;
-}
-
-/* Pour les tablettes */
-@media (max-width: 1024px) {
-  body {
-    font-size: 14px;
-    touch-action: manipulation; /* Désactive le zoom à double toucher */
-  }
-
-  .game-container,
-  .trophies,
-  .stats-container,
-  .pari-container,
-  .entreprise-supermarché,
-  .entreprise-magasins,
-  .shop,
-  .inventory-container {
-    width: 45%; /* Réduire la largeur des conteneurs */
-    margin: 10px auto; /* Centrer les conteneurs */
-  }
-
-  .player-name {
-    font-size: 2.5rem; /* Réduire la taille du nom du joueur */
-  }
-
-  button,
-  input,
-  select,
-  option {
-    padding: 8px 16px; /* Réduire la taille des boutons */
-    font-size: 14px;
-  }
-}
-
-/* Pour les smartphones */
+/* Responsive Design */
 @media (max-width: 768px) {
-  body {
-    font-size: 12px;
-    touch-action: manipulation; /* Désactive le zoom à double toucher */
+  .container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container {
+    width: 95%;
+    padding: 20px;
   }
 
-  .game-container,
-  .trophies,
-  .stats-container,
-  .pari-container,
-  .entreprise-supermarché,
-  .entreprise-magasins,
-  .shop,
-  .inventory-container {
-    width: 90%; /* Prendre presque toute la largeur de l'écran */
-    margin: 15px auto; /* Centrer les conteneurs */
-
+  h1 {
+    font-size: 2rem;
   }
 
-  .player-name {
-    font-size: 2rem; /* Réduire encore la taille du nom du joueur */
-    top: 44%;
+  h2 {
+    font-size: 1.5rem;
   }
 
-  button,
-  input,
-  select,
-  option {
-    padding: 6px 12px; /* Réduire encore la taille des boutons */
-    font-size: 12px;
+  h3 {
+    font-size: 1.2rem;
   }
 
-  #reset-game,
-  #save-game,
-  #music-button,
-  #infoButton {
-    position: static; /* Réinitialiser la position absolue */
-    margin: 10px auto; /* Centrer les boutons */
-    display: block; /* Afficher en bloc pour occuper toute la largeur */
-  }
-
-  .image {
-    position: static; /* Réinitialiser la position absolue */
-    text-align: center; /* Centrer l'avatar et le nom */
-    margin-top: 20px; /* Espacement */
-  }
-
-  .avatar-container img {
-    width: 30%; /* Ajuster la taille de l'avatar */
-  }
-
-  .footer-content {
-    flex-direction: column; /* Empiler les sections verticalement */
-    align-items: center; /* Centrer les sections */
-    text-align: center; /* Centrer le texte */
-  }
-
-  .footer-section {
-    text-align: center; /* Centrer le texte dans les sections */
-    margin: 10px 0; /* Réduire l'espacement entre les sections */
-  }
-
-  .footer-section h3 {
-    margin-bottom: 10px; /* Réduire l'espacement sous le titre */
-  }
-
-  .footer-section p {
-    margin: 5px 0; /* Espacement entre les paragraphes */
-  }
-
-  .footer-bottom {
-    text-align: center; /* Centrer le texte */
-  }
-  summary {
-    margin-top: 3%; /* Marge en haut minimale */
-    font-size: 0.75rem; /* Taille de police encore plus petite */
-    width: 90%; /* Largeur presque totale */
-    margin-left: 5%; /* Pas de marge à gauche */
-    text-align: left; /* Alignement du texte à gauche */
-  }
-  #customization-form {
-    width: 40%; /* Largeur presque totale pour les très petits écrans */
-    right: 35%;
-  }
-
-  #customization-form label {
-    font-size: 0.85rem; /* Taille de police encore plus petite */
-  }
-
-  #customization-form select,
-  #customization-form input[type="text"] {
-    padding: 5px; /* Padding minimal */
-    font-size: 0.85rem; /* Taille de police encore plus petite */
+  button, input[type="button"], input[type="submit"], select {
+    padding: 10px 20px;
+    font-size: 14px;
   }
 }
