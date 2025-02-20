@@ -14,7 +14,7 @@ const minReturn = 15000000000; // 15 milliards min de gains
 const maxReturn = 60000000000; // 60 milliards max de gains
 const minLoss = 15000000000; // 15 milliards min de perte
 const maxLoss = 60000000000; // -0 milliards max de perte avec 0 en plus a la fin 
-const investmentAmount = 10000000000; // 10 milliards investis à chaque tour
+const investmentAmount = 10000000000; // 10 milliards investis à chaque tourn
 
 // Variables du jeu
 let points = 0;
