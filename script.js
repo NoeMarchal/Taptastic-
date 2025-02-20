@@ -139,11 +139,11 @@ const parierButton = document.getElementById("parier");
 const resultatElement = document.getElementById("resultat");
 const animationElement = document.getElementById("animation");
 const historiqueList = document.getElementById("historique-list");
-const buyAIButton = document.getElementById(".buyAI");
-const aiControls = document.getElementById(".aiControls");
-const strategySelect = document.getElementById(".strategy");
-const startInvestmentButton = document.getElementById(".startInvestment");
-const investmentLog = document.getElementById(".investmentLog");
+const buyAIButton = document.getElementById("buyAI");
+const aiControls = document.getElementById("aiControls");
+const strategySelect = document.getElementById("strategy");
+const startInvestmentButton = document.getElementById("startInvestment");
+const investmentLog = document.getElementById("investmentLog");
 // Charger la sauvegarde
 loadGame();
 
@@ -1415,6 +1415,7 @@ document.getElementById('infoButton').addEventListener('click', function() {
         }
     });
 });
+
 buyAIButton.addEventListener("click", () => {
     if (points >= aiCost) {
         points -= aiCost;
