@@ -317,6 +317,10 @@ details summary::marker {
     font-size: 10px; /* Taille de police minimale */
     min-width: 80px; /* Largeur minimale très réduite */
   }
+  button, input[type="button"], input[type="submit"], select {
+    -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
+    outline: none; /* Supprime le contour au focus (optionnel) */
+  }
 
   /* Titres */
   h1 {
