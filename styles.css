@@ -672,35 +672,6 @@ footer {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.entreprise-supermarché.locked {
-  background-color: #a8a8a8;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  cursor: not-allowed; /* Curseur "non autorisé" quand c'est verrouillé */
-  opacity: 0.7;
-}
-
-.entreprise-supermarché.locked::after {
-  content: "🔒 Verrouillé (Cliquez pour acheter)"; /* Indication pour l'utilisateur */
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
-}
-
-.entreprise-supermarché.unlocked {
-  background-color: #cfc9c9;
-  cursor: pointer; /* Curseur normal quand c'est débloqué */
-  opacity: 1;
-}
-
-.entreprise-supermarché.unlocked::after {
-  content: "✅ Débloqué"; /* Indication que c'est débloqué */
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: green;
-}
-
 .entreprise-magasins {
   width: 30%;
   padding: 20px;
@@ -714,20 +685,6 @@ footer {
   transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
 }
 
-.entreprise-magasins.locked {
-  background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
-  cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
-  opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
-}
-
-.entreprise-magasins.locked::after {
-  content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
-}
 .shop {
   width: 45%; /* Largeur des conteneurs */
   padding: 20px;
@@ -743,20 +700,6 @@ footer {
   transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
 }
 
-.shop.locked {
-  background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
-  cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
-  opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
-}
-
-.shop.locked::after {
-  content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
-}
 
 .inventory-container {
   width: 45%; /* Largeur des conteneurs */
@@ -771,35 +714,6 @@ footer {
   box-sizing: border-box; /* Inclure le padding dans la largeur */
   cursor: pointer; /* Curseur normal pour indiquer qu'il est cliquable */
   transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation fluide */
-}
-
-.inventory-container.locked {
-  background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
-  cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
-  opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
-}
-
-.inventory-container.locked::after {
-  content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
-}
-.pari-container.locked {
-  background-color: #a8a8a8; /* Couleur plus sombre pour indiquer qu'il est verrouillé */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
-  cursor: not-allowed; /* Curseur "non autorisé" pour indiquer qu'il n'est pas cliquable */
-  opacity: 0.7; /* Réduire l'opacité pour un effet "désactivé" */
-}
-
-.pari-container.locked::after {
-  content: "🔒 Verrouillé"; /* Ajouter un emoji ou un texte pour indiquer qu'il est verrouillé */
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
 }
 /* Pour les écrans ultra-larges (2560px et plus) */
 @media (min-width: 2560px) {

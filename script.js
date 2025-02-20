@@ -10,8 +10,6 @@ const MarchandisesdeluxeCost = 250000000; // Coût des marchandises
 const NouvellecollectionCost = 300000000; // Coût du superviseur
 const DevellopementdanslemondeCost = 500000000; // Coût de l'agrandissement
 
-
-
 // Variables du jeu
 let points = 0;
 let pointsPerClick = 1;
@@ -43,15 +41,12 @@ let boughtItems = [];
 let historique = [];
 let tickets = 0;
 
-
-
-
-
 // Mise à jour du temps de jeu chaque seconde
 setInterval(() => {
     gameTime = Math.floor((Date.now() - gameStartTime) / 1000);
     updateTrophies();
 }, 1000);
+
 // Liste des trophées et leurs conditions
 const trophies = [
     { name: "Débutant Clikers", condition: 10 },
@@ -262,11 +257,11 @@ function updateDisplay() {
         document.getElementById('boutonNouvellecollection').textContent = `Nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} €)`;
         document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} €)`;
         document.getElementById('total-clicks').textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
-document.getElementById('total-points-earned').textContent = `€ gagnés au total : ${formatNumber(totalPointsEarned)}`;
-document.getElementById("total-points-spent").textContent = `€ dépensés au total : ${formatNumber(totalPointsSpent)}`;
-    document.getElementById('upgrade1').classList.toggle('upgrade-available', points >= upgrade1Cost);
-    document.getElementById('upgrade2').classList.toggle('upgrade-available', points >= upgrade2Cost);
-    document.getElementById('autoclicker-button').classList.toggle('upgrade-available', points >= autoclickerCost);
+        document.getElementById('total-points-earned').textContent = `€ gagnés au total : ${formatNumber(totalPointsEarned)}`;
+        document.getElementById("total-points-spent").textContent = `€ dépensés au total : ${formatNumber(totalPointsSpent)}`;
+        document.getElementById('upgrade1').classList.toggle('upgrade-available', points >= upgrade1Cost);
+        document.getElementById('upgrade2').classList.toggle('upgrade-available', points >= upgrade2Cost);
+        document.getElementById('autoclicker-button').classList.toggle('upgrade-available', points >= autoclickerCost);
     
 
 
@@ -825,48 +820,6 @@ function resetGame() {
     // Vider l'inventaire des objets achetés
     itemsBoughtContainer.innerHTML = '';
 
-    // Réinitialiser le conteneur du supermarché
-    localStorage.removeItem('supermarcheAchete1');
-    const supermarcheContainer = document.getElementById('supermarcheContainer');
-    if (supermarcheContainer) {
-        supermarcheContainer.classList.add('locked');
-        const buttons = supermarcheContainer.querySelectorAll('button');
-        buttons.forEach(button => button.disabled = true);
-    }
-
-    // Réinitialiser le conteneur du magasin de luxe
-    localStorage.removeItem('magasinAchete1');
-    const magasinContainer = document.getElementById('magasinContainer');
-    if (magasinContainer) {
-        magasinContainer.classList.add('locked');
-        const buttons = magasinContainer.querySelectorAll('button');
-        buttons.forEach(button => button.disabled = true);
-    }
-
-    // Réinitialiser les conteneurs du shop et de l'inventaire
-    localStorage.removeItem('shopAndInventoryAchete');
-    const shopContainer = document.querySelector('.shop');
-    const inventoryContainer = document.querySelector('.inventory-container');
-    if (shopContainer) {
-        shopContainer.classList.add('locked');
-        const buttons = shopContainer.querySelectorAll('button');
-        buttons.forEach(button => button.disabled = true);
-    }
-    if (inventoryContainer) {
-        inventoryContainer.classList.add('locked');
-        const buttons = inventoryContainer.querySelectorAll('button');
-        buttons.forEach(button => button.disabled = true);
-    }
-
-    // Réinitialiser le conteneur des paris
-    localStorage.removeItem('pariContainerAchete');
-    const pariContainer = document.querySelector('.pari-container');
-    if (pariContainer) {
-        pariContainer.classList.add('locked');
-        const buttons = pariContainer.querySelectorAll('button');
-        buttons.forEach(button => button.disabled = true);
-    }
-
     // Sauvegarder et mettre à jour l'affichage
     saveGame();
     updateDisplay();
@@ -1390,143 +1343,6 @@ musicButton.addEventListener("click", toggleMusic);
 // Désactiver la lecture automatique au chargement de la page
 music.pause(); // S'assurer que la musique est en pause au départ
 updateMusicIcon(); // Mettre à jour l'icône du bouton
-//////////////////////////////////////////////////////////////////////////////////////////////////
-document.addEventListener('DOMContentLoaded', function() {
-    const supermarcheContainer = document.getElementById('supermarcheContainer');
-    const magasinContainer = document.getElementById('magasinContainer');
-    const shopContainer = document.querySelector('.shop'); // Conteneur des objets disponibles
-    const inventoryContainer = document.querySelector('.inventory-container'); // Conteneur des objets achetés
-    const pariContainer = document.querySelector('.pari-container'); // Conteneur des paris
-    const resetButton = document.getElementById('reset-game');
-
-    const supermarcheContainercost = 500000; // Coût pour débloquer le supermarché
-    const magasinContainercost = 60000000; // Coût pour débloquer le magasin de luxe (100M points)
-    const shopAndInventoryCost = 300000; // Coût pour débloquer les deux conteneurs (shop et inventory)
-    const pariContainerCost = 400000; // Coût pour débloquer le conteneur des paris
-
-    // Fonction pour vérifier l'état d'un conteneur
-    function checkContainerState(container, localStorageKey) {
-        if (localStorage.getItem(localStorageKey) === 'true') {
-            container.classList.remove('locked');
-            // Activer les boutons à l'intérieur du conteneur
-            const buttons = container.querySelectorAll('button');
-            buttons.forEach(button => button.disabled = false);
-        } else {
-            container.classList.add('locked');
-            // Désactiver les boutons à l'intérieur du conteneur
-            const buttons = container.querySelectorAll('button');
-            buttons.forEach(button => button.disabled = true);
-        }
-    }
-
-    // Vérifie l'état des conteneurs au chargement de la page
-    checkContainerState(supermarcheContainer, 'supermarcheAchete1');
-    checkContainerState(magasinContainer, 'magasinAchete1');
-    checkContainerState(shopContainer, 'shopAndInventoryAchete');
-    checkContainerState(inventoryContainer, 'shopAndInventoryAchete');
-    checkContainerState(pariContainer, 'pariContainerAchete');
-
-    // Gestion du clic sur le conteneur du supermarché
-    supermarcheContainer.addEventListener('click', function() {
-        if (supermarcheContainer.classList.contains('locked')) {
-            if (points >= supermarcheContainercost) {
-                points -= supermarcheContainercost; // Déduire les points
-                totalPointsSpent += supermarcheContainercost;
-                localStorage.setItem('supermarcheAchete1', 'true');
-                checkContainerState(supermarcheContainer, 'supermarcheAchete1');
-                Swal.fire({
-                    title: 'Achat réussi!',
-                    text: 'Vous avez débloqué le supermarché!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            } else {
-                Swal.fire({
-                    title: 'Points insuffisants',
-                    text: `Il vous manque ${formatNumber(supermarcheContainercost - points)} € pour débloquer le Supermarché.`,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
-        }
-    });
-
-    // Gestion du clic sur le conteneur du magasin de luxe
-    magasinContainer.addEventListener('click', function() {
-        if (magasinContainer.classList.contains('locked')) {
-            if (points >= magasinContainercost) {
-                points -= magasinContainercost; // Déduire les points
-                totalPointsSpent += magasinContainercost;
-                localStorage.setItem('magasinAchete1', 'true');
-                checkContainerState(magasinContainer, 'magasinAchete1');
-                Swal.fire({
-                    title: 'Achat réussi!',
-                    text: 'Vous avez débloqué le magasin de luxe!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            } else {
-                Swal.fire({
-                    title: 'Points insuffisants',
-                    text: `Il vous manque ${formatNumber(magasinContainercost - points)} € pour débloquer le magasin de luxe.`,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
-        }
-    });
-
-    // Gestion du clic sur le conteneur du shop et de l'inventaire
-    shopContainer.addEventListener('click', function() {
-        if (shopContainer.classList.contains('locked')) {
-            if (points >= shopAndInventoryCost) {
-                points -= shopAndInventoryCost; // Déduire les points
-                totalPointsSpent += shopAndInventoryCost;
-                localStorage.setItem('shopAndInventoryAchete', 'true');
-                checkContainerState(shopContainer, 'shopAndInventoryAchete');
-                checkContainerState(inventoryContainer, 'shopAndInventoryAchete');
-                Swal.fire({
-                    title: 'Achat réussi!',
-                    text: 'Vous avez débloqué les items',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            } else {
-                Swal.fire({
-                    title: 'Points insuffisants',
-                    text: `Il vous manque ${formatNumber(shopAndInventoryCost - points)} € pour débloquer les items.`,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
-        }
-    });
-
-    // Gestion du clic sur le conteneur des paris
-    pariContainer.addEventListener('click', function() {
-        if (pariContainer.classList.contains('locked')) {
-            if (points >= pariContainerCost) {
-                points -= pariContainerCost; // Déduire les points
-                totalPointsSpent += pariContainerCost;
-                localStorage.setItem('pariContainerAchete', 'true');
-                checkContainerState(pariContainer, 'pariContainerAchete');
-                Swal.fire({
-                    title: 'Achat réussi!',
-                    text: 'Vous avez débloqué le conteneur des paris!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            } else {
-                Swal.fire({
-                    title: 'Points insuffisants',
-                    text: `Il vous manque ${formatNumber(pariContainerCost - points)} € pour débloquer le centre des paris.`,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
-        }
-    });
-});
 
 document.getElementById('infoButton').addEventListener('click', function() {
     Swal.fire({
@@ -1549,3 +1365,4 @@ document.getElementById('infoButton').addEventListener('click', function() {
 });
 
 
+        
