@@ -9,12 +9,6 @@ const MagasinCost = 200000000; // Coût du supermarché
 const MarchandisesdeluxeCost = 250000000; // Coût des marchandises
 const NouvellecollectionCost = 300000000; // Coût du superviseur
 const DevellopementdanslemondeCost = 500000000; // Coût de l'agrandissement
-const aiCost = 30000000000; // Coût de l'IA : 30 milliards
-const minReturn = 15000000000; // 15 milliards min de gains
-const maxReturn = 60000000000; // 60 milliards max de gains
-const minLoss = 15000000000; // 15 milliards min de perte
-const maxLoss = 60000000000; // -0 milliards max de perte avec 0 en plus a la fin 
-const investmentAmount = 10000000000; // 10 milliards investis à chaque tourn
 
 // Variables du jeu
 let points = 0;
@@ -139,15 +133,11 @@ const parierButton = document.getElementById("parier");
 const resultatElement = document.getElementById("resultat");
 const animationElement = document.getElementById("animation");
 const historiqueList = document.getElementById("historique-list");
-const buyAIButton = document.getElementById("buyAI");
-const aiControls = document.getElementById("aiControls");
-const strategySelect = document.getElementById("strategy");
-const startInvestmentButton = document.getElementById("startInvestment");
-const investmentLog = document.getElementById("investmentLog");
+
 // Charger la sauvegarde
 loadGame();
 
-//fonction sauvegarder 
+// Sauvegarder la progression dans localStorage
 function saveGame() {
     const gameData = {
         points,
@@ -160,7 +150,7 @@ function saveGame() {
         upgrade2Level,
         unlockedTrophies,
         playerName,
-        avatarSrc,
+        avatarSrc, // Sauvegarder l'avatar
         supermarcheAchete,
         marchandisesAchete,
         superviseurAchete,
@@ -168,8 +158,8 @@ function saveGame() {
         totalClicks,
         totalPointsEarned,
         totalPointsSpent,
-        gameStartTime,
-        elapsedTime,
+        gameStartTime, // Sauvegarder l'heure de début du jeu
+        elapsedTime, // Sauvegarder le temps écoulé
         MagasinAchete,
         MarchandisesdeluxeAchete,
         NouvellecollectionAchete,
@@ -177,14 +167,10 @@ function saveGame() {
         boughtItems,
         historique,
         tickets,
-        autoclickerPower,
-        aiPurchased, 
-        investmentHistory
-    };
 
+    };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
-
 
 // Charger la progression depuis localStorage
 function loadGame() {
@@ -218,17 +204,6 @@ function loadGame() {
         boughtItems = gameData.boughtItems ||[];
         historique = gameData.historique ||[];
         tickets = gameData.tickets;
-        autoclickerPower = gameData.autoclickerPower;
-        aiPurchased = gameData.aiPurchased || false;
-        investmentHistory = gameData.investmentHistory || [];
-
-         if (aiPurchased) {
-             document.querySelector(".buyAI").style.display = "none";
-             document.querySelector(".aiControls").style.display = "block";
-         }
- 
-         // 🎯 Recharger les investissements précédents
-         investmentHistory.forEach(log => addInvestmentLog(log));
     }
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
@@ -247,9 +222,6 @@ function loadGame() {
     if (MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
     if (NouvellecollectionAchete) disableButton('boutonNouvellecollection');
     if (DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
-    if (upgrade1Level) disableButton('upgrade1');
-    if (upgrade2Level) disableButton('upgrade2');
-    if (autoclickers) disableButton('autoclicker-button');
 
     updateDisplay();
     updateUI();
@@ -458,17 +430,6 @@ function loadSave(event) {
                 MarchandisesdeluxeAchete = gameData.MarchandisesdeluxeAchete || MarchandisesdeluxeAchete;
                 NouvellecollectionAchete = gameData.NouvellecollectionAchete || NouvellecollectionAchete;
                 DevellopementdanslemondeAchete = gameData.DevellopementdanslemondeAchete || DevellopementdanslemondeAchete;
-                autoclickerPower = gameData.autoclickerPower || autoclickerPower;
-                aiPurchased = gameData.aiPurchased || false;
-                investmentHistory = gameData.investmentHistory || [];
-        
-                 if (aiPurchased) {
-                     document.querySelector(".buyAI").style.display = "none";
-                     document.querySelector(".aiControls").style.display = "block";
-                 }
-         
-                 // 🎯 Recharger les investissements précédents
-                 investmentHistory.forEach(log => addInvestmentLog(log));
 
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
@@ -484,9 +445,7 @@ function loadSave(event) {
                 if (gameData.MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
                 if (gameData.NouvellecollectionAchete) disableButton('boutonNouvellecollection');
                 if (gameData.DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
-                if (gameData.upgrade1Level) disableButton('upgrade1');
-                if (gameData.upgrade2Level) disableButton('upgrade2');
-                if (gameData.autoclickers) disableButton('autoclicker-button');
+
                 // Vider l'inventaire des objets achetés
                 itemsBoughtContainer.innerHTML = '';
 
@@ -524,6 +483,7 @@ function showSavePopup() {
             <button onclick="exportSave()" class="swal2-confirm swal2-styled">Télécharger la sauvegarde</button>
             <button onclick="document.getElementById('uploadSave').click()" class="swal2-cancel swal2-styled">Charger une sauvegarde</button>
         `,
+        showCloseButton: true,
         showConfirmButton: false,
         showCancelButton: false,
         didOpen: () => {
@@ -551,7 +511,7 @@ newClickButton.addEventListener('click', (event) => {
 //Amélioration1 
 upgrade1Button.addEventListener('click', () => {
     if (upgrade1Level >= maxUpgrade1Level) {
-        disableButton('upgrade1');
+        // Afficher un message d'erreur stylisé avec SweetAlert2
         Swal.fire({
             position: "center",
             icon: "warning",
@@ -593,7 +553,10 @@ upgrade1Button.addEventListener('click', () => {
 // Amélioration 2
 upgrade2Button.addEventListener('click', () => {
     if (upgrade2Level >= maxUpgrade2Level) {
-        disableButton('upgrade2');
+        // Jouer un son d'erreur
+        const errorSound = new Audio('error-sound.mp3');
+        errorSound.play();
+
         // Afficher un message d'erreur stylisé avec SweetAlert2
         Swal.fire({
             position: "center",
@@ -648,8 +611,7 @@ setInterval(() => {
 
 // Achat d'un autoclicker
 autoclickerButton.addEventListener('click', () => {
-    if (autoclickers >= maxAutoclickers)
-        {disableButton('autoclicker-button'); 
+    if (autoclickers >= maxAutoclickers) {
             Swal.fire({
                 position: "center",
                 icon: "warning",
@@ -746,16 +708,11 @@ document.getElementById('reset-game').addEventListener('click', () => {
             resetGame();  
             updateDisplay();  
 
-            Swal.fire({
-                title: 'Réinitialisation',
-                text: 'Toutes vos données sont réinitilisées.',
-                icon: 'success',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                didOpen: () => {
-                    document.querySelector('.swal2-popup').style.borderRadius = '20px';
-                }
-            })
+            Swal.fire(
+                'Réinitialisé !',
+                'Votre progression a été supprimée.',
+                'success'
+            );
         }
     });
 });
@@ -790,16 +747,6 @@ function resetGame() {
     boughtItems = [];
     historique = [];
     tickets = 0;
-    autoclickerPower = 250;
-    aiPurchased = false;
-    investmentHistory = [];
-    
-    // Réactiver les boutons désactivés
-    document.querySelectorAll("button").forEach(btn => btn.disabled = false);
-    
-    // Réafficher les éléments masqués
-    document.querySelector(".buyAI").style.display = "block";
-    document.querySelector(".aiControls").style.display = "none";
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -810,9 +757,6 @@ function resetGame() {
     document.getElementById('boutonMarchandisesdeluxe').disabled = false;
     document.getElementById('boutonNouvellecollection').disabled = false;
     document.getElementById('boutonDevellopementdanslemonde').disabled = false;
-    document.getElementById('upgrade1').disabled = false;
-    document.getElementById('upgrade2').disabled = false;
-    document.getElementById('autoclicker-button').disabled = false;
 
     // Supprimer l'avatar sauvegardé
     localStorage.removeItem("selectedAvatar");
@@ -859,7 +803,6 @@ document.getElementById('boutonSupermarche').addEventListener('click', function(
             }
           });
     }
-    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Marchandises
@@ -886,7 +829,6 @@ document.getElementById('boutonMarchandises').addEventListener('click', function
             }
           });
     }
-    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Superviseur
@@ -913,7 +855,6 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
             }
           });
     }
-    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Agrandissement
@@ -940,7 +881,6 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
             }
           });
     }
-    saveGame();
 });
 
 document.getElementById('toggle-arrow').addEventListener('click', function() {
@@ -978,7 +918,6 @@ document.getElementById('boutonMagasin').addEventListener('click', function() {
             }
           });
     }
-    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Marchandises de luxe
@@ -1005,7 +944,6 @@ document.getElementById('boutonMarchandisesdeluxe').addEventListener('click', fu
             }
           });
     }
-    saveGame();
 });
 
 // Écouteur d'événement pour le bouton Nouvelles collections
@@ -1032,7 +970,6 @@ document.getElementById('boutonNouvellecollection').addEventListener('click', fu
             }
           });
     }
-    saveGame();
 });
 
 // Écouteur d'événement pour le bouton devellopement dans le monde 
@@ -1059,7 +996,6 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
             }
           });
     }
-    saveGame();
 });
 
 function displayItems() {
@@ -1403,10 +1339,9 @@ document.getElementById('infoButton').addEventListener('click', function() {
                 <li><strong>Supermarché et Magasin de luxe :</strong> achete des magasin pour augmenter tes revenus !</li>
                 <li><strong>Les items :</strong>Ici, tu peut acheter et vendre tes items avec des plus value !</li>
                 <li><strong>les paris :</strong>Ici, tu dois acheter des ticket pour jouer et tenter de gagner beaucoup, mais attention tu peut aller dans le negatif !</li>
-                <li><strong>l'IA financière :</strong>Ici, tu peut t'enrichir tres vite mais tu peut tout perdre cela va t'aider pour acheter l'antimatier et bien d'autre... !</li>
                 <!-- Ajoutez autant de mécaniques que nécessaire -->
             </ul>
-            <p>Amuse-toi bien !</p>
+            <p>Amusez-vous bien !</p>
         `,
         icon: 'info',
         confirmButtonText: 'Fermer',
@@ -1415,94 +1350,3 @@ document.getElementById('infoButton').addEventListener('click', function() {
         }
     });
 });
-
-buyAIButton.addEventListener("click", () => {
-    if (points >= aiCost) {
-        points -= aiCost;
-        totalPointsSpent += aiCost;
-        aiPurchased = true;
-        updateDisplay();
-        aiControls.style.display = "block";
-        buyAIButton.style.display = "none";
-        saveGame();
-    } else {
-        Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Fond insuffisant",
-            text: `Il vous manque ${formatNumber(aiCost - points)} € pour acheter.`,
-            showConfirmButton: false,
-            timer: 1000,
-            didOpen: () => {
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
-            }
-        });
-    }
-});
-
-
-startInvestmentButton.addEventListener("click", () => {
-    if (points < investmentAmount) {
-        Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Fond insuffisant",
-            text: `Il vous manque ${formatNumber(investmentAmount - points)} € pour investir.`,
-            showConfirmButton: false,
-            timer: 1000,
-            didOpen: () => {
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
-            }
-        });
-        return;
-    }
-
-
-    let strategy = strategySelect.value;
-    let gainOrLoss;
-    let message;
-
-    points -= investmentAmount; // Décompter l'investissement
-    totalPointsSpent += investmentAmount;
-
-    let randomValue = Math.random();
-    let successRate = strategy === "prudente" ? 0.5 : 0.4; // 50% de réussite en mode prudent, 40% en agressif
-
-    if (randomValue < successRate) {
-        let profit = Math.floor(Math.random() * (maxReturn - minReturn) + minReturn);
-        points += profit;
-        totalPointsEarned += profit;
-        gainOrLoss = `<span style="color:green;">+${formatNumber(profit)}</span>`;
-        message = `✅ L'IA a réussi ! Gain de ${gainOrLoss} d'€`;
-    } else {
-        let loss = Math.floor(Math.random() * (maxLoss - minLoss) + minLoss);
-        points -= loss;
-        totalPointsSpent += loss;
-        gainOrLoss = `<span style="color:red;">-${formatNumber(loss)}</span>`;
-        message = `❌ Mauvaise prédiction... Perte de ${gainOrLoss} d'€`;
-    }
-
-    updateDisplay();
-    addInvestmentLog(message);
-    saveGame(); // ✅ Sauvegarde immédiate
-});
-
-// 🚀 AFFICHAGE DES LOGS (2 DERNIERS UNIQUEMENT)
-function addInvestmentLog(message) {
-    let li = document.createElement("li");
-    li.innerHTML = message;
-    investmentLog.prepend(li);
-
-    while (investmentLog.children.length > 2) {
-        investmentLog.removeChild(investmentLog.lastChild);
-    }
-}
-
-// Fonction pour formater les nombres en K, M, B, T
-function formatNumber(num) {
-    if (num >= 1e12) return (num / 1e12).toFixed(0) + "Blns";
-    if (num >= 1e9) return (num / 1e9).toFixed(0) + "Mds";
-    if (num >= 1e6) return (num / 1e6).toFixed(0) + "M";
-    if (num >= 1e3) return (num / 1e3).toFixed(0) + "K";
-    return num.toLocaleString(); // Sinon, affichage classique
-}

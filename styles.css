@@ -12,7 +12,7 @@ html,body {
 }
 
 /* Conteneurs principaux */
-.container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container, .aiControls {
+.container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container {
   background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
   border-radius: 20px;
   backdrop-filter: blur(10px); /* Effet de flou pour un look moderne */
@@ -24,7 +24,7 @@ html,body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.container:hover, .game-container:hover, .trophies:hover, .stats-container:hover, .pari-container:hover, .entreprise-supermarché:hover, .entreprise-magasins:hover, .shop:hover, .inventory-container:hover, .aiControls:hover {
+.container:hover, .game-container:hover, .trophies:hover, .stats-container:hover, .pari-container:hover, .entreprise-supermarché:hover, .entreprise-magasins:hover, .shop:hover, .inventory-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
@@ -41,6 +41,7 @@ button, input[type="button"], input[type="submit"], select {
   transition: all 0.3s ease;
   backdrop-filter: blur(5px); /* Effet de flou */
   min-width: 120px; /* Largeur minimale pour éviter les boutons trop étroits */
+  text-align: center; /* Centrer le texte */
   margin: 5px;
   -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
   outline: none; /* Supprime le contour au focus (optionnel) */
@@ -312,10 +313,6 @@ button:disabled {
   opacity: 0.6;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
 
 /* Réglages pour les très petits écrans (smartphones) */
 @media (max-width: 480px) {
@@ -324,7 +321,7 @@ ul {
   }
 
   /* Conteneurs principaux */
-  .container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container, .aiControls {
+  .container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container {
     width: 90%; /* Pleine largeur */
     padding: 10px; /* Espacement minimal */
   }
