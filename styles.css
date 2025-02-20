@@ -29,26 +29,52 @@ html,body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Boutons */
+/* Style de base pour les boutons */
 button, input[type="button"], input[type="submit"], select {
-  background-color: rgba(121, 117, 117); /* Boutons semi-transparents */
+  background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
-  padding: 12px 24px;
-  font-size: 16px;
+  border-radius: 25px; /* Bords arrondis */
+  padding: 8px 16px; /* Padding réduit */
+  font-size: 14px; /* Taille de police standard */
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px); /* Effet de flou sur les boutons */
+  backdrop-filter: blur(5px); /* Effet de flou */
+  min-width: 120px; /* Largeur minimale pour éviter les boutons trop étroits */
+  text-align: center; /* Centrer le texte */
+  margin: 10px;
 }
 
+/* Effet de survol */
 button:hover, input[type="button"]:hover, input[type="submit"]:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.4);
 }
 
+/* Effet de clic */
 button:active, input[type="button"]:active, input[type="submit"]:active {
-  transform: scale(0.95);
+  transform: scale(0.95); /* Légère réduction de taille au clic */
+}
+
+/* Boutons spécifiques */
+#reset-game, #save-game, #music-button, #infoButton {
+  padding: 8px 12px; /* Padding encore plus réduit pour les boutons d'actions */
+  font-size: 16px; /* Taille de police légèrement plus grande pour les icônes */
+  min-width: auto; /* Pas de largeur minimale pour ces boutons */
+}
+
+/* Boutons d'amélioration */
+.upgrade-button {
+  padding: 8px 12px; /* Padding réduit */
+  font-size: 14px; /* Taille de police standard */
+  min-width: 150px; /* Largeur minimale pour les boutons d'amélioration */
+}
+
+/* Boutons de pari */
+#acheterTicket, #parier {
+  padding: 8px 12px; /* Padding réduit */
+  font-size: 14px; /* Taille de police standard */
+  min-width: 120px; /* Largeur minimale */
 }
 
 /* Textes et titres */
@@ -303,8 +329,26 @@ details summary::marker {
 
   /* Boutons */
   button, input[type="button"], input[type="submit"], select {
-    padding: 6px 12px; /* Boutons encore plus compacts */
-    font-size: 12px; /* Texte plus petit */
+    padding: 4px 8px; /* Padding minimal pour les smartphones */
+    font-size: 10px; /* Taille de police minimale */
+    min-width: 80px; /* Largeur minimale très réduite */
+  }
+
+  #reset-game, #save-game, #music-button, #infoButton {
+    padding: 4px 8px; /* Padding minimal */
+    font-size: 12px; /* Taille de police légèrement plus grande pour les icônes */
+  }
+
+  .upgrade-button {
+    padding: 4px 8px; /* Padding minimal */
+    font-size: 10px; /* Taille de police minimale */
+    min-width: 100px; /* Largeur minimale très réduite */
+  }
+
+  #acheterTicket, #parier {
+    padding: 4px 8px; /* Padding minimal */
+    font-size: 10px; /* Taille de police minimale */
+    min-width: 80px; /* Largeur minimale très réduite */
   }
 
   /* Titres */
