@@ -179,27 +179,177 @@ footer a:hover {
   background: #555; /* Couleur de la barre de défilement au survol */
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container {
-    width: 95%;
-    padding: 20px;
+/* Style de la section <details> */
+details {
+  background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  margin: 20px auto;
+  width: 100%;
+  max-width:1230px;
+  backdrop-filter: blur(10px); /* Effet de flou */
+  transition: all 0.3s ease;
+}
+
+details:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Style du <summary> */
+details summary {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.3s ease;
+}
+
+details summary:hover {
+  color: #58595a; /* Changement de couleur au survol */
+}
+
+details summary::marker {
+  display: none; /* Cache le marqueur par défaut */
+}
+
+/* Style du formulaire de personnalisation */
+#customization-form {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+#customization-form label {
+  display: block;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 10px;
+}
+
+#customization-form select,
+#customization-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background-color: white;
+  color: #262728;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+#customization-form select:hover,
+#customization-form input[type="text"]:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+#customization-form select:focus,
+#customization-form input [type="text"]:focus {
+  border-color: #757576;
+  outline: none;
+}
+
+/* Style de l'input pour le nom du joueur */
+#name-input {
+  width: 100%;
+  max-width: 1180px;
+  padding: 2px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #a64040;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#name-input::placeholder {
+  color: rgba(255, 255, 255, 0.5); /* Placeholder semi-transparent */
+}
+
+#name-input:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+#name-input:focus {
+  border-color: #464748;
+  outline: none;
+  box-shadow: 0 0 10px rgba(78, 115, 223, 0.5); /* Effet de focus */
+}
+
+.swal2-popup {
+  background-color: #262728;
+  color: #757576;
+}
+
+/* Réglages pour les très petits écrans (smartphones) */
+@media (max-width: 480px) {
+  body {
+    font-size: 12px; /* Taille de police encore plus petite */
   }
 
+  /* Conteneurs principaux */
+  .container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container {
+    width: 100%; /* Pleine largeur */
+    padding: 10px; /* Espacement minimal */
+  }
+
+  /* Boutons */
+  button, input[type="button"], input[type="submit"], select {
+    padding: 6px 12px; /* Boutons encore plus compacts */
+    font-size: 12px; /* Texte plus petit */
+  }
+
+  /* Titres */
   h1 {
-    font-size: 2rem;
+    font-size: 1.5rem; /* Taille réduite */
   }
 
   h2 {
-    font-size: 1.5rem;
-  }
-
-  h3 {
     font-size: 1.2rem;
   }
 
-  button, input[type="button"], input[type="submit"], select {
-    padding: 10px 20px;
-    font-size: 14px;
+  h3 {
+    font-size: 1rem;
+  }
+
+  /* Avatar */
+  .avatar-container img {
+    width: 60px; /* Taille réduite */
+    height: 60px;
+  }
+
+  .player-name {
+    font-size: 1rem; /* Taille réduite */
+  }
+
+  /* Section <details> */
+  details {
+    width: 100%; /* Pleine largeur */
+    padding: 8px; /* Espacement minimal */
+  }
+
+  details summary {
+    font-size: 0.9rem; /* Taille réduite */
+  }
+
+  #customization-form select,
+  #customization-form input[type="text"] {
+    padding: 6px; /* Padding minimal */
+    font-size: 12px; /* Texte plus petit */
+  }
+
+  /* Footer */
+  footer {
+    padding: 10px; /* Espacement minimal */
+  }
+
+  footer a {
+    font-size: 12px; /* Texte plus petit */
   }
 }

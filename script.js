@@ -480,7 +480,7 @@ function loadSave(event) {
                 throw new Error("Données de sauvegarde invalides.");
             }
         } catch (error) {
-            Swal.fire("Erreur", "Erreur lors du chargement de la sauvegarde !", "error");
+            Swal.fire("Erreur", "Erreur lors du chargement de la sauvegarde !", "error")
         }
     };
     reader.readAsText(file);
@@ -496,8 +496,12 @@ function showSavePopup() {
         `,
         showCloseButton: true,
         showConfirmButton: false,
-        showCancelButton: false
+        showCancelButton: false,
+        didOpen: () => {
+            document.querySelector('.swal2-popup').style.borderRadius = '20px';
+        }
     });
+    
 }
 
 clickButton.replaceWith(clickButton.cloneNode(true)); // Évite les doublons d'écouteurs d'événements
@@ -520,15 +524,16 @@ upgrade1Button.addEventListener('click', () => {
     if (upgrade1Level >= maxUpgrade1Level) {
         // Afficher un message d'erreur stylisé avec SweetAlert2
         Swal.fire({
-            title: 'Niveau maximum atteint !',
-            text: 'Vous ne pouvez pas améliorer davantage cette compétence.',
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK',
+            position: "center",
+            icon: "warning",
+            title: "niveau max atteint",
+            text: `vous ne pouvez plus acheter`,
+            showConfirmButton: false,
+            timer: 1000,
             didOpen: () => {
                 document.querySelector('.swal2-popup').style.borderRadius = '20px';
             }
-        });
+          });
         return;
     }
     if (points >= upgrade1Cost) {
@@ -543,12 +548,16 @@ upgrade1Button.addEventListener('click', () => {
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(upgrade1Cost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -561,11 +570,12 @@ upgrade2Button.addEventListener('click', () => {
 
         // Afficher un message d'erreur stylisé avec SweetAlert2
         Swal.fire({
-            title: 'Niveau maximum atteint !',
-            text: 'Vous ne pouvez pas améliorer davantage cette compétence.',
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK',
+            position: "center",
+            icon: "warning",
+            title: "niveau max atteint",
+            text: `vous ne pouvez plus acheter`,
+            showConfirmButton: false,
+            timer: 1000,
             didOpen: () => {
                 document.querySelector('.swal2-popup').style.borderRadius = '20px';
             }
@@ -584,12 +594,16 @@ upgrade2Button.addEventListener('click', () => {
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(upgrade2Cost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -609,16 +623,17 @@ setInterval(() => {
 // Achat d'un autoclicker
 autoclickerButton.addEventListener('click', () => {
     if (autoclickers >= maxAutoclickers) {
-        Swal.fire({
-            title: 'Nombre maximum atteint !',
-            text: 'Vous ne pouvez pas acheter plus d\'autoclickers.',
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK',
-            didOpen: () => {
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
-            }
-        });
+            Swal.fire({
+                position: "center",
+                icon: "warning",
+                title: "niveau max atteint",
+                text: `vous ne pouvez plus acheter`,
+                showConfirmButton: false,
+                timer: 1000,
+                didOpen: () => {
+                    document.querySelector('.swal2-popup').style.borderRadius = '20px';
+                }
+              });
         return;
     }
     if (points >= autoclickerCost) {
@@ -632,12 +647,16 @@ autoclickerButton.addEventListener('click', () => {
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(autoclickerCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -784,12 +803,16 @@ document.getElementById('boutonSupermarche').addEventListener('click', function(
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(supermarcheCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -806,12 +829,16 @@ document.getElementById('boutonMarchandises').addEventListener('click', function
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(marchandisesCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -828,12 +855,16 @@ document.getElementById('boutonSuperviseur').addEventListener('click', function(
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(superviseurCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -850,12 +881,16 @@ document.getElementById('boutonAgrandissement').addEventListener('click', functi
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(agrandissementCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -883,12 +918,16 @@ document.getElementById('boutonMagasin').addEventListener('click', function() {
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(MagasinCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -905,12 +944,16 @@ document.getElementById('boutonMarchandisesdeluxe').addEventListener('click', fu
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(MarchandisesdeluxeCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -927,12 +970,16 @@ document.getElementById('boutonNouvellecollection').addEventListener('click', fu
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(NouvellecollectionCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -949,12 +996,16 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
     }
     else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(DevellopementdanslemondeCost - points)} € pour acheter.`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -991,12 +1042,16 @@ function buyItem(item) {
         displayItems(); // Mettre à jour l'affichage des objets disponibles
     } else {
         Swal.fire({
-            icon: 'error',
-            title: 'Argents insuffisants',
-            text: `Il vous manque ${formatNumber(item.cost - points)} € pour acheter "${item.name}".`,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#4CAF50',
-        });
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
+            text: `Il vous manque ${formatNumber(item.cost - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 }
 
@@ -1113,7 +1168,17 @@ function acheterTickets() {
         updateUI(); // Met à jour l'interface
         resultatElement.textContent = `Vous avez acheté ${formatNumber(quantite)} ticket(s) pour ${formatNumber(coutTotal)} €.`;
     } else {
-        resultatElement.textContent = `Vous n'avez pas assez de € pour acheter ${formatNumber(quantite)} ticket(s).`;
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
+            text: `Il vous manque ${formatNumber(coutTotal - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 }
 
@@ -1290,6 +1355,9 @@ document.getElementById('infoButton').addEventListener('click', function() {
             <p>Amusez-vous bien !</p>
         `,
         icon: 'info',
-        confirmButtonText: 'Fermer'
+        confirmButtonText: 'Fermer',
+        didOpen: () => {
+            document.querySelector('.swal2-popup').style.borderRadius = '20px';
+        }
     });
 });
