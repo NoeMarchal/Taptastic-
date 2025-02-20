@@ -313,23 +313,6 @@ details summary::marker {
     min-width: 80px; /* Largeur minimale très réduite */
   }
 
-  #reset-game, #save-game, #music-button, #infoButton {
-    padding: 4px 8px; /* Padding minimal */
-    font-size: 12px; /* Taille de police légèrement plus grande pour les icônes */
-  }
-
-  .upgrade-button {
-    padding: 4px 8px; /* Padding minimal */
-    font-size: 10px; /* Taille de police minimale */
-    min-width: 100px; /* Largeur minimale très réduite */
-  }
-
-  #acheterTicket, #parier {
-    padding: 4px 8px; /* Padding minimal */
-    font-size: 10px; /* Taille de police minimale */
-    min-width: 80px; /* Largeur minimale très réduite */
-  }
-
   /* Titres */
   h1 {
     font-size: 1.5rem; /* Taille réduite */
