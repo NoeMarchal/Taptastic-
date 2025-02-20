@@ -42,7 +42,7 @@ button, input[type="button"], input[type="submit"], select {
   backdrop-filter: blur(5px); /* Effet de flou */
   min-width: 120px; /* Largeur minimale pour éviter les boutons trop étroits */
   text-align: center; /* Centrer le texte */
-  margin: 10px;
+  margin: 5px;
 }
 
 /* Effet de survol */
@@ -302,7 +302,7 @@ details summary::marker {
 
   /* Conteneurs principaux */
   .container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container {
-    width: 100%; /* Pleine largeur */
+    width: 90%; /* Pleine largeur */
     padding: 10px; /* Espacement minimal */
   }
 
@@ -338,7 +338,7 @@ details summary::marker {
 
   /* Section <details> */
   details {
-    width: 100%; /* Pleine largeur */
+    width: 91%; /* Pleine largeur */
     padding: 8px; /* Espacement minimal */
   }
 
