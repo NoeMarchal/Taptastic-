@@ -1373,9 +1373,10 @@ document.getElementById('infoButton').addEventListener('click', function() {
                 <li><strong>Supermarché et Magasin de luxe :</strong> achete des magasin pour augmenter tes revenus !</li>
                 <li><strong>Les items :</strong>Ici, tu peut acheter et vendre tes items avec des plus value !</li>
                 <li><strong>les paris :</strong>Ici, tu dois acheter des ticket pour jouer et tenter de gagner beaucoup, mais attention tu peut aller dans le negatif !</li>
+                <li><strong>l'IA financière :</strong>Ici, tu peut t'enrichir tres vite mais tu peut tout perdre cela va t'aider pour acheter l'antimatier et bien d'autre... !</li>
                 <!-- Ajoutez autant de mécaniques que nécessaire -->
             </ul>
-            <p>Amusez-vous bien !</p>
+            <p>Amuse-toi bien !</p>
         `,
         icon: 'info',
         confirmButtonText: 'Fermer',
