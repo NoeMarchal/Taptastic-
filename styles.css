@@ -31,7 +31,7 @@ html,body {
 
 /* Boutons */
 button, input[type="button"], input[type="submit"], select {
-  background-color: rgba(121, 117, 117, 0.1); /* Boutons semi-transparents */
+  background-color: rgba(121, 117, 117); /* Boutons semi-transparents */
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
@@ -40,10 +40,6 @@ button, input[type="button"], input[type="submit"], select {
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px); /* Effet de flou sur les boutons */
-  button, input[type="button"], input[type="submit"], select {
-    -webkit-tap-highlight-color: transparent;
-  }
-  
 }
 
 button:hover, input[type="button"]:hover, input[type="submit"]:hover {
