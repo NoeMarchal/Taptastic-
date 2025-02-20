@@ -9,6 +9,12 @@ const MagasinCost = 200000000; // Coût du supermarché
 const MarchandisesdeluxeCost = 250000000; // Coût des marchandises
 const NouvellecollectionCost = 300000000; // Coût du superviseur
 const DevellopementdanslemondeCost = 500000000; // Coût de l'agrandissement
+const aiCost = 30000000000; // Coût de l'IA : 30 milliards
+const minReturn = 15000000000; // 15 milliards min de gains
+const maxReturn = 60000000000; // 60 milliards max de gains
+const minLoss = 15000000000; // 15 milliards min de perte
+const maxLoss = 60000000000; // -0 milliards max de perte avec 0 en plus a la fin 
+const investmentAmount = 10000000000; // 10 milliards investis à chaque tour
 
 // Variables du jeu
 let points = 0;
@@ -133,11 +139,15 @@ const parierButton = document.getElementById("parier");
 const resultatElement = document.getElementById("resultat");
 const animationElement = document.getElementById("animation");
 const historiqueList = document.getElementById("historique-list");
-
+const buyAIButton = document.querySelector(".buyAI");
+const aiControls = document.querySelector(".aiControls");
+const strategySelect = document.querySelector(".strategy");
+const startInvestmentButton = document.querySelector(".startInvestment");
+const investmentLog = document.querySelector(".investmentLog");
 // Charger la sauvegarde
 loadGame();
 
-// Sauvegarder la progression dans localStorage
+//fonction sauvegarder 
 function saveGame() {
     const gameData = {
         points,
@@ -150,7 +160,7 @@ function saveGame() {
         upgrade2Level,
         unlockedTrophies,
         playerName,
-        avatarSrc, // Sauvegarder l'avatar
+        avatarSrc,
         supermarcheAchete,
         marchandisesAchete,
         superviseurAchete,
@@ -158,8 +168,8 @@ function saveGame() {
         totalClicks,
         totalPointsEarned,
         totalPointsSpent,
-        gameStartTime, // Sauvegarder l'heure de début du jeu
-        elapsedTime, // Sauvegarder le temps écoulé
+        gameStartTime,
+        elapsedTime,
         MagasinAchete,
         MarchandisesdeluxeAchete,
         NouvellecollectionAchete,
@@ -167,11 +177,14 @@ function saveGame() {
         boughtItems,
         historique,
         tickets,
-        autoclickerPower
-
+        autoclickerPower,
+        aiPurchased, 
+        investmentHistory
     };
+
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
+
 
 // Charger la progression depuis localStorage
 function loadGame() {
@@ -206,6 +219,16 @@ function loadGame() {
         historique = gameData.historique ||[];
         tickets = gameData.tickets;
         autoclickerPower = gameData.autoclickerPower;
+        aiPurchased = gameData.aiPurchased || false;
+        investmentHistory = gameData.investmentHistory || [];
+
+         if (aiPurchased) {
+             document.querySelector(".buyAI").style.display = "none";
+             document.querySelector(".aiControls").style.display = "block";
+         }
+ 
+         // 🎯 Recharger les investissements précédents
+         investmentHistory.forEach(log => addInvestmentLog(log));
     }
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
@@ -280,36 +303,6 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
     updateUI();
     updateCoutTotal();
     saveGame(); // Sauvegarde après chaque mise à jour
-}
-
-function formatNumber(number) {
-    // Vérifie que la valeur est un nombre
-    if (typeof number !== 'number' || isNaN(number)) {
-        return '0'; // Retourne '0' si la valeur n'est pas un nombre
-    }
-
-    // Si le nombre est supérieur ou égal à 1 Billion
-    if (number >= 1000000000000) {
-        return (number / 1000000000000).toFixed(1).replace(/\.0$/, '') + 'Blns';
-    }
-
-    // Si le nombre est supérieur ou égal à 1 milliard
-    if (number >= 1000000000) {
-        return (number / 1000000000).toFixed(1).replace(/\.0$/, '') + 'Mds';
-    }
-
-    // Si le nombre est supérieur ou égal à 1 million
-    if (number >= 1000000) {
-        return (number / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-    }
-
-    // Si le nombre est supérieur ou égal à 1 000
-    if (number >= 1000) {
-        return (number / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-    }
-
-    // Sinon, juste ajouter les séparateurs de milliers
-    return number.toLocaleString();
 }
 
 function updateTrophies() {
@@ -436,6 +429,16 @@ function loadSave(event) {
                 NouvellecollectionAchete = gameData.NouvellecollectionAchete || NouvellecollectionAchete;
                 DevellopementdanslemondeAchete = gameData.DevellopementdanslemondeAchete || DevellopementdanslemondeAchete;
                 autoclickerPower = gameData.autoclickerPower || autoclickerPower;
+                aiPurchased = gameData.aiPurchased || false;
+                investmentHistory = gameData.investmentHistory || [];
+        
+                 if (aiPurchased) {
+                     document.querySelector(".buyAI").style.display = "none";
+                     document.querySelector(".aiControls").style.display = "block";
+                 }
+         
+                 // 🎯 Recharger les investissements précédents
+                 investmentHistory.forEach(log => addInvestmentLog(log));
 
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
@@ -758,6 +761,15 @@ function resetGame() {
     historique = [];
     tickets = 0;
     autoclickerPower = 250;
+    aiPurchased = false;
+    investmentHistory = [];
+    
+    // Réactiver les boutons désactivés
+    document.querySelectorAll("button").forEach(btn => btn.disabled = false);
+    
+    // Réafficher les éléments masqués
+    document.querySelector(".buyAI").style.display = "block";
+    document.querySelector(".aiControls").style.display = "none";
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -1372,3 +1384,93 @@ document.getElementById('infoButton').addEventListener('click', function() {
         }
     });
 });
+buyAIButton.addEventListener("click", () => {
+    if (points >= aiCost) {
+        points -= aiCost;
+        totalPointsSpent += aiCost;
+        aiPurchased = true;
+        updateDisplay();
+        aiControls.style.display = "block";
+        buyAIButton.style.display = "none";
+        saveGame();
+    } else {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Fond insuffisant",
+            text: `Il vous manque ${formatNumber(aiCost - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        });
+    }
+});
+
+
+startInvestmentButton.addEventListener("click", () => {
+    if (points < investmentAmount) {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Fond insuffisant",
+            text: `Il vous manque ${formatNumber(investmentAmount - points)} € pour investir.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+        });
+        return;
+    }
+
+
+    let strategy = strategySelect.value;
+    let gainOrLoss;
+    let message;
+
+    points -= investmentAmount; // Décompter l'investissement
+    totalPointsSpent += investmentAmount;
+
+    let randomValue = Math.random();
+    let successRate = strategy === "prudente" ? 0.5 : 0.4; // 50% de réussite en mode prudent, 40% en agressif
+
+    if (randomValue < successRate) {
+        let profit = Math.floor(Math.random() * (maxReturn - minReturn) + minReturn);
+        points += profit;
+        totalPointsEarned += profit;
+        gainOrLoss = `<span style="color:green;">+${formatNumber(profit)}</span>`;
+        message = `✅ L'IA a réussi ! Gain de ${gainOrLoss} d'€`;
+    } else {
+        let loss = Math.floor(Math.random() * (maxLoss - minLoss) + minLoss);
+        points -= loss;
+        totalPointsSpent += loss;
+        gainOrLoss = `<span style="color:red;">-${formatNumber(loss)}</span>`;
+        message = `❌ Mauvaise prédiction... Perte de ${gainOrLoss} d'€`;
+    }
+
+    updateDisplay();
+    addInvestmentLog(message);
+    saveGame(); // ✅ Sauvegarde immédiate
+});
+
+// 🚀 AFFICHAGE DES LOGS (2 DERNIERS UNIQUEMENT)
+function addInvestmentLog(message) {
+    let li = document.createElement("li");
+    li.innerHTML = message;
+    investmentLog.prepend(li);
+
+    while (investmentLog.children.length > 2) {
+        investmentLog.removeChild(investmentLog.lastChild);
+    }
+}
+
+// Fonction pour formater les nombres en K, M, B, T
+function formatNumber(num) {
+    if (num >= 1e12) return (num / 1e12).toFixed(0) + "Blns";
+    if (num >= 1e9) return (num / 1e9).toFixed(0) + "Mds";
+    if (num >= 1e6) return (num / 1e6).toFixed(0) + "M";
+    if (num >= 1e3) return (num / 1e3).toFixed(0) + "K";
+    return num.toLocaleString(); // Sinon, affichage classique
+}
