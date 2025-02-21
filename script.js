@@ -1358,8 +1358,8 @@ document.getElementById('infoButton').addEventListener('click', function() {
 (function() {
     let clickTimes = [];
     let autoClickDetected = false;
-    let isConsoleOpen = false;
 
+    // Fonction pour détecter l'auto-click
     function detectAutoClick() {
         const now = performance.now();
         clickTimes.push(now);
@@ -1378,9 +1378,66 @@ document.getElementById('infoButton').addEventListener('click', function() {
 
             if (avgInterval < 100 && !autoClickDetected) {
                 autoClickDetected = true;
-                bloquerJeu("Auto-click détecté !", "Vous utilisez un auto-clicker. Ceci est interdit.");
+                bloquerJeu("Auto-click détecté !", "Vous utilisez un auto-clicker. Votre partie sera réinitialisée.");
             }
         }
     }
-}
-)
+
+    // Fonction pour bloquer le jeu et réinitialiser la partie
+    function bloquerJeu(title, message) {
+        // Utiliser SweetAlert2 pour afficher une alerte stylisée
+        Swal.fire({
+            title: title,
+            text: message,
+            icon: 'warning', // Icône d'avertissement
+            confirmButtonText: 'OK',
+            allowOutsideClick: false, // Empêcher la fermeture en cliquant à l'extérieur
+            allowEscapeKey: false, // Empêcher la fermeture avec la touche Échap
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Réinitialiser la partie après que l'utilisateur a cliqué sur "OK"
+                resetGame();
+
+                // Afficher un overlay avec un compte à rebours
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                overlay.style.zIndex = '1000';
+                overlay.style.display = 'flex';
+                overlay.style.justifyContent = 'center';
+                overlay.style.alignItems = 'center';
+                overlay.style.color = 'white';
+                overlay.style.fontSize = '24px';
+                overlay.innerHTML = `
+                    <div style="text-align: center;">
+                        <p>Vous serez débloqué dans <span id="countdown">30</span> secondes.</p>
+                    </div>
+                `;
+
+                // Ajouter l'overlay à la page
+                document.body.appendChild(overlay);
+
+                // Démarrer un compte à rebours
+                let timeLeft = 30;
+                const countdownElement = overlay.querySelector('#countdown');
+                const countdownInterval = setInterval(() => {
+                    timeLeft--;
+                    countdownElement.textContent = timeLeft;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(countdownInterval);
+                        document.body.removeChild(overlay);
+                        autoClickDetected = false; // Réactiver la détection
+                    }
+                }, 1000);
+            }
+        });
+    }
+
+    // Lier la fonction à l'événement de clic
+    document.addEventListener('click', detectAutoClick);
+})();
