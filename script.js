@@ -1388,12 +1388,13 @@ document.getElementById('infoButton').addEventListener('click', function() {
         console.clear();
 
         setTimeout(() => {
-            if (window.outerHeight - window.innerHeight > 100 || window.outerWidth - window.innerWidth > 100) {
-                isConsoleOpen = true;
-                bloquerJeu("Triche détectée !", "La console est ouverte. Fermez-la immédiatement.");
+            if (!navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) { // Vérifie si on est sur mobile
+                if (window.outerHeight - window.innerHeight > 100 || window.outerWidth - window.innerWidth > 100) {
+                    isConsoleOpen = true;
+                    bloquerJeu("Triche détectée !", "La console est ouverte. Fermez-la immédiatement.");
+                }
             }
-        }, 100);
-    }
+            
 
     function detectDebugger() {
         setInterval(() => {
