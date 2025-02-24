@@ -12,7 +12,7 @@ html,body {
 }
 
 /* Conteneurs principaux */
-.container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container {
+.container, .game-container, .trophies, .stats-container, .pari-container, .entreprise-supermarché, .entreprise-magasins, .shop, .inventory-container, .entreprise-concession {
   background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
   border-radius: 20px;
   backdrop-filter: blur(10px); /* Effet de flou pour un look moderne */
@@ -24,13 +24,13 @@ html,body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.container:hover, .game-container:hover, .trophies:hover, .stats-container:hover, .pari-container:hover, .entreprise-supermarché:hover, .entreprise-magasins:hover, .shop:hover, .inventory-container:hover {
+.container:hover, .game-container:hover, .trophies:hover, .stats-container:hover, .pari-container:hover, .entreprise-supermarché:hover, .entreprise-magasins:hover, .shop:hover, .inventory-container:hover, .entreprise-concession:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Style de base pour les boutons */
-button, input[type="button"], input[type="submit"], select {
+button, input[type="button"], input[type="submit"], select{
   background-color: rgb(112, 108, 108); /* Fond semi-transparent */
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -63,7 +63,47 @@ input[type="button"]:disabled:active,
 input[type="submit"]:disabled:active {
     transform: none;
 }
+/* Style de base pour le champ de texte */
+#name-input {
+  background-color: rgba(112, 108, 108, 0.8); /* Fond semi-transparent */
+  color: #fff; /* Texte blanc */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Bordure légère */
+  border-radius: 20px; /* Bords arrondis */
+  padding: 8px 16px; /* Padding similaire aux boutons */
+  font-size: 18px; /* Taille de police standard */
+  cursor: text; /* Curseur de texte */
+  transition: all 0.3s ease; /* Transition fluide */
+  backdrop-filter: blur(5px); /* Effet de flou */
+  min-width: 200px; /* Largeur minimale pour éviter un champ trop étroit */
+  margin: 5px; /* Marge similaire aux boutons */
+  outline: none; /* Supprime le contour au focus */
+  box-shadow: none; /* Supprime l'ombre par défaut */
+}
 
+/* Effet de survol */
+#name-input:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Fond légèrement plus clair */
+  border-color: rgba(255, 255, 255, 0.4); /* Bordure plus visible */
+}
+
+/* Effet de focus */
+#name-input:focus {
+  background-color: rgba(255, 255, 255, 0.2); /* Fond plus clair */
+  border-color: rgba(255, 255, 255, 0.6); /* Bordure plus visible */
+}
+
+/* Style du placeholder */
+#name-input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Placeholder semi-transparent */
+  font-style: italic; /* Texte en italique */
+}
+
+/* Style pour les champs désactivés */
+#name-input:disabled {
+  background-color: rgba(112, 108, 108, 0.5); /* Fond plus sombre */
+  color: rgba(255, 255, 255, 0.5); /* Texte grisé */
+  cursor: not-allowed; /* Curseur "non autorisé" */
+}
 /* Textes et titres */
 h1, h2, h3 {
   color: #fff;
@@ -195,123 +235,60 @@ footer a:hover {
 #trophy-list.visible::-webkit-scrollbar-thumb:hover {
   background: #555; /* Couleur de la barre de défilement au survol */
 }
-
-/* Style de la section <details> */
-details {
-  background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 15px;
-  margin: 20px auto;
+.popup {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
   width: 100%;
-  max-width:1230px;
-  backdrop-filter: blur(10px); /* Effet de flou */
-  transition: all 0.3s ease;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Assurez-vous que le pop-up est au premier plan */
 }
 
-details:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+.popup-content {
+  background-color: rgb(43, 42, 42);
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+  z-index: 1001; /* Le contenu du pop-up doit être au-dessus du fond */
 }
 
-/* Style du <summary> */
-details summary {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #fff;
+.close {
+  float: right;
   cursor: pointer;
-  padding: 10px;
-  transition: color 0.3s ease;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
-details summary:hover {
-  color: #58595a; /* Changement de couleur au survol */
+#avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
-details summary::marker {
-  display: none; /* Cache le marqueur par défaut */
+.avatar-item {
+  text-align: center;
 }
 
-/* Style du formulaire de personnalisation */
-#customization-form {
-  margin-top: 15px;
-  padding: 15px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+.avatar-item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-#customization-form label {
-  display: block;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 10px;
+.avatar-item p {
+  margin: 5px 0 0;
+  font-size: 14px;
 }
-
-#customization-form select,
-#customization-form input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background-color: white;
-  color: #262728;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-#customization-form select:hover,
-#customization-form input[type="text"]:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-#customization-form select:focus,
-#customization-form input [type="text"]:focus {
-  border-color: #757576;
-  outline: none;
-}
-
-/* Style de l'input pour le nom du joueur */
-#name-input {
-  width: 100%;
-  max-width: 1180px;
-  padding: 2px;
-  margin-bottom: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #a64040;
-  font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#name-input::placeholder {
-  color: rgba(255, 255, 255, 0.5); /* Placeholder semi-transparent */
-}
-
-#name-input:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-#name-input:focus {
-  border-color: #464748;
-  outline: none;
-  box-shadow: 0 0 10px rgba(78, 115, 223, 0.5); /* Effet de focus */
-}
-
-.swal2-popup {
-  background-color: #262728;
-  color: #757576;
-}
-
-button:disabled {
-  background-color: #b4b0b0; /* Gris clair */
-  color: #888888; /* Texte grisé */
-  cursor: not-allowed;
-  border: 1px solid #bbbbbb;
-  opacity: 0.6;
-}
-
 
 /* Réglages pour les très petits écrans (smartphones) */
 @media (max-width: 480px) {
@@ -326,9 +303,9 @@ button:disabled {
   }
 
   /* Boutons */
-  button, input[type="button"], input[type="submit"], select {
+  button, input[type="button"], input[type="submit"], select, #name-input {
     padding: 4px 8px; /* Padding minimal pour les smartphones */
-    font-size: 10px; /* Taille de police minimale */
+    font-size: 18px; /* Taille de police minimale */
     min-width: 80px; /* Largeur minimale très réduite */
   }
 

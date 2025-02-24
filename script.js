@@ -1,6 +1,6 @@
-const maxUpgrade1Level = 300;    // niveau max pour l'amélioration 1²
-const maxUpgrade2Level = 300;   // Niveau max pour l'amélioration 2
-const maxAutoclickers = 300;   // Nombre max d'autoclickers
+const maxUpgrade1Level = 500;    // niveau max pour l'amélioration 1²
+const maxUpgrade2Level = 500;   // Niveau max pour l'amélioration 2
+const maxAutoclickers = 500;   // Nombre max d'autoclickers
 const supermarcheCost = 1400000; // Coût du supermarché
 const marchandisesCost = 2500000; // Coût des marchandises
 const superviseurCost = 3000000; // Coût du superviseur
@@ -9,6 +9,10 @@ const MagasinCost = 200000000; // Coût du supermarché
 const MarchandisesdeluxeCost = 250000000; // Coût des marchandises
 const NouvellecollectionCost = 300000000; // Coût du superviseur
 const DevellopementdanslemondeCost = 500000000; // Coût de l'agrandissement
+const ConcessionCost = 2000000000; // Coût du supermarché
+const VoituredeluxeCost = 5000000000; // Coût des marchandises
+const AtelierCost = 10000000000; // Coût du superviseur
+const VoiturierCost = 20000000000; // Coût de l'agrandissement
 
 // Variables du jeu
 let points = 0;
@@ -31,6 +35,10 @@ let MagasinAchete = false;
 let MarchandisesdeluxeAchete = false;
 let NouvellecollectionAchete = false;
 let DevellopementdanslemondeAchete = false;
+let ConcessionAchete = false;
+let VoituredeluxeAchete = false;
+let AtelierAchete = false;
+let VoiturierAchete = false;
 let totalClicks = 0;
 let totalPointsEarned = 0;
 let totalPointsSpent = 0;
@@ -51,10 +59,8 @@ setInterval(() => {
 const trophies = [
     { name: "Débutant Clikers", condition: 10 },
     { name: "Apprenti Clicker", condition: 100 },
-    { name: "Clicker Confirmé", condition: 5000 },
-    { name: "Clicker Pro", condition: 10000 },
+    { name: "Clicker Confirmé", condition: 1000 },
     { name: "Joue 1h", condition: 3600 }, // 1 heure en secondes
-    { name: "Joue 5h", condition: 18000 },   // 5 heures en secondes
     { name: "Amélioration 1 au niveau 50", condition: "upgrade1Level >= 50" },
     { name: "Amélioration 2 au niveau 50", condition: "upgrade2Level >= 50" },
     { name: "Autoclicker au niveau 50", condition: "autoclickers >= 50" },
@@ -73,6 +79,18 @@ const trophies = [
     { name: "Amélioration 1 au niveau 300", condition: "upgrade1Level >= 300" },
     { name: "Amélioration 2 au niveau 300", condition: "upgrade2Level >= 300" },
     { name: "Autoclicker au niveau 300", condition: "autoclickers >= 300" },
+    { name: "Amélioration 1 au niveau 350", condition: "upgrade1Level >= 350" },
+    { name: "Amélioration 2 au niveau 350", condition: "upgrade2Level >= 350" },
+    { name: "Autoclicker au niveau 350", condition: "autoclickers >= 350" },
+    { name: "Amélioration 1 au niveau 400", condition: "upgrade1Level >= 400" },
+    { name: "Amélioration 2 au niveau 400", condition: "upgrade2Level >= 400" },
+    { name: "Autoclicker au niveau 400", condition: "autoclickers >= 400" },
+    { name: "Amélioration 1 au niveau 450", condition: "upgrade1Level >= 450" },
+    { name: "Amélioration 2 au niveau 450", condition: "upgrade2Level >= 450" },
+    { name: "Autoclicker au niveau 450", condition: "autoclickers >= 450" },
+    { name: "Amélioration 1 au niveau 500", condition: "upgrade1Level >= 500" },
+    { name: "Amélioration 2 au niveau 500", condition: "upgrade2Level >= 500" },
+    { name: "Autoclicker au niveau 500", condition: "autoclickers >= 500" },
     { name: "5 000 €", condition: "points >= 5000" }, // Nouveau trophée
     { name: "10 000 €", condition: "points >= 10000" }, // Nouveau trophée
     { name: "50 000 €", condition: "points >= 50000" }, // Nouveau trophée
@@ -89,6 +107,10 @@ const trophies = [
     { name: "Marchandises de luxe Achetées", condition: "MarchandisesdeluxeAchete === true" },
     { name: "Nouvelles collections Acheté", condition: "NouvellecollectionAchete === true" },
     { name: "Dévellopement dans le monde Acheté", condition: "DevellopementdanslemondeAchete === true" },
+    { name: "Concession Acheté", condition: "ConcessionAchete === true" },
+    { name: "Voitures de luxe Achetées", condition: "VoituredeluxeAchete === true" },
+    { name: "Atelier Acheté", condition: "AtelierAchete === true" },
+    { name: "Voituriers Acheté", condition: "VoiturierAchete === true" },
 ];
 
 // Liste des objets disponibles à l'achat
@@ -101,7 +123,7 @@ const items = [
     { name: "Maison", cost: 300000000 },
     { name: "Une Audi", cost: 1000000000 },
     { name: "TP de Tondeurrrrrr", cost: 40000000000 },
-    { name: "Anti Matiere", cost:  1000000000000 }
+    { name: "Anti Matiere", cost:  500000000000 }
 ];
 
 // Propriétés des tickets (coût, multiplicateur)
@@ -112,6 +134,19 @@ const ticketProperties = {
     1000000: { multiplicateur: 1.0 }, // Ticket Expert
     100000000: { multiplicateur: 2.0 } // Ticket Premium
 };
+
+const avatars = [
+    { src: "avatar1.jpg", name: "Léo" },
+    { src: "avatar2.jpg", name: "Noah" },
+    { src: "avatar3.jpg", name: "Léa" },
+    { src: "avatar4.jpg", name: "David" },
+    { src: "avatar5.jpg", name: "Jade" },
+    { src: "avatar6.jpg", name: "Samir" },
+    { src: "avatar7.jpg", name: "Emma" },
+    { src: "avatar8.jpg", name: "Maya" },
+    { src: "avatar9.jpg", name: "Zoé" },
+    { src: "avatar10.jpg", name: "Inaya" },
+];
 
 // Éléments du DOM
 const pointsDisplay = document.getElementById('points');
@@ -164,9 +199,14 @@ function saveGame() {
         MarchandisesdeluxeAchete,
         NouvellecollectionAchete,
         DevellopementdanslemondeAchete,
+        ConcessionAchete,
+        VoituredeluxeAchete,
+        AtelierAchete,
+        VoiturierAchete,
         boughtItems,
         historique,
         tickets,
+        autoclickerPower,
 
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
@@ -183,6 +223,7 @@ function loadGame() {
         upgrade2Cost = gameData.upgrade2Cost;
         autoclickerCost = gameData.autoclickerCost;
         autoclickers = gameData.autoclickers;
+        autoclickerPower = gameData.autoclickerPower;
         upgrade1Level = gameData.upgrade1Level || 0;
         upgrade2Level = gameData.upgrade2Level || 0;
         unlockedTrophies = gameData.unlockedTrophies || [];
@@ -204,6 +245,10 @@ function loadGame() {
         boughtItems = gameData.boughtItems ||[];
         historique = gameData.historique ||[];
         tickets = gameData.tickets;
+        ConcessionAchete = gameData.ConcessionAchete || false;
+        VoituredeluxeAchete = gameData.VoituredeluxeAchete || false;
+        AtelierAchete = gameData.AtelierAchete || false;
+        VoiturierAchete = gameData.VoiturierAchete || false;
     }
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
@@ -222,6 +267,10 @@ function loadGame() {
     if (MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
     if (NouvellecollectionAchete) disableButton('boutonNouvellecollection');
     if (DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
+    if (ConcessionAchete) disableButton('boutonconcession');
+    if (VoituredeluxeAchete) disableButton('boutonvoituredeluxe');
+    if (AtelierAchete) disableButton('boutonatelier');
+    if (VoiturierAchete) disableButton('boutonvoiturier');
 
     updateDisplay();
     updateUI();
@@ -250,6 +299,10 @@ function updateDisplay() {
     document.getElementById('boutonMarchandisesdeluxe').textContent = `Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} €)`;
     document.getElementById('boutonNouvellecollection').textContent = `Nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} €)`;
     document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} €)`;
+    document.getElementById('boutonconcession').textContent = `Concession  (Coût: ${formatNumber(ConcessionCost)} €)`;
+    document.getElementById('boutonvoituredeluxe').textContent = `Voitures de luxe (Coût: ${formatNumber(VoituredeluxeCost)} €)`;
+    document.getElementById('boutonatelier').textContent = `Atelier (Coût: ${formatNumber(AtelierCost)} €)`;
+    document.getElementById('boutonvoiturier').textContent = `Voituriers (Coût: ${formatNumber(VoiturierCost)} €)`;
     document.getElementById('total-clicks').textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
     document.getElementById('total-points-earned').textContent = `€ gagnés au total : ${formatNumber(totalPointsEarned)}`;
     document.getElementById("total-points-spent").textContent = `€ dépensés au total : ${formatNumber(totalPointsSpent)}`;
@@ -430,6 +483,11 @@ function loadSave(event) {
                 MarchandisesdeluxeAchete = gameData.MarchandisesdeluxeAchete || MarchandisesdeluxeAchete;
                 NouvellecollectionAchete = gameData.NouvellecollectionAchete || NouvellecollectionAchete;
                 DevellopementdanslemondeAchete = gameData.DevellopementdanslemondeAchete || DevellopementdanslemondeAchete;
+                ConcessionAchete = gameData.ConcessionAchete || ConcessionAchete;
+                VoituredeluxeAchete = gameData.VoituredeluxeAchete || VoituredeluxeAchete;
+                AtelierAchete = gameData.AtelierAchete || AtelierAchete;
+                VoiturierAchete = gameData.VoiturierAchete || VoiturierAchete;
+                autoclickerPower = gameData.autoclickerPower || autoclickerPower;
 
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
@@ -445,6 +503,10 @@ function loadSave(event) {
                 if (gameData.MarchandisesdeluxeAchete) disableButton('boutonMarchandisesdeluxe');
                 if (gameData.NouvellecollectionAchete) disableButton('boutonNouvellecollection');
                 if (gameData.DevellopementdanslemondeAchete) disableButton('boutonDevellopementdanslemonde');
+                if (gameData.ConcessionAchete) disableButton('boutonconcession');
+                if (gameData.VoituredeluxeAchete) disableButton('boutonvoituredeluxe');
+                if (gameData.AtelierAchete) disableButton('boutonatelier');
+                if (gameData.VoiturierAchete) disableButton('boutonvoiturier');
 
                 // Vider l'inventaire des objets achetés
                 itemsBoughtContainer.innerHTML = '';
@@ -649,17 +711,62 @@ autoclickerButton.addEventListener('click', () => {
     }
 });
 
+// Afficher le pop-up des avatars
+function showAvatarPopup() {
+    const popup = document.getElementById("avatar-popup");
+    const avatarGrid = document.getElementById("avatar-grid");
+    avatarGrid.innerHTML = "";
+
+    avatars.forEach(avatar => {
+        const avatarItem = document.createElement("div");
+        avatarItem.className = "avatar-item";
+
+        const img = document.createElement("img");
+        img.src = `Images/${avatar.src}`; // Chemin relatif vers les images
+        img.alt = avatar.name;
+
+        const name = document.createElement("p");
+        name.textContent = avatar.name;
+
+        // Ajouter un écouteur d'événement pour la sélection d'avatar
+        avatarItem.addEventListener("click", () => {
+            changeAvatar(avatar.src); // Appeler changeAvatar avec le fichier de l'avatar
+            closeAvatarPopup(); // Fermer le pop-up après la sélection
+        });
+
+        avatarItem.appendChild(img);
+        avatarItem.appendChild(name);
+        avatarGrid.appendChild(avatarItem);
+    });
+
+    popup.style.display = "flex";
+}
+
+// Fermer le pop-up
+function closeAvatarPopup() {
+    const popup = document.getElementById("avatar-popup");
+    popup.style.display = "none";
+}
+
+// Changer l'avatar
 function changeAvatar(avatarFileName) {
     const avatarImg = document.getElementById("avatar");
 
-    // Mettre à jour l'image
-    const newAvatarPath = `Images/${avatarFileName}`;
+    if (!avatarImg) {
+        console.error("L'élément #avatar n'existe pas dans le DOM.");
+        return;
+    }
+
+    // Mettre à jour l'image avec un paramètre unique pour éviter le cache
+    const newAvatarPath = `Images/${avatarFileName}?t=${new Date().getTime()}`;
     console.log("Nouvel avatar :", newAvatarPath); // ✅ Debug
 
     avatarImg.src = newAvatarPath;
     avatarSrc = newAvatarPath; // Mettre à jour la variable avatarSrc
     localStorage.setItem("selectedAvatar", newAvatarPath); // Sauvegarder dans localStorage
-    saveGame(); // Sauvegarder le jeu après le changement d'avatar
+
+    // Sauvegarder le jeu
+    saveGame();
 }
 
 // Charger l'avatar sauvegardé au démarrage
@@ -668,14 +775,13 @@ window.addEventListener("load", () => {
 
     if (savedAvatar) {
         console.log("Avatar chargé depuis localStorage :", savedAvatar); // ✅ Debug
-        document.getElementById("avatar").src = savedAvatar;
+        const avatarImg = document.getElementById("avatar");
+        if (avatarImg) {
+            avatarImg.src = savedAvatar;
+        } else {
+            console.error("L'élément #avatar n'existe pas dans le DOM.");
+        }
     }
-});
-
-// Écouteur pour le changement d'avatar
-document.getElementById("avatar-select").addEventListener("change", function() {
-    console.log("Avatar sélectionné :", this.value); // ✅ Debug
-    changeAvatar(this.value);
 });
 
 // Fonction pour changer le nom
@@ -747,6 +853,11 @@ function resetGame() {
     boughtItems = [];
     historique = [];
     tickets = 0;
+    ConcessionAchete = false;
+    VoituredeluxeAchete = false;
+    AtelierAchete = false;
+    VoiturierAchete = false;
+    autoclickerPower = 250;
 
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
@@ -757,6 +868,10 @@ function resetGame() {
     document.getElementById('boutonMarchandisesdeluxe').disabled = false;
     document.getElementById('boutonNouvellecollection').disabled = false;
     document.getElementById('boutonDevellopementdanslemonde').disabled = false;
+    document.getElementById('boutonconcession').disabled = false;
+    document.getElementById('boutonvoituredeluxe').disabled = false;
+    document.getElementById('boutonatelier').disabled = false;
+    document.getElementById('boutonvoiturier').disabled = false;
 
     // Supprimer l'avatar sauvegardé
     localStorage.removeItem("selectedAvatar");
@@ -989,6 +1104,110 @@ document.getElementById('boutonDevellopementdanslemonde').addEventListener('clic
             icon: "error",
             title: "fond insuffisant",
             text: `Il vous manque ${formatNumber(DevellopementdanslemondeCost - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
+    }
+});
+
+// Écouteur d'événement pour le bouton Concession
+document.getElementById('boutonconcession').addEventListener('click', function() {
+    if (!ConcessionAchete && points >= ConcessionCost) {
+        points -= ConcessionCost; // Dépense les points
+        totalPointsSpent += ConcessionCost;
+        autoclickerPower += 1000000; // Augmente les points par seconde de 5000
+        pointsPerClick +=1000000;
+        ConcessionAchete = true;
+        disableButton('boutonconcession');
+        updateDisplay();
+    }
+    else {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
+            text: `Il vous manque ${formatNumber(ConcessionCost - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
+    }
+});
+
+// Écouteur d'événement pour le bouton Voitures de luxe
+document.getElementById('boutonvoituredeluxe').addEventListener('click', function() {
+    if (!VoituredeluxeAchete && points >= VoituredeluxeCost) {
+        points -= VoituredeluxeCost; // Dépense les points
+        totalPointsSpent += VoituredeluxeCost;
+        autoclickerPower += 1500000; // Augmente les points par seconde de 500
+        pointsPerClick +=1500000;
+        VoituredeluxeAchete = true;
+        disableButton('boutonvoituredeluxe');
+        updateDisplay();
+    }
+    else {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
+            text: `Il vous manque ${formatNumber(VoituredeluxeCost - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
+    }
+});
+
+// Écouteur d'événement pour le bouton Atelier
+document.getElementById('boutonatelier').addEventListener('click', function() {
+    if (!AtelierAchete && points >= AtelierCost) {
+        points -= AtelierCost; // Dépense les points
+        totalPointsSpent += AtelierCost;
+        autoclickerPower += 2000000; // Augmente les points par seconde de 1000
+        pointsPerClick +=2000000;
+        AtelierAchete = true;
+        disableButton('boutonatelier');
+        updateDisplay();
+    }
+    else {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
+            text: `Il vous manque ${formatNumber(AtelierCost - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
+    }
+});
+
+// Écouteur d'événement pour le bouton Voiturier
+document.getElementById('boutonvoiturier').addEventListener('click', function() {
+    if (!VoiturierAchete && points >= VoiturierCost) {
+        points -= VoiturierCost; // Dépense les points
+        totalPointsSpent += VoiturierCost;
+        autoclickerPower +=4000000; // Augmente les points par seconde de 2000
+        pointsPerClick +=4000000;
+        VoiturierAchete = true;
+        disableButton('boutonvoiturier');
+        updateDisplay();
+    }
+    else {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
+            text: `Il vous manque ${formatNumber(VoiturierCost - points)} € pour acheter.`,
             showConfirmButton: false,
             timer: 1000,
             didOpen: () => {

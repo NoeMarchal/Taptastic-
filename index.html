@@ -36,31 +36,26 @@
     <div class="container">
         <div class="user-info">
             <div class="avatar-container">
-                <img id="avatar" src="./Images/choose_avatar.jpg" alt="Avatar du joueur" class="image">
+                <img id="avatar" src="Images/default-avatar.jpg" alt="Avatar du joueur" />
             </div>
             <div id="player-name" class="player-name">Nom du joueur</div>
         </div>
-    </div>
-    <details>
-        <summary>Joueur</summary>
-        <div id="customization-form">
-            <label for="avatar-select">Choisissez un avatar :</label> 
-            <select id="avatar-select" onchange="changeAvatar()">
-                <option value="avatar1.jpg">Jhon</option>
-                <option value="avatar2.jpg">Greg</option>
-                <option value="avatar3.jpg">Luc</option>
-                <option value="avatar4.jpg">David</option>
-                <option value="avatar5.jpg">Jonathan</option>
-                <option value="avatar6.jpg">Saphir</option>
-                <option value="avatar7.jpg">Jules</option>
-                <option value="avatar8.jpg">Diego</option>
-                <option value="avatar9.jpg">Karaba</option>
-            </select>
-            <br><br>
-            <label for="name-input">Entrez votre nom :</label>
-            <input type="text" id="name-input" placeholder="Entrez votre nom" />
+        <details>
+            <summary>Joueur</summary>
+                <input type="text" id="name-input" placeholder="Entrez votre nom" />
+                <br><br>
+                <button onclick="showAvatarPopup()">Voir les avatars</button>
+            </div>
         </div>
-    </details>
+        </details>
+    
+        <!-- Pop-up pour afficher les avatars -->
+        <div id="avatar-popup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closeAvatarPopup()">&times;</span>
+                <div id="avatar-grid"></div>
+            </div>
+        </div>
 
             <div class="trophies">
                 <h2>Trophées : <span id="trophy-count">0/23</span> <span id="toggle-arrow">▼</span></h2>
@@ -110,6 +105,17 @@
     <button id="boutonNouvellecollection">Nouvelles collections (Coût: 300M €)</button>
     <button id="boutonDevellopementdanslemonde">Dévelloper dans le monde (Coût: 500M €)</button>
     
+</div>
+
+<div class="entreprise-concession locked" id="concessionContainer">
+    <h2>Concession</h2>
+    <p>Achete une Concession automobile pour gagner plus d'€</br>
+        oublie pas les améliorations pour aller encore plus vite ;)
+    </p>
+    <button id="boutonconcession">Acheter une concession (Coût: 1.4M €)</button>
+    <button id="boutonvoituredeluxe">Acheter des voitures de luxes (Coût:2.5M €)</button>
+    <button id="boutonatelier">Acheter un atelier de maintenance (Coût: 3M €)</button>
+    <button id="boutonvoiturier">Acheter des voituriers (Coût: 5M €)</button>
 </div>
 
 <div class="stats-container">
