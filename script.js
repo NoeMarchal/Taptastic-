@@ -101,7 +101,7 @@ const items = [
     { name: "Maison", cost: 300000000 },
     { name: "Une Audi", cost: 1000000000 },
     { name: "TP de Tondeurrrrrr", cost: 40000000000 },
-    { name: "Anti Matiere", cost:  1000000000000 }
+    { name: "Anti Matiere", cost:  500000000000 }
 ];
 
 // Propriétés des tickets (coût, multiplicateur)
