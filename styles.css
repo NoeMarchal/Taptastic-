@@ -367,20 +367,29 @@ footer a:hover {
 }
 .items-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Crée une grille responsive */
-  gap: 10px; /* Espacement entre les cartes */
+  grid-template-columns: repeat(auto-fit, minmax(5, 200px)); /* Crée une grille responsive */
+  gap: 150px; /* Espacement entre les cartes */
   padding: 10px;
+  width: 80%; /* Prend toute la largeur disponible */
   max-width: 1200px; /* Limite la largeur pour une meilleure lisibilité */
   margin: 0 auto; /* Centre le conteneur */
 }
-
+.items-bought {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5, 200px)); /* Crée une grille responsive */
+  gap: 50px; /* Espacement entre les cartes */
+  padding: 10px;
+  width: 80%; /* Prend toute la largeur disponible */
+  max-width: 1200px; /* Limite la largeur pour une meilleure lisibilité */
+  margin: 0 auto; /* Centre le conteneur */
+}
 /* Style des cartes */
 .item-card {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 5px;
+  padding: 50px;
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
   width: 90%; /* Prend toute la largeur de la cellule */

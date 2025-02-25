@@ -1349,41 +1349,55 @@ function buyItem(item) {
 window.addEventListener('load', displayItems);
 
 function addToBoughtItems(item) {
-    const boughtItemElement = document.createElement('div');
-    boughtItemElement.className = 'item bought';
+    // Créer une carte pour l'item acheté
+    const boughtItemCard = document.createElement('div');
+    boughtItemCard.className = 'item-card';
+
+    // Ajouter une image de fond pour les items spécifiques
+    if (item.name === "Panini") {
+        boughtItemCard.style.backgroundImage = "url('Images/panini.jpg')";
+        boughtItemCard.style.backgroundSize = "cover";
+        boughtItemCard.style.backgroundPosition = "center";
+    } else if (item.name === "Pizza") {
+        boughtItemCard.style.backgroundImage = "url('Images/pizza.jpg')";
+        boughtItemCard.style.backgroundSize = "cover";
+        boughtItemCard.style.backgroundPosition = "center";
+    } else if (item.name === "Vélo") {
+        boughtItemCard.style.backgroundImage = "url('Images/vélo.jpg')";
+        boughtItemCard.style.backgroundSize = "cover";
+        boughtItemCard.style.backgroundPosition = "center";
+    }
+
+    // Ajouter le nom de l'item
+    const itemName = document.createElement('div');
+    itemName.className = 'item-name';
+    itemName.textContent = item.name;
+    boughtItemCard.appendChild(itemName);
+
+    // Ajouter la valeur actuelle de l'item
+    const itemValue = document.createElement('div');
+    itemValue.className = 'item-cost';
+    itemValue.textContent = `${formatNumber(item.currentValue)} €`;
+    boughtItemCard.appendChild(itemValue);
 
     // Calculer la différence entre la valeur actuelle et le prix initial
     const difference = item.currentValue - item.cost;
-
-    // Déterminer la couleur en fonction de la valeur actuelle
-    if (item.currentValue > item.cost) {
-        boughtItemElement.style.color = 'green'; // Valeur supérieure au prix initial
-    } else if (item.currentValue < item.cost) {
-        boughtItemElement.style.color = 'red'; // Valeur inférieure au prix initial
-    } else {
-        boughtItemElement.style.color = 'black'; // Valeur égale au prix initial
-    }
-
-    // Afficher le nom de l'item et sa valeur actuelle
-    boughtItemElement.textContent = `${item.name} - Valeur actuelle: ${formatNumber(item.currentValue)} €`;
 
     // Créer un élément pour afficher la différence de valeur
     const differenceElement = document.createElement('span');
     differenceElement.textContent = ` (${difference >= 0 ? '+' : ''}${formatNumber(difference)} €)`;
     differenceElement.style.color = difference >= 0 ? 'green' : 'red'; // Couleur en fonction du gain ou de la perte
+    boughtItemCard.appendChild(differenceElement);
 
     // Créer un bouton "Vendre"
     const sellButton = document.createElement('button');
     sellButton.textContent = 'Vendre';
     sellButton.className = 'sell-button';
     sellButton.addEventListener('click', () => sellItem(item));
+    boughtItemCard.appendChild(sellButton);
 
-    // Ajouter la différence et le bouton "Vendre" à l'élément de l'item
-    boughtItemElement.appendChild(differenceElement);
-    boughtItemElement.appendChild(sellButton);
-
-    // Ajouter l'élément de l'item au conteneur de l'inventaire
-    itemsBoughtContainer.appendChild(boughtItemElement);
+    // Ajouter la carte au conteneur de l'inventaire
+    itemsBoughtContainer.appendChild(boughtItemCard);
 }
 
 function fluctuateItemValues() {
