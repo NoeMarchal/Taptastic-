@@ -1277,6 +1277,24 @@ function displayItems() {
         const itemCard = document.createElement('div');
         itemCard.className = 'item-card';
 
+        // Ajouter une image de fond pour l'item "Panini"
+        if (item.name === "Panini") {
+            itemCard.style.backgroundImage = "url('Images/panini.jpg')"; // Remplacez par le chemin de votre image
+            itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
+            itemCard.style.backgroundPosition = "center"; // Centrer l'image
+        }
+                // Ajouter une image de fond pour l'item "Pizza"
+                if (item.name === "Pizza") {
+                    itemCard.style.backgroundImage = "url('Images/pizza.jpg')"; // Remplacez par le chemin de votre image
+                    itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
+                    itemCard.style.backgroundPosition = "center"; // Centrer l'image
+                }
+                        // Ajouter une image de fond pour l'item "vélo"
+                        if (item.name === "Vélo") {
+                            itemCard.style.backgroundImage = "url('Images/vélo.jpg')"; // Remplacez par le chemin de votre image
+                            itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
+                            itemCard.style.backgroundPosition = "center"; // Centrer l'image
+                        }
         // Ajouter le nom de l'objet
         const itemName = document.createElement('div');
         itemName.className = 'item-name';
