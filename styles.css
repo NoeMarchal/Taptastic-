@@ -405,7 +405,7 @@ footer a:hover {
   color: #333; /* Couleur du texte */
   margin-bottom: 15px;
 }
-.buy-button {
+.buy-button,#buy-bot-btn, #apply-settings {
     background-color: rgb(129, 126, 126); /* Fond semi-transparent */
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -422,7 +422,7 @@ footer a:hover {
 
 }
 
-.buy-button:hover {
+.buy-button:hover, #buy-bot-btn:hover, #apply-settings:hover {
   background-color: #464646;
 }
 /* Media Queries pour adapter la grille */
@@ -436,4 +436,109 @@ footer a:hover {
   .items-container {
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Tous les items en ligne sur ordinateur */
   }
+}
+/* Style du slider */
+input[type="range"] {
+  -webkit-appearance: none; /* Désactiver le style par défaut */
+  width: 100%; /* Largeur du slider */
+  height: 8px; /* Hauteur du slider */
+  background: #ddd; /* Couleur de fond de la barre */
+  border-radius: 5px; /* Coins arrondis */
+  outline: none; /* Supprimer la bordure par défaut */
+  opacity: 0.7; /* Transparence */
+  transition: opacity 0.2s; /* Animation de transition */
+}
+
+/* Style de la boule du slider */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Désactiver le style par défaut */
+  appearance: none;
+  width: 20px; /* Largeur de la boule */
+  height: 20px; /* Hauteur de la boule */
+  background: rgb(129, 126, 126); /* Couleur de la boule */
+  border-radius: 50%; /* Boule ronde */
+  cursor: pointer; /* Curseur pointer */
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: rgb(129, 126, 126);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Style de la barre remplie */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  background: rgb(129, 126, 126); /* Couleur de la barre remplie */
+  border-radius: 5px;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 8px;
+  background: rgb(129, 126, 126);
+  border-radius: 5px;
+}
+
+/* Afficher la valeur actuelle */
+#sell-threshold-value {
+  margin-left: 10px;
+  font-weight: bold;
+}
+/* Conteneur du toggle */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #fffcfc;
+  cursor: pointer;
+}
+
+/* Masquer la case à cocher par défaut */
+.toggle-switch input[type="checkbox"] {
+  display: none;
+}
+
+/* Style du slider (arrière-plan du toggle) */
+.toggle-switch .slider {
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 25px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+/* Style de la boule du toggle */
+.toggle-switch .slider::before {
+  content: '';
+  width: 21px;
+  height: 21px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+/* Style lorsque la case est cochée */
+.toggle-switch input[type="checkbox"]:checked + .slider {
+  background-color: #363636; /* Couleur verte */
+}
+
+.toggle-switch input[type="checkbox"]:checked + .slider::before {
+  transform: translateX(25px); /* Déplacer la boule vers la droite */
+}
+#fluctuation-timer {
+  font-size: 16px;
+  color: #333;
+  margin-top: 20px;
+}
+
+#time-remaining {
+  font-weight: bold;
+  color: #4CAF50;
 }

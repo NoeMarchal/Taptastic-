@@ -37,7 +37,7 @@
     <div class="container">
         <div class="user-info">
             <div class="avatar-container">
-                <img id="avatar" src="Images/default-avatar.jpg" alt="Avatar du joueur" />
+                <img id="avatar" src="Images/choose-avatar.jpg" alt="Avatar du joueur" />
             </div>
             <div id="player-name" class="player-name">Nom du joueur</div>
         </div>
@@ -130,14 +130,27 @@
 
 <div class="shop locked">
     <h2>Objets disponibles</h2>
+    <div id="bot-controls">
+        <button id="buy-bot-btn">Acheter le Bot (500mds €)</button>
+        <div id="bot-settings" style="display:none;">
+            <label for="sell-threshold">Vendre si gain supérieur à (%):</label>
+            <input type="range" id="sell-threshold" min="1" max="45" value="15">
+            <span id="sell-threshold-value">15%</span>
+            <br>
+            <label for="auto-buy" class="toggle-switch">
+                Acheter automatiquement les items:
+                <input type="checkbox" id="auto-buy">
+                <span class="slider"></span>
+            </label>
+            <br>
+            <button id="apply-settings">Appliquer les paramètres</button>
+        </div>
+    </div>
     <div id="itemsToBuyContainer" class="items-container"></div>
 </div>
-
 <div class="inventory-container locked">
     <h2>Objets achetés</h2>
-    <div id="items-bought">
-        <!-- Les objets achetés seront ajoutés ici dynamiquement -->
-    </div>
+    <div id="items-bought"></div>
 </div>
 
 <div class="pari-container locked">

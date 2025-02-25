@@ -48,7 +48,11 @@ let gameTime = 0; // en secondes
 let boughtItems = [];
 let historique = [];
 let tickets = 0;
-
+let bot = {
+    purchased: false,
+    sellThreshold: 15, // Seuil de vente par défaut
+    autoBuy: false // Achat automatique désactivé par défaut
+};
 // Mise à jour du temps de jeu chaque seconde
 setInterval(() => {
     gameTime = Math.floor((Date.now() - gameStartTime) / 1000);
@@ -216,12 +220,14 @@ function saveGame() {
         historique,
         tickets,
         autoclickerPower,
+        botPurchased: bot.purchased,
+        botSellThreshold: bot.sellThreshold,
+        botAutoBuy: bot.autoBuy
 
     };
     localStorage.setItem('incrementalGameSave', JSON.stringify(gameData));
 }
 
-// Charger la progression depuis localStorage
 function loadGame() {
     const savedData = localStorage.getItem('incrementalGameSave');
     if (savedData) {
@@ -237,7 +243,7 @@ function loadGame() {
         upgrade2Level = gameData.upgrade2Level || 0;
         unlockedTrophies = gameData.unlockedTrophies || [];
         playerName = gameData.playerName;
-        avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg"; // Charger l'avatar sauvegardé
+        avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg";
         supermarcheAchete = gameData.supermarcheAchete || false;
         marchandisesAchete = gameData.marchandisesAchete || false;
         superviseurAchete = gameData.superviseurAchete || false;
@@ -249,15 +255,28 @@ function loadGame() {
         totalClicks = gameData.totalClicks || 0;
         totalPointsEarned = gameData.totalPointsEarned || 0;
         totalPointsSpent = gameData.totalPointsSpent || 0;
-        gameStartTime = gameData.gameStartTime || Date.now(); // Charger l'heure de début du jeu
-        elapsedTime = gameData.elapsedTime || 0; // Charger le temps écoulé
-        boughtItems = gameData.boughtItems ||[];
-        historique = gameData.historique ||[];
+        gameStartTime = gameData.gameStartTime || Date.now();
+        elapsedTime = gameData.elapsedTime || 0;
+        boughtItems = gameData.boughtItems || [];
+        historique = gameData.historique || [];
         tickets = gameData.tickets;
         ConcessionAchete = gameData.ConcessionAchete || false;
         VoituredeluxeAchete = gameData.VoituredeluxeAchete || false;
         AtelierAchete = gameData.AtelierAchete || false;
         VoiturierAchete = gameData.VoiturierAchete || false;
+
+        // Charger les propriétés du bot
+        bot.purchased = gameData.botPurchased || false;
+        bot.sellThreshold = gameData.botSellThreshold || 15; // Valeur par défaut
+        bot.autoBuy = gameData.botAutoBuy || false; // Valeur par défaut
+
+        // Mettre à jour l'interface utilisateur pour le bot
+        if (bot.purchased) {
+            document.getElementById('buy-bot-btn').disabled = true;
+            document.getElementById('bot-settings').style.display = 'block';
+            document.getElementById('sell-threshold').value = bot.sellThreshold;
+            document.getElementById('auto-buy').checked = bot.autoBuy;
+        }
     }
 
     // Charger l'avatar depuis localStorage (au cas où il n'est pas dans gameData)
@@ -282,7 +301,6 @@ function loadGame() {
     if (VoiturierAchete) disableButton('boutonvoiturier');
 
     updateDisplay();
-    updateUI();
     updateTrophies();
     displayItems();
 }
@@ -334,7 +352,6 @@ document.getElementById('elapsed-time').textContent = `Temps écoulé : ${hours}
 
     updateTrophies();
     displayItems();
-    updateUI();
     updateCoutTotal();
     saveGame(); // Sauvegarde après chaque mise à jour
 }
@@ -864,7 +881,19 @@ function resetGame() {
     AtelierAchete = false;
     VoiturierAchete = false;
     autoclickerPower = 250;
+    // Réinitialiser le bot
+bot.purchased = false;
+bot.sellThreshold = 15; // Valeur par défaut
+bot.autoBuy = false; // Valeur par défaut
+// Réactiver le bouton "Acheter le Bot"
+document.getElementById('buy-bot-btn').disabled = false;
 
+// Masquer les paramètres du bot
+document.getElementById('bot-settings').style.display = 'none';
+
+// Réinitialiser les valeurs des paramètres du bot
+document.getElementById('sell-threshold').value = bot.sellThreshold;
+document.getElementById('auto-buy').checked = bot.autoBuy;
     // Réactiver les boutons
     document.getElementById('boutonSupermarche').disabled = false;
     document.getElementById('boutonMarchandises').disabled = false;
@@ -1329,8 +1358,8 @@ function addToBoughtItems(item) {
 function fluctuateItemValues() {
     items.forEach(item => {
         if (boughtItems.includes(item.name)) {
-            // Générer une fluctuation aléatoire entre -30% et +30% de la valeur initiale
-            const fluctuation = item.cost * (Math.random() * 0.6 - 0.3);
+            // Générer une fluctuation aléatoire entre -50% et +50% de la valeur initiale
+            const fluctuation = item.cost * (Math.random() * 1.0 - 0.5);
             item.currentValue = Math.round(item.cost + fluctuation);
         }
     });
@@ -1351,14 +1380,27 @@ function updateBoughtItemsDisplay() {
 
 // Appeler la fonction de fluctuation toutes les 2 secondes
 setInterval(fluctuateItemValues, 2000);
+document.addEventListener('DOMContentLoaded', function() {
+    const sellThresholdSlider = document.getElementById('sell-threshold');
+    const sellThresholdValue = document.getElementById('sell-threshold-value');
 
+    // Mettre à jour la valeur affichée
+    sellThresholdSlider.addEventListener('input', function() {
+        sellThresholdValue.textContent = `${this.value}%`;
+    });
+
+    // Appliquer les paramètres du bot
+    document.getElementById('apply-settings').addEventListener('click', function() {
+        bot.sellThreshold = parseInt(sellThresholdSlider.value);
+        alert('Paramètres du bot mis à jour!');
+    });
+});
 function sellItem(item) {
     // Vérifier si l'item est bien dans la liste des objets achetés
     if (!boughtItems.includes(item.name)) {
         alert("Cet objet n'est pas dans votre inventaire !");
         return;
     }
-
     // Ajouter la valeur actuelle de l'item aux points du joueur
     points += item.currentValue;
     totalPointsEarned += item.currentValue;
@@ -1377,11 +1419,55 @@ function sellItem(item) {
     updateBoughtItemsDisplay();
 }
 
-// Fonction pour mettre à jour l'affichage des points et des tickets
-function updateUI() {
-    ticketsElement.textContent = formatNumber(tickets);
-    parierButton.disabled = tickets === 0; // Active/désactive le bouton "Parier"
+// Fonction pour acheter le bot
+document.getElementById('buy-bot-btn').addEventListener('click', function() {
+    if (points >= 500000000000) {
+        points -= 500000000000;
+        totalPointsSpent += 500000000000;
+        bot.purchased = true;
+        document.getElementById('buy-bot-btn').disabled = true;
+        document.getElementById('bot-settings').style.display = 'block';
+        alert('Bot acheté avec succès!');
+    } else {
+        alert('Fonds insuffisants pour acheter le bot.');
+    }
+});
+
+// Appliquer les paramètres du bot
+document.getElementById('apply-settings').addEventListener('click', function() {
+    bot.sellThreshold = parseInt(document.getElementById('sell-threshold').value);
+    bot.autoBuy = document.getElementById('auto-buy').checked;
+    alert('Paramètres du bot mis à jour!');
+});
+
+// Fonction pour vendre automatiquement les items
+function autoSellItems() {
+    if (!bot.purchased) return; // Ne rien faire si le bot n'est pas acheté
+
+    boughtItems.forEach(itemName => {
+        const item = items.find(i => i.name === itemName);
+        if (item && item.currentValue > item.cost * (1 + bot.sellThreshold / 100)) {
+            sellItem(item); // Vendre l'item si la condition est remplie
+        }
+    });
 }
+
+// Fonction pour acheter automatiquement les items
+function autoBuyItems() {
+    if (!bot.purchased || !bot.autoBuy) return; // Ne rien faire si le bot n'est pas acheté ou si l'achat automatique est désactivé
+
+    items.forEach(item => {
+        if (!boughtItems.includes(item.name) && points >= item.cost) {
+            buyItem(item); // Acheter l'item si la condition est remplie
+        }
+    });
+}
+
+// Appeler autoSellItems et autoBuyItems toutes les 2 secondes
+setInterval(() => {
+    autoSellItems();
+    autoBuyItems();
+}, 500);
 
 // Fonction pour mettre à jour l'affichage du coût total
 function updateCoutTotal() {
@@ -1513,7 +1599,6 @@ acheterTicketButton.addEventListener("click", acheterTickets);
 parierButton.addEventListener("click", parier);
 
 // Initialise l'affichage des points, des tickets et du coût total
-updateUI();
 updateCoutTotal();
 
 // Sélection des éléments
