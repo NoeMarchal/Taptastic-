@@ -1294,6 +1294,23 @@ function displayItems() {
                             itemCard.style.backgroundImage = "url('Images/vélo.jpg')"; // Remplacez par le chemin de votre image
                             itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
                             itemCard.style.backgroundPosition = "center"; // Centrer l'image
+                        } // Ajouter une image de fond pour l'item "vélo"
+                        if (item.name === "Scooter") {
+                            itemCard.style.backgroundImage = "url('Images/scooter.jpg')"; // Remplacez par le chemin de votre image
+                            itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
+                            itemCard.style.backgroundPosition = "center"; // Centrer l'image
+                        }
+                         // Ajouter une image de fond pour l'item "vélo"
+                         if (item.name === "Moto") {
+                            itemCard.style.backgroundImage = "url('Images/moto.jpg')"; // Remplacez par le chemin de votre image
+                            itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
+                            itemCard.style.backgroundPosition = "center"; // Centrer l'image
+                        }
+                         // Ajouter une image de fond pour l'item "vélo"
+                         if (item.name === "Vacances") {
+                            itemCard.style.backgroundImage = "url('Images/vacances.jpg')"; // Remplacez par le chemin de votre image
+                            itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
+                            itemCard.style.backgroundPosition = "center"; // Centrer l'image
                         }
         // Ajouter le nom de l'objet
         const itemName = document.createElement('div');
@@ -1364,6 +1381,18 @@ function addToBoughtItems(item) {
         boughtItemCard.style.backgroundPosition = "center";
     } else if (item.name === "Vélo") {
         boughtItemCard.style.backgroundImage = "url('Images/vélo.jpg')";
+        boughtItemCard.style.backgroundSize = "cover";
+        boughtItemCard.style.backgroundPosition = "center";
+    }else if (item.name === "Scooter") {
+        boughtItemCard.style.backgroundImage = "url('Images/scooter.jpg')";
+        boughtItemCard.style.backgroundSize = "cover";
+        boughtItemCard.style.backgroundPosition = "center";
+    }else if (item.name === "Moto") {
+        boughtItemCard.style.backgroundImage = "url('Images/soto.jpg')";
+        boughtItemCard.style.backgroundSize = "cover";
+        boughtItemCard.style.backgroundPosition = "center";
+    }else if (item.name === "Vacances") {
+        boughtItemCard.style.backgroundImage = "url('Images/sacances.jpg')";
         boughtItemCard.style.backgroundSize = "cover";
         boughtItemCard.style.backgroundPosition = "center";
     }
