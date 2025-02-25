@@ -115,16 +115,22 @@ const trophies = [
 
 // Liste des objets disponibles à l'achat
 const items = [
-    { name: "Karaba", cost: 100 },
-    { name: "Un bon BK", cost: 1000 },
-    { name: "Miltipla", cost: 132000 },
-    { name: "Paye ta race", cost: 300000 },
-    { name: "Give me money", cost: 1000000 },
-    { name: "Maison", cost: 300000000 },
-    { name: "Une Audi", cost: 1000000000 },
-    { name: "TP de Tondeurrrrrr", cost: 40000000000 },
-    { name: "Anti Matiere", cost:  500000000000 }
+    { name: "Panini", cost: 100 },
+    { name: "Pizza", cost: 1000 },
+    { name: "Vélo", cost: 20000 }, // Ajouté
+    { name: "Scooter", cost: 132000 },
+    { name: "Moto", cost: 500000 }, // Ajouté
+    { name: "Vacances", cost: 3000000 },
+    { name: "Salaire", cost: 10000000 }, // Ajouté
+    { name: "Studio", cost: 300000000 },
+    { name: "Maison", cost: 700000000 }, // Ajouté
+    { name: "Voiture", cost: 1000000000 },
+    { name: "Jet", cost: 15000000000 }, // Ajouté
+    { name: "Villa", cost: 40000000000 },
+    { name: "Île", cost: 500000000000 },
+    { name: "Pays", cost: 10000000000000 } // Ajouté
 ];
+
 
 // Propriétés des tickets (coût, multiplicateur)
 const ticketProperties = {
@@ -146,6 +152,8 @@ const avatars = [
     { src: "avatar8.jpg", name: "Maya" },
     { src: "avatar9.jpg", name: "Zoé" },
     { src: "avatar10.jpg", name: "Inaya" },
+    { src: "avatar11.jpg", name: "Lucas" },
+    { src: "avatar12.jpg", name: "Arthur" },
 ];
 
 // Éléments du DOM
@@ -156,7 +164,7 @@ const upgrade2Button = document.getElementById('upgrade2');
 const autoclickerButton = document.getElementById('autoclicker-button');
 const autoclickerCountDisplay = document.getElementById('autoclicker-count');
 const trophyList = document.getElementById("trophy-list");
-const itemsToBuyContainer = document.getElementById('items-to-buy');
+const itemsToBuyContainer = document.getElementById('itemsToBuyContainer');
 const itemsBoughtContainer = document.getElementById('items-bought');
 const ticketsElement = document.getElementById("tickets");
 const ticketTypeSelect = document.getElementById("ticketType");
@@ -168,6 +176,7 @@ const parierButton = document.getElementById("parier");
 const resultatElement = document.getElementById("resultat");
 const animationElement = document.getElementById("animation");
 const historiqueList = document.getElementById("historique-list");
+
 
 // Charger la sauvegarde
 loadGame();
@@ -283,22 +292,22 @@ function updateDisplay() {
     pointsDisplay.textContent = `${formatNumber(points)} €`;
     document.getElementById('points-per-click').textContent = `${formatNumber(pointsPerClick)}€ /click  `;
     document.getElementById("pps-display").textContent = `${formatNumber(autoclickers * autoclickerPower)}€ /sec`;
-    document.getElementById("upgrade1-count").textContent = `Améliorations 1 : ${upgrade1Level}`;
-    document.getElementById("upgrade2-count").textContent = `Améliorations 2 : ${upgrade2Level}`;
-    autoclickerCountDisplay.textContent = `Autoclickers: ${autoclickers}`;
-    upgrade1Button.textContent = `Amélioration 1 + 20€/click (Coût: ${formatNumber(upgrade1Cost)} €)`;
-    upgrade2Button.textContent = `Amélioration 2 + 50€/click (Coût: ${formatNumber(upgrade2Cost)} €)`;
-    autoclickerButton.textContent = `Acheter un Autoclicker + 250€/sec (Coût: ${formatNumber(autoclickerCost)} €)`;
+    document.getElementById("upgrade1-count").textContent = `Améliorations 1 +20€/clikcs : ${upgrade1Level}`;
+    document.getElementById("upgrade2-count").textContent = `Améliorations 2 +50€/clikcs: ${upgrade2Level}`;
+    autoclickerCountDisplay.textContent = `Autoclickers +250€/sec: ${autoclickers}`;
+    upgrade1Button.textContent = `Amélioration 1 (Coût: ${formatNumber(upgrade1Cost)} €)`;
+    upgrade2Button.textContent = `Amélioration 2 (Coût: ${formatNumber(upgrade2Cost)} €)`;
+    autoclickerButton.textContent = `Autoclicker (Coût: ${formatNumber(autoclickerCost)} €)`;
     document.getElementById("player-name").textContent = playerName;
     document.getElementById("avatar").src = avatarSrc; 
-    document.getElementById('boutonSupermarche').textContent = `Acheter Supermarché (Coût: ${formatNumber(supermarcheCost)} €)`;
-    document.getElementById('boutonMarchandises').textContent = `Acheter Marchandises (Coût: ${formatNumber(marchandisesCost)} €)`;
-    document.getElementById('boutonSuperviseur').textContent = `Embaucher un Superviseur (Coût: ${formatNumber(superviseurCost)} €)`;
-    document.getElementById('boutonAgrandissement').textContent = `Agrandissement du magasin (Coût: ${formatNumber(agrandissementCost)} €)`;
-    document.getElementById('boutonMagasin').textContent = `Magasin de luxe  (Coût: ${formatNumber(MagasinCost)} €)`;
-    document.getElementById('boutonMarchandisesdeluxe').textContent = `Marchandises de luxe (Coût: ${formatNumber(MarchandisesdeluxeCost)} €)`;
+    document.getElementById('boutonSupermarche').textContent = `Supermarché (Coût: ${formatNumber(supermarcheCost)} €)`;
+    document.getElementById('boutonMarchandises').textContent = `Marchandises (Coût: ${formatNumber(marchandisesCost)} €)`;
+    document.getElementById('boutonSuperviseur').textContent = `Superviseur (Coût: ${formatNumber(superviseurCost)} €)`;
+    document.getElementById('boutonAgrandissement').textContent = `Agrandissement (Coût: ${formatNumber(agrandissementCost)} €)`;
+    document.getElementById('boutonMagasin').textContent = `Magasin de luxe (Coût: ${formatNumber(MagasinCost)} €)`;
+    document.getElementById('boutonMarchandisesdeluxe').textContent = `Marchandises(Coût: ${formatNumber(MarchandisesdeluxeCost)} €)`;
     document.getElementById('boutonNouvellecollection').textContent = `Nouvelles collections (Coût: ${formatNumber(NouvellecollectionCost)} €)`;
-    document.getElementById('boutonDevellopementdanslemonde').textContent = `Dévelloper dans le monde (Coût: ${formatNumber(DevellopementdanslemondeCost)} €)`;
+    document.getElementById('boutonDevellopementdanslemonde').textContent = `Exportation(Coût: ${formatNumber(DevellopementdanslemondeCost)} €)`;
     document.getElementById('boutonconcession').textContent = `Concession  (Coût: ${formatNumber(ConcessionCost)} €)`;
     document.getElementById('boutonvoituredeluxe').textContent = `Voitures de luxe (Coût: ${formatNumber(VoituredeluxeCost)} €)`;
     document.getElementById('boutonatelier').textContent = `Atelier (Coût: ${formatNumber(AtelierCost)} €)`;
@@ -615,9 +624,6 @@ upgrade1Button.addEventListener('click', () => {
 // Amélioration 2
 upgrade2Button.addEventListener('click', () => {
     if (upgrade2Level >= maxUpgrade2Level) {
-        // Jouer un son d'erreur
-        const errorSound = new Audio('error-sound.mp3');
-        errorSound.play();
 
         // Afficher un message d'erreur stylisé avec SweetAlert2
         Swal.fire({
@@ -1226,42 +1232,52 @@ function displayItems() {
             return; // Ne pas afficher l'objet s'il a déjà été acheté
         }
 
-        // Créer un bouton pour chaque objet
-        const itemButton = document.createElement('button');
-        itemButton.className = 'item-button';
-        itemButton.textContent = `${item.name} - ${formatNumber(item.cost)} €`;
-        itemButton.addEventListener('click', () => buyItem(item)); // Ajouter l'événement click
-        itemsToBuyContainer.appendChild(itemButton); // Ajouter le bouton au conteneur
+        // Créer une carte pour chaque objet
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+
+        // Ajouter le nom de l'objet
+        const itemName = document.createElement('div');
+        itemName.className = 'item-name';
+        itemName.textContent = item.name;
+        itemCard.appendChild(itemName);
+
+        // Ajouter le prix de l'objet
+        const itemCost = document.createElement('div');
+        itemCost.className = 'item-cost';
+        itemCost.textContent = `${formatNumber(item.cost)} €`;
+        itemCard.appendChild(itemCost);
+
+        // Créer un bouton pour acheter l'objet
+        const buyButton = document.createElement('button');
+        buyButton.className = 'buy-button';
+        buyButton.textContent = 'Acheter';
+        buyButton.addEventListener('click', () => buyItem(item));
+        itemCard.appendChild(buyButton);
+
+        // Ajouter la carte au conteneur
+        itemsToBuyContainer.appendChild(itemCard);
     });
 }
 
 function buyItem(item) {
     if (boughtItems.includes(item.name)) {
         alert("Vous avez déjà acheté cet objet !");
-        return; // Arrêter la fonction si l'objet a déjà été acheté
+        return;
     }
 
     if (points >= item.cost) {
         points -= item.cost; // Retirer les points
-        totalPointsSpent += item.cost;
+        totalPointsSpent += item.cost; // Ajouter le coût total
         boughtItems.push(item.name); // Ajouter l'objet à la liste des objets achetés
-        addToBoughtItems(item); // Ajouter l'objet à l'inventaire
-        saveGame(); // Sauvegarder le jeu
-        displayItems(); // Mettre à jour l'affichage des objets disponibles
+        displayItems(); // Mettre à jour l'affichage
     } else {
-        Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "fond insuffisant",
-            text: `Il vous manque ${formatNumber(item.cost - points)} € pour acheter.`,
-            showConfirmButton: false,
-            timer: 1000,
-            didOpen: () => {
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
-            }
-          });
+        alert(`Fonds insuffisants ! Il vous manque ${formatNumber(item.cost - points)} €.`);
     }
 }
+
+// Afficher les items au chargement de la page
+window.addEventListener('load', displayItems);
 
 function addToBoughtItems(item) {
     const boughtItemElement = document.createElement('div');

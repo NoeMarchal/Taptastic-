@@ -31,7 +31,7 @@
     </audio>
 
 <input type="file" id="uploadSave" style="display: none" onchange="loadSave(event)">
-  
+<div class="container-wrapper">
     <!-- Section Avatars et Nom -->
     <div class="container">
         <div class="user-info">
@@ -129,9 +129,7 @@
 
 <div class="shop locked">
     <h2>Objets disponibles</h2>
-    <div id="items-to-buy">
-        <!-- Les objets disponibles à l'achat seront ajoutés ici dynamiquement -->
-    </div>
+    <div id="itemsToBuyContainer" class="items-container"></div>
 </div>
 
 <div class="inventory-container locked">
@@ -208,7 +206,7 @@
         <ul id="historique-list"></ul>
     </div>
 </div>
-
+</div>
 <footer>
     <div class="footer-content">
         <!-- Section Contact -->

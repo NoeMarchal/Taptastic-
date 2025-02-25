@@ -63,6 +63,14 @@ input[type="button"]:disabled:active,
 input[type="submit"]:disabled:active {
     transform: none;
 }
+button:disabled {
+  background-color: #cccccc; /* Gris pour indiquer l'inactivité */
+  color: #666666; /* Texte plus clair */
+  cursor: not-allowed; /* Curseur "non autorisé" */
+  opacity: 0.7; /* Légère transparence */
+  position: relative; /* Pour l'ajout du texte "(Acheté)" */
+}
+
 /* Style de base pour le champ de texte */
 #name-input {
   background-color: rgba(112, 108, 108, 0.8); /* Fond semi-transparent */
@@ -355,5 +363,77 @@ footer a:hover {
 
   footer a {
     font-size: 12px; /* Texte plus petit */
+  }
+}
+.items-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Crée une grille responsive */
+  gap: 10px; /* Espacement entre les cartes */
+  padding: 10px;
+  max-width: 1200px; /* Limite la largeur pour une meilleure lisibilité */
+  margin: 0 auto; /* Centre le conteneur */
+}
+
+/* Style des cartes */
+.item-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 90%; /* Prend toute la largeur de la cellule */
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Nom de l'item */
+.item-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Prix de l'item */
+.item-cost {
+  font-size: 1.2em;
+  color: #333; /* Couleur du texte */
+  margin-bottom: 15px;
+}
+.buy-button {
+    background-color: rgb(129, 126, 126); /* Fond semi-transparent */
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px; /* Bords arrondis */
+    padding: 8px 16px; /* Padding réduit */
+    font-size: 18px; /* Taille de police standard */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px); /* Effet de flou */
+    min-width: 20px; /* Largeur minimale pour éviter les boutons trop étroits */
+    margin: 5px;
+    -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
+    outline: none; /* Supprime le contour au focus (optionnel) */
+
+}
+
+.buy-button:hover {
+  background-color: #464646;
+}
+/* Media Queries pour adapter la grille */
+@media (max-width: 768px) {
+  .items-container {
+      grid-template-columns: repeat(2, 1fr); /* 3 cartes par ligne sur mobile et tablette */
+  }
+}
+
+@media (min-width: 769px) {
+  .items-container {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Tous les items en ligne sur ordinateur */
   }
 }
