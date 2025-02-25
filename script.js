@@ -1262,7 +1262,6 @@ function displayItems() {
 
 function buyItem(item) {
     if (boughtItems.includes(item.name)) {
-        alert("Vous avez déjà acheté cet objet !");
         return;
     }
 
@@ -1272,7 +1271,17 @@ function buyItem(item) {
         boughtItems.push(item.name); // Ajouter l'objet à la liste des objets achetés
         displayItems(); // Mettre à jour l'affichage
     } else {
-        alert(`Fonds insuffisants ! Il vous manque ${formatNumber(item.cost - points)} €.`);
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
+            text: `Il vous manque ${formatNumber(item.cost - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 }
 
