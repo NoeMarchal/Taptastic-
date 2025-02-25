@@ -1392,13 +1392,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // Appliquer les paramètres du bot
     document.getElementById('apply-settings').addEventListener('click', function() {
         bot.sellThreshold = parseInt(sellThresholdSlider.value);
-        alert('Paramètres du bot mis à jour!');
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Bot mis à jour",
+            text: `Seuil de vente: ${bot.sellThreshold}%`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     });
 });
 function sellItem(item) {
     // Vérifier si l'item est bien dans la liste des objets achetés
     if (!boughtItems.includes(item.name)) {
-        alert("Cet objet n'est pas dans votre inventaire !");
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Ce produit n'est pas dans votre inventaire",
+            text: `Vous devez acheter cet article avant de pouvoir le vendre.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
         return;
     }
     // Ajouter la valeur actuelle de l'item aux points du joueur
@@ -1427,9 +1447,18 @@ document.getElementById('buy-bot-btn').addEventListener('click', function() {
         bot.purchased = true;
         document.getElementById('buy-bot-btn').disabled = true;
         document.getElementById('bot-settings').style.display = 'block';
-        alert('Bot acheté avec succès!');
     } else {
-        alert('Fonds insuffisants pour acheter le bot.');
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "fond insuffisant",
+            text: `Il vous manque ${formatNumber(500000000000 - points)} € pour acheter.`,
+            showConfirmButton: false,
+            timer: 1000,
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+            }
+          });
     }
 });
 
@@ -1437,7 +1466,6 @@ document.getElementById('buy-bot-btn').addEventListener('click', function() {
 document.getElementById('apply-settings').addEventListener('click', function() {
     bot.sellThreshold = parseInt(document.getElementById('sell-threshold').value);
     bot.autoBuy = document.getElementById('auto-buy').checked;
-    alert('Paramètres du bot mis à jour!');
 });
 
 // Fonction pour vendre automatiquement les items
