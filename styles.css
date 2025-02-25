@@ -532,13 +532,3 @@ input[type="range"]::-moz-range-track {
 .toggle-switch input[type="checkbox"]:checked + .slider::before {
   transform: translateX(25px); /* Déplacer la boule vers la droite */
 }
-#fluctuation-timer {
-  font-size: 16px;
-  color: #333;
-  margin-top: 20px;
-}
-
-#time-remaining {
-  font-weight: bold;
-  color: #4CAF50;
-}

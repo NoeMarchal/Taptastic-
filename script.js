@@ -515,6 +515,19 @@ function loadSave(event) {
                 VoiturierAchete = gameData.VoiturierAchete || VoiturierAchete;
                 autoclickerPower = gameData.autoclickerPower || autoclickerPower;
 
+                // Charger les propriétés du bot
+                bot.purchased = gameData.botPurchased || false;
+                bot.sellThreshold = gameData.botSellThreshold || 15; // Valeur par défaut
+                bot.autoBuy = gameData.botAutoBuy || false; // Valeur par défaut
+
+                // Mettre à jour l'interface utilisateur pour le bot
+                if (bot.purchased) {
+                    document.getElementById('buy-bot-btn').disabled = true;
+                    document.getElementById('bot-settings').style.display = 'block';
+                    document.getElementById('sell-threshold').value = bot.sellThreshold;
+                    document.getElementById('auto-buy').checked = bot.autoBuy;
+                }
+
                 // Recharge l'avatar si nécessaire
                 if (gameData.avatarSrc) {
                     document.getElementById("avatar").src = gameData.avatarSrc;
@@ -562,7 +575,6 @@ function loadSave(event) {
     };
     reader.readAsText(file);
 }
-
 // Fonction pour afficher le popup avec les options de sauvegarde
 function showSavePopup() {
     Swal.fire({
@@ -1299,6 +1311,7 @@ function buyItem(item) {
         totalPointsSpent += item.cost; // Ajouter le coût total
         boughtItems.push(item.name); // Ajouter l'objet à la liste des objets achetés
         displayItems(); // Mettre à jour l'affichage
+        updateBoughtItemsDisplay(); // Mettre à jour l'inventaire
     } else {
         Swal.fire({
             position: "center",
@@ -1378,8 +1391,6 @@ function updateBoughtItemsDisplay() {
     });
 }
 
-// Appeler la fonction de fluctuation toutes les 2 secondes
-setInterval(fluctuateItemValues, 2000);
 document.addEventListener('DOMContentLoaded', function() {
     const sellThresholdSlider = document.getElementById('sell-threshold');
     const sellThresholdValue = document.getElementById('sell-threshold-value');
@@ -1493,9 +1504,10 @@ function autoBuyItems() {
 
 // Appeler autoSellItems et autoBuyItems toutes les 2 secondes
 setInterval(() => {
-    autoSellItems();
-    autoBuyItems();
-}, 500);
+    fluctuateItemValues(); // Fluctuer les valeurs
+    autoSellItems(); // Vendre automatiquement
+    autoBuyItems(); // Acheter automatiquement
+}, 10000);
 
 // Fonction pour mettre à jour l'affichage du coût total
 function updateCoutTotal() {
