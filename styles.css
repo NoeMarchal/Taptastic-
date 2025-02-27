@@ -433,7 +433,7 @@ footer a:hover {
 /* Ordinateur : 5 items par ligne */
 @media (min-width: 1024px) {
   .items-bought {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
