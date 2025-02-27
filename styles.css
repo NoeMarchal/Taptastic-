@@ -404,7 +404,7 @@ footer a:hover {
 /* Ordinateur : 5 items par ligne */
 @media (min-width: 1024px) {
   .items-container {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -557,7 +557,8 @@ input[type="range"]::-moz-range-track {
 /* Style des images qui ouvrent les pop-ups */
 #imageSupermarche,
 #imageMagasinLuxe,
-#imageConcession {
+#imageConcession,
+#imageTrade {
   width: 10%; /* Taille plus grande */
   height: 10%; /* Taille plus grande */
   max-width: 400px; /* Largeur maximale */
@@ -572,7 +573,8 @@ input[type="range"]::-moz-range-track {
 /* Effet de survol sur les images */
 #imageSupermarche:hover,
 #imageMagasinLuxe:hover,
-#imageConcession:hover {
+#imageConcession:hover,
+#imageTrade:hover {
   transform: scale(1.1); /* Légère augmentation de taille */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Ombre plus prononcée */
   border-color: rgba(255, 255, 255, 0.6); /* Bordure plus visible */
@@ -581,20 +583,22 @@ input[type="range"]::-moz-range-track {
 /* Effet de clic sur les images */
 #imageSupermarche:active,
 #imageMagasinLuxe:active,
-#imageConcession:active {
+#imageConcession:active,
+#imageTrade:active {
   transform: scale(0.95); /* Légère réduction de taille */
 }
 /* Responsive pour tablettes */
 @media (max-width: 2560px) {
   .image-container {
-      gap: 15px; /* Espacement réduit entre les images */
+      gap: 10px; /* Espacement réduit entre les images */
   }
 
   #imageSupermarche,
   #imageMagasinLuxe,
-  #imageConcession {
-      width: 28%; /* Taille réduite pour les tablettes */
-      height: 28%;
+  #imageConcession,
+  #imageTrade {
+      width: 19.8%; /* Taille réduite pour les tablettes */
+      height: 19.8%;
   }
 }
 /* Responsive pour tablettes */
@@ -605,9 +609,10 @@ input[type="range"]::-moz-range-track {
 
   #imageSupermarche,
   #imageMagasinLuxe,
-  #imageConcession {
-      width: 30%; /* Taille réduite pour les tablettes */
-      height: 30%;
+  #imageConcession,
+  #imageTrade {
+      width: 22.5%; /* Taille réduite pour les tablettes */
+      height: 22.5%;
   }
 }
 /* Responsive pour tablettes */
@@ -618,9 +623,10 @@ input[type="range"]::-moz-range-track {
 
   #imageSupermarche,
   #imageMagasinLuxe,
-  #imageConcession {
-      width: 30%; /* Taille réduite pour les tablettes */
-      height: 30%;
+  #imageConcession,
+  #imageTrade {
+      width: 22.5%; /* Taille réduite pour les tablettes */
+      height: 22.5%;
   }
 }
 
@@ -633,10 +639,43 @@ input[type="range"]::-moz-range-track {
 
   #imageSupermarche,
   #imageMagasinLuxe,
-  #imageConcession {
-      width: 28%; /* Taille plus petite pour les mobiles */
-      height: 28%;
+  #imageConcession,
+  #imageTrade {
+      width: 21%; /* Taille plus petite pour les mobiles */
+      height: 21%;
       border-radius: 15px; /* Coins moins arrondis */
       border-width: 2px; /* Bordure plus fine */
   }
+}
+/* Style du pop-up spécifique */
+#popupTrade .popup-content {
+  background-color: rgb(43, 42, 42); /* Couleur de fond du pop-up */
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%; /* Largeur du pop-up */
+  max-width: 600px; /* Largeur maximale */
+  max-height: 80vh; /* Hauteur maximale (80% de la hauteur de l'écran) */
+  overflow-y: auto; /* Activer la barre de défilement verticale */
+  text-align: center;
+  position: relative;
+  z-index: 1001; /* Le contenu du pop-up doit être au-dessus du fond */
+}
+
+/* Style de la barre de défilement pour ce pop-up spécifique */
+#popupTrade .popup-content::-webkit-scrollbar {
+  width: 8px; /* Largeur de la barre de défilement */
+}
+
+#popupTrade .popup-content::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Couleur de fond de la piste */
+  border-radius: 4px;
+}
+
+#popupTrade .popup-content::-webkit-scrollbar-thumb {
+  background: #888; /* Couleur de la barre de défilement */
+  border-radius: 4px;
+}
+
+#popupTrade .popup-content::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Couleur de la barre de défilement au survol */
 }

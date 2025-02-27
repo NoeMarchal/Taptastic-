@@ -5,14 +5,14 @@ const supermarcheCost = 1400000; // Coût du supermarché
 const marchandisesCost = 2500000; // Coût des marchandises
 const superviseurCost = 3000000; // Coût du superviseur
 const agrandissementCost = 5000000; // Coût de l'agrandissement
-const MagasinCost = 200000000; // Coût du supermarché
-const MarchandisesdeluxeCost = 250000000; // Coût des marchandises
-const NouvellecollectionCost = 300000000; // Coût du superviseur
-const DevellopementdanslemondeCost = 500000000; // Coût de l'agrandissement
-const ConcessionCost = 2000000000; // Coût du supermarché
-const VoituredeluxeCost = 5000000000; // Coût des marchandises
-const AtelierCost = 10000000000; // Coût du superviseur
-const VoiturierCost = 20000000000; // Coût de l'agrandissement
+const MagasinCost = 500000000; // Coût du supermarché
+const MarchandisesdeluxeCost = 700000000; // Coût des marchandises
+const NouvellecollectionCost = 800000000; // Coût du superviseur
+const DevellopementdanslemondeCost = 1000000000; // Coût de l'agrandissement
+const ConcessionCost = 5000000000; // Coût du supermarché
+const VoituredeluxeCost = 10000000000; // Coût des marchandises
+const AtelierCost = 20000000000; // Coût du superviseur
+const VoiturierCost = 50000000000; // Coût de l'agrandissement
 
 // Variables du jeu
 let points = 0;
@@ -1035,8 +1035,8 @@ document
     if (!supermarcheAchete && points >= supermarcheCost) {
       points -= supermarcheCost; // Dépense les points
       totalPointsSpent += supermarcheCost;
-      autoclickerPower += 5000; // Augmente les points par seconde de 5000
-      pointsPerClick += 5000;
+      autoclickerPower += 2500; // Augmente les points par seconde de 5000
+      pointsPerClick += 2500;
       supermarcheAchete = true;
       disableButton("boutonSupermarche");
       updateDisplay();
@@ -1064,8 +1064,8 @@ document
     if (!marchandisesAchete && points >= marchandisesCost) {
       points -= marchandisesCost; // Dépense les points
       totalPointsSpent += marchandisesCost;
-      autoclickerPower += 500; // Augmente les points par seconde de 500
-      pointsPerClick += 500;
+      autoclickerPower += 250; // Augmente les points par seconde de 500
+      pointsPerClick += 250;
       marchandisesAchete = true;
       disableButton("boutonMarchandises");
       updateDisplay();
@@ -1093,8 +1093,8 @@ document
     if (!superviseurAchete && points >= superviseurCost) {
       points -= superviseurCost; // Dépense les points
       totalPointsSpent += superviseurCost;
-      autoclickerPower += 1000; // Augmente les points par seconde de 1000
-      pointsPerClick += 1000;
+      autoclickerPower += 500; // Augmente les points par seconde de 1000
+      pointsPerClick += 500;
       superviseurAchete = true;
       disableButton("boutonSuperviseur");
       updateDisplay();
@@ -1122,8 +1122,8 @@ document
     if (!agrandissementAchete && points >= agrandissementCost) {
       points -= agrandissementCost; // Dépense les points
       totalPointsSpent += marchandisesCost;
-      autoclickerPower += 2000; // Augmente les points par seconde de 2000
-      pointsPerClick += 2000;
+      autoclickerPower += 1000; // Augmente les points par seconde de 2000
+      pointsPerClick += 1000;
       agrandissementAchete = true;
       disableButton("boutonAgrandissement");
       updateDisplay();
@@ -1160,8 +1160,8 @@ document.getElementById("boutonMagasin").addEventListener("click", function () {
   if (!MagasinAchete && points >= MagasinCost) {
     points -= MagasinCost; // Dépense les points
     totalPointsSpent += MagasinCost;
-    autoclickerPower += 20000; // Augmente les points par seconde de 5000
-    pointsPerClick += 20000;
+    autoclickerPower += 10000; // Augmente les points par seconde de 5000
+    pointsPerClick += 10000;
     MagasinAchete = true;
     disableButton("boutonMagasin");
     updateDisplay();
@@ -1189,8 +1189,8 @@ document
     if (!MarchandisesdeluxeAchete && points >= MarchandisesdeluxeCost) {
       points -= MarchandisesdeluxeCost; // Dépense les points
       totalPointsSpent += MarchandisesdeluxeCost;
-      autoclickerPower += 50000; // Augmente les points par seconde de 500
-      pointsPerClick += 50000;
+      autoclickerPower += 15000; // Augmente les points par seconde de 500
+      pointsPerClick += 15000;
       MarchandisesdeluxeAchete = true;
       disableButton("boutonMarchandisesdeluxe");
       updateDisplay();
@@ -1218,8 +1218,8 @@ document
     if (!NouvellecollectionAchete && points >= NouvellecollectionCost) {
       points -= NouvellecollectionCost; // Dépense les points
       totalPointsSpent += NouvellecollectionCost;
-      autoclickerPower += 80000; // Augmente les points par seconde de 1000
-      pointsPerClick += 80000;
+      autoclickerPower += 30000; // Augmente les points par seconde de 1000
+      pointsPerClick += 30000;
       NouvellecollectionAchete = true;
       disableButton("boutonNouvellecollection");
       updateDisplay();
@@ -1250,8 +1250,8 @@ document
     ) {
       points -= DevellopementdanslemondeCost; // Dépense les points
       totalPointsSpent += DevellopementdanslemondeCost;
-      autoclickerPower += 100000; // Augmente les points par seconde de 2000
-      pointsPerClick += 100000;
+      autoclickerPower += 45000; // Augmente les points par seconde de 2000
+      pointsPerClick += 45000;
       DevellopementdanslemondeAchete = true;
       disableButton("boutonDevellopementdanslemonde");
       updateDisplay();
@@ -1279,8 +1279,8 @@ document
     if (!ConcessionAchete && points >= ConcessionCost) {
       points -= ConcessionCost; // Dépense les points
       totalPointsSpent += ConcessionCost;
-      autoclickerPower += 1000000; // Augmente les points par seconde de 5000
-      pointsPerClick += 1000000;
+      autoclickerPower += 50000; // Augmente les points par seconde de 5000
+      pointsPerClick += 50000;
       ConcessionAchete = true;
       disableButton("boutonconcession");
       updateDisplay();
@@ -1308,8 +1308,8 @@ document
     if (!VoituredeluxeAchete && points >= VoituredeluxeCost) {
       points -= VoituredeluxeCost; // Dépense les points
       totalPointsSpent += VoituredeluxeCost;
-      autoclickerPower += 1500000; // Augmente les points par seconde de 500
-      pointsPerClick += 1500000;
+      autoclickerPower += 60000; // Augmente les points par seconde de 500
+      pointsPerClick += 60000;
       VoituredeluxeAchete = true;
       disableButton("boutonvoituredeluxe");
       updateDisplay();
@@ -1335,8 +1335,8 @@ document.getElementById("boutonatelier").addEventListener("click", function () {
   if (!AtelierAchete && points >= AtelierCost) {
     points -= AtelierCost; // Dépense les points
     totalPointsSpent += AtelierCost;
-    autoclickerPower += 2000000; // Augmente les points par seconde de 1000
-    pointsPerClick += 2000000;
+    autoclickerPower += 70000; // Augmente les points par seconde de 1000
+    pointsPerClick += 70000;
     AtelierAchete = true;
     disableButton("boutonatelier");
     updateDisplay();
@@ -1364,8 +1364,8 @@ document
     if (!VoiturierAchete && points >= VoiturierCost) {
       points -= VoiturierCost; // Dépense les points
       totalPointsSpent += VoiturierCost;
-      autoclickerPower += 4000000; // Augmente les points par seconde de 2000
-      pointsPerClick += 4000000;
+      autoclickerPower += 80000; // Augmente les points par seconde de 2000
+      pointsPerClick += 80000;
       VoiturierAchete = true;
       disableButton("boutonvoiturier");
       updateDisplay();
@@ -1974,3 +1974,21 @@ window.addEventListener('click', (event) => {
         popupConcession.style.display = 'none';
     }
 });
+
+// Récupérer les éléments
+const imageTrade = document.getElementById('imageTrade');
+const popupTrade = document.getElementById('popupTrade');
+
+// Ouvrir le pop-up quand on clique sur l'image
+imageTrade.addEventListener('click', () => {
+  popupTrade.style.display = 'flex';
+});
+
+// Fermer le pop-up si on clique en dehors de la fenêtre
+window.addEventListener('click', (event) => {
+    if (event.target === popupTrade) {
+      popupTrade.style.display = 'none';
+    }
+});
+
+
