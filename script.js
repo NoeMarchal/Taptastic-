@@ -10,9 +10,9 @@ const MarchandisesdeluxeCost = 700000000; // Coût des marchandises
 const NouvellecollectionCost = 800000000; // Coût du superviseur
 const DevellopementdanslemondeCost = 1000000000; // Coût de l'agrandissement
 const ConcessionCost = 5000000000; // Coût du supermarché
-const VoituredeluxeCost = 10000000000; // Coût des marchandises
-const AtelierCost = 20000000000; // Coût du superviseur
-const VoiturierCost = 50000000000; // Coût de l'agrandissement
+const VoituredeluxeCost = 100000000000; // Coût des marchandises
+const AtelierCost = 300000000000; // Coût du superviseur
+const VoiturierCost = 500000000000; // Coût de l'agrandissement
 
 // Variables du jeu
 let points = 0;

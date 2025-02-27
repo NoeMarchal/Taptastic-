@@ -655,13 +655,14 @@ input[type="range"]::-moz-range-track {
   width: 80%; /* Largeur du pop-up */
   max-width: 600px; /* Largeur maximale */
   max-height: 80vh; /* Hauteur maximale (80% de la hauteur de l'écran) */
+  overflow-x: hidden; /* Masquer la barre de défilement horizontale */
   overflow-y: auto; /* Activer la barre de défilement verticale */
   text-align: center;
   position: relative;
   z-index: 1001; /* Le contenu du pop-up doit être au-dessus du fond */
 }
 
-/* Style de la barre de défilement pour ce pop-up spécifique */
+/* Style de la barre de défilement verticale pour ce pop-up spécifique */
 #popupTrade .popup-content::-webkit-scrollbar {
   width: 8px; /* Largeur de la barre de défilement */
 }
