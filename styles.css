@@ -365,9 +365,36 @@ footer a:hover {
     font-size: 12px; /* Texte plus petit */
   }
 }
+.item-card {
+  width: 100%; /* Prend toute la largeur de la cellule */
+  height: auto; /* Hauteur automatique pour s'adapter au contenu */
+  max-width: 300px; /* Largeur maximale pour éviter que les cartes ne deviennent trop grandes */
+  border-radius: 20px; /* Coins arrondis */
+  border: 3px solid rgba(255, 255, 255, 0.3); /* Bordure subtile */
+  background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
+  backdrop-filter: blur(10px); /* Effet de flou */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Transitions fluides */
+  cursor: pointer; /* Curseur pointer */
+  overflow: hidden; /* Cache tout contenu qui dépasse */
+  text-align: center; /* Centrer le texte */
+  padding: 10px; /* Espacement interne */
+}
+
+/* Effet de survol sur les cartes */
+.item-card:hover {
+  transform: scale(1.05); /* Légère augmentation de taille */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Ombre plus prononcée */
+  border-color: rgba(255, 255, 255, 0.6); /* Bordure plus visible */
+}
+
+/* Effet de clic sur les cartes */
+.item-card:active {
+  transform: scale(0.95); /* Légère réduction de taille */
+}
 .items-container {
   display: grid;
-  gap: 20px;
+  gap: 40px;
   padding: 10px;
   width: 80%;
   max-width: 1200px;
@@ -396,7 +423,7 @@ footer a:hover {
 }
 .items-bought {
   display: grid;
-  gap: 20px;
+  gap: 40px;
   padding: 10px;
   width: 80%;
   max-width: 1200px;
