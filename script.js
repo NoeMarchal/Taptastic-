@@ -1921,3 +1921,56 @@ document.getElementById("infoButton").addEventListener("click", function () {
   // Lier la fonction à l'événement de clic
   document.addEventListener("click", detectAutoClick);
 })();
+
+// Récupérer les éléments
+const imageSupermarche = document.getElementById('imageSupermarche');
+const popupSupermarche = document.getElementById('popupSupermarche');
+const closePopup = document.querySelector('.close');
+
+// Ouvrir le pop-up quand on clique sur l'image
+imageSupermarche.addEventListener('click', () => {
+    popupSupermarche.style.display = 'flex';
+});
+
+// Fermer le pop-up quand on clique sur la croix
+closePopup.addEventListener('click', () => {
+    popupSupermarche.style.display = 'none';
+});
+
+// Fermer le pop-up si on clique en dehors de la fenêtre
+window.addEventListener('click', (event) => {
+    if (event.target === popupSupermarche) {
+        popupSupermarche.style.display = 'none';
+    }
+});
+// Récupérer les éléments
+const imageMagasinLuxe = document.getElementById('imageMagasinLuxe');
+const popupMagasinLuxe = document.getElementById('popupMagasinLuxe');
+
+// Ouvrir le pop-up quand on clique sur l'image
+imageMagasinLuxe.addEventListener('click', () => {
+    popupMagasinLuxe.style.display = 'flex';
+});
+
+// Fermer le pop-up si on clique en dehors de la fenêtre
+window.addEventListener('click', (event) => {
+    if (event.target === popupMagasinLuxe) {
+        popupMagasinLuxe.style.display = 'none';
+    }
+});
+
+// Récupérer les éléments
+const imageConcession = document.getElementById('imageConcession');
+const popupConcession = document.getElementById('popupConcession');
+
+// Ouvrir le pop-up quand on clique sur l'image
+imageConcession.addEventListener('click', () => {
+    popupConcession.style.display = 'flex';
+});
+
+// Fermer le pop-up si on clique en dehors de la fenêtre
+window.addEventListener('click', (event) => {
+    if (event.target === popupConcession) {
+        popupConcession.style.display = 'none';
+    }
+});

@@ -552,3 +552,70 @@ input[type="range"]::-moz-range-track {
 .toggle-switch input[type="checkbox"]:checked + .slider::before {
   transform: translateX(25px); /* Déplacer la boule vers la droite */
 }
+/* Conteneur pour centrer les images */
+.image-container {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+  gap: 20px; /* Espace entre les images */
+  margin: 40px 0; /* Marge en haut et en bas */
+}
+
+/* Style des images qui ouvrent les pop-ups */
+#imageSupermarche,
+#imageMagasinLuxe,
+#imageConcession {
+  width: 400px; /* Taille plus grande */
+  height: 400px; /* Taille plus grande */
+  border-radius: 20px; /* Coins plus arrondis */
+  border: 3px solid rgba(255, 255, 255, 0.3); /* Bordure plus épaisse */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation au survol */
+  cursor: pointer; /* Curseur pointer */
+  object-fit: cover; /* Ajuste l'image dans le cadre */
+}
+
+/* Effet de survol sur les images */
+#imageSupermarche:hover,
+#imageMagasinLuxe:hover,
+#imageConcession:hover {
+  transform: scale(1.1); /* Légère augmentation de taille */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Ombre plus prononcée */
+  border-color: rgba(255, 255, 255, 0.6); /* Bordure plus visible */
+}
+
+/* Effet de clic sur les images */
+#imageSupermarche:active,
+#imageMagasinLuxe:active,
+#imageConcession:active {
+  transform: scale(0.95); /* Légère réduction de taille */
+}
+/* Responsive pour tablettes */
+@media (max-width: 768px) {
+  .image-container {
+      gap: 15px; /* Espacement réduit entre les images */
+  }
+
+  #imageSupermarche,
+  #imageMagasinLuxe,
+  #imageConcession {
+      width: 120px; /* Taille réduite pour les tablettes */
+      height: 120px;
+  }
+}
+
+/* Responsive pour mobiles */
+@media (max-width: 480px) {
+  .image-container {
+      gap: 10px; /* Espacement encore plus réduit */
+      margin: 20px 0; /* Marge réduite */
+  }
+
+  #imageSupermarche,
+  #imageMagasinLuxe,
+  #imageConcession {
+      width: 100px; /* Taille plus petite pour les mobiles */
+      height: 100px;
+      border-radius: 15px; /* Coins moins arrondis */
+      border-width: 2px; /* Bordure plus fine */
+  }
+}

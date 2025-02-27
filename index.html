@@ -85,38 +85,57 @@
             </div>
         </div>
 
-        <div class="entreprise-supermarché locked" id="supermarcheContainer">
-            <h2>Supermarché</h2>
-            <p>Achete une entreprise pour gagner plus d'€</br>
+
+        <!-- Conteneur pour les images -->
+<div class="image-container">
+    <img src="Images\Supermarche.jpg" alt="Supermarché" id="imageSupermarche">
+    <img src="Images\luxe.jpg" alt="Magasin de Luxe" id="imageMagasinLuxe">
+    <img src="Images\concession.jpg" alt="Concession Automobile" id="imageConcession">
+</div>
+ <!-- Pop-up -->
+ <div id="popupSupermarche" class="popup">
+     <div class="popup-content">
+         <div class="entreprise-supermarché locked" id="supermarcheContainer">
+             <h2>Supermarché</h2>
+             <p>Achete une entreprise pour gagner plus d'€</br>
+                 oublie pas les améliorations pour aller encore plus vite ;)
+             </p>
+             <button id="boutonSupermarche">Acheter Supermarché (Coût: 1.4M €)</button>
+             <button id="boutonMarchandises">Acheter Marchandises (Coût:2.5M €)</button>
+             <button id="boutonSuperviseur">Acheter Superviseur (Coût: 3M €)</button>
+             <button id="boutonAgrandissement">Acheter Agrandissement (Coût: 5M €)</button>
+         </div>
+     </div>
+ </div>
+    <!-- Pop-up -->
+    <div id="popupMagasinLuxe" class="popup">
+        <div class="popup-content">
+            <div class="entreprise-magasins locked" id="magasinContainer">
+                <h2>Magasin de luxe</h2>
+                <p>Achete un magasin de luxe pour gagner plus de €</br>
+                    oublie pas les améliorations pour aller encore plus vite ;)
+                </p>
+                <button id="boutonMagasin">Acheter un magasin de luxe (Coût: 200M €)</button>
+                <button id="boutonMarchandisesdeluxe">Acheter Marchandises de luxe (Coût: 250M €)</button>
+                <button id="boutonNouvellecollection">Nouvelles collections (Coût: 300M €)</button>
+                <button id="boutonDevellopementdanslemonde">Dévelloper dans le monde (Coût: 500M €)</button>
+            </div>
+        </div>
+    </div>
+<!-- Pop-up -->
+<div id="popupConcession" class="popup">
+    <div class="popup-content">
+        <div class="entreprise-concession locked" id="concessionContainer">
+            <h2>Concession</h2>
+            <p>Achete une Concession automobile pour gagner plus d'€</br>
                 oublie pas les améliorations pour aller encore plus vite ;)
             </p>
-            <button id="boutonSupermarche">Acheter Supermarché (Coût: 1.4M €)</button>
-            <button id="boutonMarchandises">Acheter Marchandises (Coût:2.5M €)</button>
-            <button id="boutonSuperviseur">Acheter Superviseur (Coût: 3M €)</button>
-            <button id="boutonAgrandissement">Acheter Agrandissement (Coût: 5M €)</button>
+            <button id="boutonconcession">Acheter une concession (Coût: 1.4M €)</button>
+            <button id="boutonvoituredeluxe">Acheter des voitures de luxes (Coût: 2.5M €)</button>
+            <button id="boutonatelier">Acheter un atelier de maintenance (Coût: 3M €)</button>
+            <button id="boutonvoiturier">Acheter des voituriers (Coût: 5M €)</button>
         </div>
-
-<div class="entreprise-magasins locked" id="magasinContainer">
-    <h2>Magasin de luxe</h2>
-    <p>Achete un magasin de luxe pour gagner plus de €</br>
-        oublie pas les améliorations pour aller encore plus vite ;)
-    </p>
-    <button id="boutonMagasin">Acheter un magasin de luxe (Coût: 200M €)</button>
-    <button id="boutonMarchandisesdeluxe">Acheter Marchandises de luxe (Coût:250M €)</button>
-    <button id="boutonNouvellecollection">Nouvelles collections (Coût: 300M €)</button>
-    <button id="boutonDevellopementdanslemonde">Dévelloper dans le monde (Coût: 500M €)</button>
-    
-</div>
-
-<div class="entreprise-concession locked" id="concessionContainer">
-    <h2>Concession</h2>
-    <p>Achete une Concession automobile pour gagner plus d'€</br>
-        oublie pas les améliorations pour aller encore plus vite ;)
-    </p>
-    <button id="boutonconcession">Acheter une concession (Coût: 1.4M €)</button>
-    <button id="boutonvoituredeluxe">Acheter des voitures de luxes (Coût:2.5M €)</button>
-    <button id="boutonatelier">Acheter un atelier de maintenance (Coût: 3M €)</button>
-    <button id="boutonvoiturier">Acheter des voituriers (Coût: 5M €)</button>
+    </div>
 </div>
 
 <div class="stats-container">
