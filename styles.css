@@ -567,6 +567,8 @@ input[type="range"]::-moz-range-track {
 #imageConcession {
   width: 26%; /* Taille plus grande */
   height: 26%; /* Taille plus grande */
+  max-width: 1200px; /* Largeur maximale */
+  max-height: 1200px; /* Hauteur maximale */
   border-radius: 20px; /* Coins plus arrondis */
   border: 3px solid rgba(255, 255, 255, 0.3); /* Bordure plus épaisse */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation au survol */
