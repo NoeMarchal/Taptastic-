@@ -565,8 +565,8 @@ input[type="range"]::-moz-range-track {
 #imageSupermarche,
 #imageMagasinLuxe,
 #imageConcession {
-  width: 400px; /* Taille plus grande */
-  height: 400px; /* Taille plus grande */
+  width: 26%; /* Taille plus grande */
+  height: 26%; /* Taille plus grande */
   border-radius: 20px; /* Coins plus arrondis */
   border: 3px solid rgba(255, 255, 255, 0.3); /* Bordure plus épaisse */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation au survol */
@@ -589,7 +589,19 @@ input[type="range"]::-moz-range-track {
 #imageConcession:active {
   transform: scale(0.95); /* Légère réduction de taille */
 }
+/* Responsive pour tablettes */
+@media (max-width: 2560px) {
+  .image-container {
+      gap: 15px; /* Espacement réduit entre les images */
+  }
 
+  #imageSupermarche,
+  #imageMagasinLuxe,
+  #imageConcession {
+      width: 28%; /* Taille réduite pour les tablettes */
+      height: 28%;
+  }
+}
 /* Responsive pour tablettes */
 @media (max-width: 1024px) {
   .image-container {
