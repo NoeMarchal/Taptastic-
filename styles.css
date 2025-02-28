@@ -45,13 +45,11 @@ button, input[type="button"], input[type="submit"], select{
   -webkit-tap-highlight-color: transparent; /* Supprime la surbrillance */
   outline: none; /* Supprime le contour au focus (optionnel) */
 }
-
 /* Effet de survol */
 button:hover, input[type="button"]:hover, input[type="submit"]:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.4);
 }
-
 /* Effet de clic */
 button:active, input[type="button"]:active, input[type="submit"]:active {
   transform: scale(0.95); /* Légère réduction de taille au clic */
@@ -411,7 +409,7 @@ footer a:hover {
 /* Tablette : 4 items par ligne */
 @media (max-width: 1023px) and (min-width: 768px) {
   .items-container {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -419,6 +417,12 @@ footer a:hover {
 @media (max-width: 767px) {
   .items-container {
     grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    height: 100%;
+  }
+  .shop,
+  .inventory-container{
+    width: 80%;
   }
 }
 .items-bought {
@@ -440,7 +444,7 @@ footer a:hover {
 /* Tablette : 4 items par ligne */
 @media (max-width: 1023px) and (min-width: 768px) {
   .items-bought {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -448,6 +452,12 @@ footer a:hover {
 @media (max-width: 767px) {
   .items-bought {
     grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    height: 100%;
+  }
+  .shop,
+  .inventory-container{
+    width: 80%;
   }
 }
 /* Style du slider */
