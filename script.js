@@ -327,7 +327,7 @@ function updateDisplay() {
   )}€ /sec`;
   document.getElementById(
     "upgrade1-count"
-  ).textContent = `Améliorations 1 +20€/clikcs : ${upgrade1Level}`;
+  ).textContent = `Améliorations 1 +20€/clikcs: ${upgrade1Level}`;
   document.getElementById(
     "upgrade2-count"
   ).textContent = `Améliorations 2 +50€/clikcs: ${upgrade2Level}`;
