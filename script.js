@@ -1,5 +1,5 @@
-const maxUpgrade1Level = 1000; // niveau max pour l'amélioration 1²
-const maxUpgrade2Level = 1000; // Niveau max pour l'amélioration 2
+const maxUpgrade1Level = 500; // niveau max pour l'amélioration 1²
+const maxUpgrade2Level = 500; // Niveau max pour l'amélioration 2
 const maxAutoclickers = 500; // Nombre max d'autoclickers
 const supermarcheCost = 1400000; // Coût du supermarché
 const marchandisesCost = 2500000; // Coût des marchandises
@@ -95,33 +95,6 @@ const trophies = [
   { name: "Amélioration 1 au niveau 500", condition: "upgrade1Level >= 500" },
   { name: "Amélioration 2 au niveau 500", condition: "upgrade2Level >= 500" },
   { name: "Autoclicker au niveau 500", condition: "autoclickers >= 500" },
-  { name: "Amélioration 1 au niveau 550", condition: "upgrade1Level >= 550" },
-  { name: "Amélioration 2 au niveau 500", condition: "upgrade2Level >= 550" },
-  { name: "Autoclicker au niveau 550", condition: "autoclickers >= 550" },
-  { name: "Amélioration 1 au niveau 600", condition: "upgrade1Level >= 600" },
-  { name: "Amélioration 2 au niveau 600", condition: "upgrade2Level >= 600" },
-  { name: "Autoclicker au niveau 600", condition: "autoclickers >= 600" },
-  { name: "Amélioration 1 au niveau 650", condition: "upgrade1Level >= 650" },
-  { name: "Amélioration 2 au niveau 650", condition: "upgrade2Level >= 650" },
-  { name: "Autoclicker au niveau 650", condition: "autoclickers >= 650" },
-  { name: "Amélioration 1 au niveau 750", condition: "upgrade1Level >= 750" },
-  { name: "Amélioration 2 au niveau 750", condition: "upgrade2Level >= 750" },
-  { name: "Autoclicker au niveau 750", condition: "autoclickers >= 750" },
-  { name: "Amélioration 1 au niveau 800", condition: "upgrade1Level >= 800" },
-  { name: "Amélioration 2 au niveau 800", condition: "upgrade2Level >= 800" },
-  { name: "Autoclicker au niveau 800", condition: "autoclickers >= 800" },
-  { name: "Amélioration 1 au niveau 850", condition: "upgrade1Level >= 850" },
-  { name: "Amélioration 2 au niveau 850", condition: "upgrade2Level >= 850" },
-  { name: "Autoclicker au niveau 850", condition: "autoclickers >= 850" },
-  { name: "Amélioration 1 au niveau 900", condition: "upgrade1Level >= 900" },
-  { name: "Amélioration 2 au niveau 900", condition: "upgrade2Level >= 900" },
-  { name: "Autoclicker au niveau 900", condition: "autoclickers >= 900" },
-  { name: "Amélioration 1 au niveau 950", condition: "upgrade1Level >= 950" },
-  { name: "Amélioration 2 au niveau 950", condition: "upgrade2Level >= 950" },
-  { name: "Autoclicker au niveau 950", condition: "autoclickers >= 950" },
-  { name: "Amélioration 1 au niveau 1000", condition: "upgrade1Level >= 1000" },
-  { name: "Amélioration 2 au niveau 1000", condition: "upgrade2Level >= 1000" },
-  { name: "Autoclicker au niveau 1000", condition: "autoclickers >= 1000" },
   { name: "5 000 €", condition: "points >= 5000" }, // Nouveau trophée
   { name: "10 000 €", condition: "points >= 10000" }, // Nouveau trophée
   { name: "50 000 €", condition: "points >= 50000" }, // Nouveau trophée
@@ -170,7 +143,6 @@ const items = [
   { name: "Voiture", cost: 1000000000 },
   { name: "Jet", cost: 15000000000 }, // Ajouté
   { name: "Villa", cost: 40000000000 },
-  { name: "GOBLIN", cost: 100000000000 },
   { name: "Île", cost: 500000000000 },
   { name: "Pays", cost: 10000000000000 }, // Ajouté
 ];
@@ -741,7 +713,7 @@ upgrade1Button.addEventListener("click", () => {
   if (points >= upgrade1Cost) {
     points -= upgrade1Cost;
     totalPointsSpent += upgrade1Cost;
-    pointsPerClick =+ 20;
+    pointsPerClick += 20;
     upgrade1Cost = Math.floor(upgrade1Cost + 500);
     upgrade1Level++;
     updateDisplay();
@@ -784,7 +756,7 @@ upgrade2Button.addEventListener("click", () => {
   if (points >= upgrade2Cost) {
     points -= upgrade2Cost;
     totalPointsSpent += upgrade2Cost;
-    pointsPerClick =+ 50;
+    pointsPerClick += 50;
     upgrade2Cost = Math.floor(upgrade2Cost + 800);
     upgrade2Level++;
     updateDisplay();
@@ -1064,7 +1036,7 @@ document
       points -= supermarcheCost; // Dépense les points
       totalPointsSpent += supermarcheCost;
       autoclickerPower += 2500; // Augmente les points par seconde de 5000
-      pointsPerClick *=1.20 ;
+      pointsPerClick += 2500;
       supermarcheAchete = true;
       disableButton("boutonSupermarche");
       updateDisplay();
@@ -1092,8 +1064,8 @@ document
     if (!marchandisesAchete && points >= marchandisesCost) {
       points -= marchandisesCost; // Dépense les points
       totalPointsSpent += marchandisesCost;
-      autoclickerPower += 3000; // Augmente les points par seconde de 500
-      pointsPerClick *=1.20;
+      autoclickerPower += 250; // Augmente les points par seconde de 500
+      pointsPerClick += 250;
       marchandisesAchete = true;
       disableButton("boutonMarchandises");
       updateDisplay();
@@ -1121,8 +1093,8 @@ document
     if (!superviseurAchete && points >= superviseurCost) {
       points -= superviseurCost; // Dépense les points
       totalPointsSpent += superviseurCost;
-      autoclickerPower += 6000; // Augmente les points par seconde de 1000
-      pointsPerClick *=1.20;
+      autoclickerPower += 500; // Augmente les points par seconde de 1000
+      pointsPerClick += 500;
       superviseurAchete = true;
       disableButton("boutonSuperviseur");
       updateDisplay();
@@ -1150,8 +1122,8 @@ document
     if (!agrandissementAchete && points >= agrandissementCost) {
       points -= agrandissementCost; // Dépense les points
       totalPointsSpent += marchandisesCost;
-      autoclickerPower += 7000; // Augmente les points par seconde de 2000
-      pointsPerClick *=1.20;
+      autoclickerPower += 1000; // Augmente les points par seconde de 2000
+      pointsPerClick += 1000;
       agrandissementAchete = true;
       disableButton("boutonAgrandissement");
       updateDisplay();
@@ -1189,7 +1161,7 @@ document.getElementById("boutonMagasin").addEventListener("click", function () {
     points -= MagasinCost; // Dépense les points
     totalPointsSpent += MagasinCost;
     autoclickerPower += 10000; // Augmente les points par seconde de 5000
-    pointsPerClick *=1.20;
+    pointsPerClick += 10000;
     MagasinAchete = true;
     disableButton("boutonMagasin");
     updateDisplay();
@@ -1218,7 +1190,7 @@ document
       points -= MarchandisesdeluxeCost; // Dépense les points
       totalPointsSpent += MarchandisesdeluxeCost;
       autoclickerPower += 15000; // Augmente les points par seconde de 500
-      pointsPerClick *=1.20;
+      pointsPerClick += 15000;
       MarchandisesdeluxeAchete = true;
       disableButton("boutonMarchandisesdeluxe");
       updateDisplay();
@@ -1247,7 +1219,7 @@ document
       points -= NouvellecollectionCost; // Dépense les points
       totalPointsSpent += NouvellecollectionCost;
       autoclickerPower += 30000; // Augmente les points par seconde de 1000
-      pointsPerClick *=1.20;
+      pointsPerClick += 30000;
       NouvellecollectionAchete = true;
       disableButton("boutonNouvellecollection");
       updateDisplay();
@@ -1279,7 +1251,7 @@ document
       points -= DevellopementdanslemondeCost; // Dépense les points
       totalPointsSpent += DevellopementdanslemondeCost;
       autoclickerPower += 45000; // Augmente les points par seconde de 2000
-      pointsPerClick *=1.20;
+      pointsPerClick += 45000;
       DevellopementdanslemondeAchete = true;
       disableButton("boutonDevellopementdanslemonde");
       updateDisplay();
@@ -1308,7 +1280,7 @@ document
       points -= ConcessionCost; // Dépense les points
       totalPointsSpent += ConcessionCost;
       autoclickerPower += 50000; // Augmente les points par seconde de 5000
-      pointsPerClick *=1.20;
+      pointsPerClick += 50000;
       ConcessionAchete = true;
       disableButton("boutonconcession");
       updateDisplay();
@@ -1337,7 +1309,7 @@ document
       points -= VoituredeluxeCost; // Dépense les points
       totalPointsSpent += VoituredeluxeCost;
       autoclickerPower += 60000; // Augmente les points par seconde de 500
-      pointsPerClick *=1.20;
+      pointsPerClick += 60000;
       VoituredeluxeAchete = true;
       disableButton("boutonvoituredeluxe");
       updateDisplay();
@@ -1364,7 +1336,7 @@ document.getElementById("boutonatelier").addEventListener("click", function () {
     points -= AtelierCost; // Dépense les points
     totalPointsSpent += AtelierCost;
     autoclickerPower += 70000; // Augmente les points par seconde de 1000
-    pointsPerClick *=1.20;
+    pointsPerClick += 70000;
     AtelierAchete = true;
     disableButton("boutonatelier");
     updateDisplay();
@@ -1393,7 +1365,7 @@ document
       points -= VoiturierCost; // Dépense les points
       totalPointsSpent += VoiturierCost;
       autoclickerPower += 80000; // Augmente les points par seconde de 2000
-      pointsPerClick *=1.20;
+      pointsPerClick += 80000;
       VoiturierAchete = true;
       disableButton("boutonvoiturier");
       updateDisplay();
@@ -1499,12 +1471,6 @@ function displayItems() {
       itemCard.style.backgroundPosition = "center"; // Centrer l'image
     }
             // Ajouter une image de fond pour l'item "vélo"
-            if (item.name === "GOBLIN") {
-              itemCard.style.backgroundImage = "url('Images/GOBLIN.jpg')"; // Remplacez par le chemin de votre image
-              itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
-              itemCard.style.backgroundPosition = "center"; // Centrer l'image
-            }
-            // Ajouter une image de fond pour l'item "vélo"
     if (item.name === "Île") {
       itemCard.style.backgroundImage = "url('Images/ile.jpg')"; // Remplacez par le chemin de votre image
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
@@ -1590,7 +1556,6 @@ function addToBoughtItems(item) {
     "Voiture": "Images/voiture.jpg",
     "Jet": "Images/jet.jpg",
     "Villa": "Images/villa.jpg",
-    "GOBLIN": "Images/GOBLIN.jpg",
     "Île": "Images/ile.jpg",
     "Pays": "Images/pays.jpg",
   };
