@@ -723,7 +723,7 @@ upgrade1Button.addEventListener("click", () => {
   if (points >= upgrade1Cost) {
     points -= upgrade1Cost;
     totalPointsSpent += upgrade1Cost;
-    pointsPerClick += 1,30;
+    pointsPerClick *= 1,30;
     upgrade1Cost = Math.floor(upgrade1Cost + 500);
     upgrade1Level++;
     updateDisplay();
@@ -766,7 +766,7 @@ upgrade2Button.addEventListener("click", () => {
   if (points >= upgrade2Cost) {
     points -= upgrade2Cost;
     totalPointsSpent += upgrade2Cost;
-    pointsPerClick += 1,70;
+    pointsPerClick *= 1,70;
     upgrade2Cost = Math.floor(upgrade2Cost + 800);
     upgrade2Level++;
     updateDisplay();
