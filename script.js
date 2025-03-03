@@ -170,6 +170,7 @@ const items = [
   { name: "Voiture", cost: 1000000000 },
   { name: "Jet", cost: 15000000000 }, // Ajouté
   { name: "Villa", cost: 40000000000 },
+  { name: "GOBLIN", cost: 100000000000 },
   { name: "Île", cost: 500000000000 },
   { name: "Pays", cost: 10000000000000 }, // Ajouté
 ];
@@ -1498,6 +1499,12 @@ function displayItems() {
       itemCard.style.backgroundPosition = "center"; // Centrer l'image
     }
             // Ajouter une image de fond pour l'item "vélo"
+            if (item.name === "GOBLIN") {
+              itemCard.style.backgroundImage = "url('Images/GOBLIN.jpg')"; // Remplacez par le chemin de votre image
+              itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
+              itemCard.style.backgroundPosition = "center"; // Centrer l'image
+            }
+            // Ajouter une image de fond pour l'item "vélo"
     if (item.name === "Île") {
       itemCard.style.backgroundImage = "url('Images/ile.jpg')"; // Remplacez par le chemin de votre image
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
@@ -1583,6 +1590,7 @@ function addToBoughtItems(item) {
     "Voiture": "Images/voiture.jpg",
     "Jet": "Images/jet.jpg",
     "Villa": "Images/villa.jpg",
+    "GOBLIN": "Images/GOBLIN.jpg",
     "Île": "Images/ile.jpg",
     "Pays": "Images/pays.jpg",
   };
