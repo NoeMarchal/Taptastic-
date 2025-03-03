@@ -741,8 +741,8 @@ upgrade1Button.addEventListener("click", () => {
   if (points >= upgrade1Cost) {
     points -= upgrade1Cost;
     totalPointsSpent += upgrade1Cost;
-    pointsPerClick *= 1.30;
-    upgrade1Cost = Math.floor(upgrade1Cost *1.2);
+    pointsPerClick =+ 20;
+    upgrade1Cost = Math.floor(upgrade1Cost + 500);
     upgrade1Level++;
     updateDisplay();
     displayItems();
@@ -784,8 +784,8 @@ upgrade2Button.addEventListener("click", () => {
   if (points >= upgrade2Cost) {
     points -= upgrade2Cost;
     totalPointsSpent += upgrade2Cost;
-    pointsPerClick *= 1.70;
-    upgrade2Cost = Math.floor(upgrade2Cost *1.4);
+    pointsPerClick =+ 50;
+    upgrade2Cost = Math.floor(upgrade2Cost + 800);
     upgrade2Level++;
     updateDisplay();
     updateTrophies();
@@ -1064,7 +1064,7 @@ document
       points -= supermarcheCost; // Dépense les points
       totalPointsSpent += supermarcheCost;
       autoclickerPower += 2500; // Augmente les points par seconde de 5000
-      pointsPerClick += 3000;
+      pointsPerClick *=1.20 ;
       supermarcheAchete = true;
       disableButton("boutonSupermarche");
       updateDisplay();
@@ -1093,7 +1093,7 @@ document
       points -= marchandisesCost; // Dépense les points
       totalPointsSpent += marchandisesCost;
       autoclickerPower += 3000; // Augmente les points par seconde de 500
-      pointsPerClick += 6000;
+      pointsPerClick *=1.20;
       marchandisesAchete = true;
       disableButton("boutonMarchandises");
       updateDisplay();
@@ -1122,7 +1122,7 @@ document
       points -= superviseurCost; // Dépense les points
       totalPointsSpent += superviseurCost;
       autoclickerPower += 6000; // Augmente les points par seconde de 1000
-      pointsPerClick += 8000;
+      pointsPerClick *=1.20;
       superviseurAchete = true;
       disableButton("boutonSuperviseur");
       updateDisplay();
@@ -1151,7 +1151,7 @@ document
       points -= agrandissementCost; // Dépense les points
       totalPointsSpent += marchandisesCost;
       autoclickerPower += 7000; // Augmente les points par seconde de 2000
-      pointsPerClick += 10000;
+      pointsPerClick *=1.20;
       agrandissementAchete = true;
       disableButton("boutonAgrandissement");
       updateDisplay();
@@ -1189,7 +1189,7 @@ document.getElementById("boutonMagasin").addEventListener("click", function () {
     points -= MagasinCost; // Dépense les points
     totalPointsSpent += MagasinCost;
     autoclickerPower += 10000; // Augmente les points par seconde de 5000
-    pointsPerClick += 50000;
+    pointsPerClick *=1.20;
     MagasinAchete = true;
     disableButton("boutonMagasin");
     updateDisplay();
@@ -1218,7 +1218,7 @@ document
       points -= MarchandisesdeluxeCost; // Dépense les points
       totalPointsSpent += MarchandisesdeluxeCost;
       autoclickerPower += 15000; // Augmente les points par seconde de 500
-      pointsPerClick += 70000;
+      pointsPerClick *=1.20;
       MarchandisesdeluxeAchete = true;
       disableButton("boutonMarchandisesdeluxe");
       updateDisplay();
@@ -1247,7 +1247,7 @@ document
       points -= NouvellecollectionCost; // Dépense les points
       totalPointsSpent += NouvellecollectionCost;
       autoclickerPower += 30000; // Augmente les points par seconde de 1000
-      pointsPerClick += 90000;
+      pointsPerClick *=1.20;
       NouvellecollectionAchete = true;
       disableButton("boutonNouvellecollection");
       updateDisplay();
@@ -1279,7 +1279,7 @@ document
       points -= DevellopementdanslemondeCost; // Dépense les points
       totalPointsSpent += DevellopementdanslemondeCost;
       autoclickerPower += 45000; // Augmente les points par seconde de 2000
-      pointsPerClick += 100000;
+      pointsPerClick *=1.20;
       DevellopementdanslemondeAchete = true;
       disableButton("boutonDevellopementdanslemonde");
       updateDisplay();
@@ -1308,7 +1308,7 @@ document
       points -= ConcessionCost; // Dépense les points
       totalPointsSpent += ConcessionCost;
       autoclickerPower += 50000; // Augmente les points par seconde de 5000
-      pointsPerClick += 200000;
+      pointsPerClick *=1.20;
       ConcessionAchete = true;
       disableButton("boutonconcession");
       updateDisplay();
@@ -1337,7 +1337,7 @@ document
       points -= VoituredeluxeCost; // Dépense les points
       totalPointsSpent += VoituredeluxeCost;
       autoclickerPower += 60000; // Augmente les points par seconde de 500
-      pointsPerClick += 300000;
+      pointsPerClick *=1.20;
       VoituredeluxeAchete = true;
       disableButton("boutonvoituredeluxe");
       updateDisplay();
@@ -1364,7 +1364,7 @@ document.getElementById("boutonatelier").addEventListener("click", function () {
     points -= AtelierCost; // Dépense les points
     totalPointsSpent += AtelierCost;
     autoclickerPower += 70000; // Augmente les points par seconde de 1000
-    pointsPerClick += 400000;
+    pointsPerClick *=1.20;
     AtelierAchete = true;
     disableButton("boutonatelier");
     updateDisplay();
@@ -1393,7 +1393,7 @@ document
       points -= VoiturierCost; // Dépense les points
       totalPointsSpent += VoiturierCost;
       autoclickerPower += 80000; // Augmente les points par seconde de 2000
-      pointsPerClick += 500000;
+      pointsPerClick *=1.20;
       VoiturierAchete = true;
       disableButton("boutonvoiturier");
       updateDisplay();
