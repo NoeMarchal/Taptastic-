@@ -1036,7 +1036,7 @@ document
       points -= supermarcheCost; // Dépense les points
       totalPointsSpent += supermarcheCost;
       autoclickerPower += 2500; // Augmente les points par seconde de 5000
-      pointsPerClick += 2500;
+      pointsPerClick += 3000;
       supermarcheAchete = true;
       disableButton("boutonSupermarche");
       updateDisplay();
@@ -1064,8 +1064,8 @@ document
     if (!marchandisesAchete && points >= marchandisesCost) {
       points -= marchandisesCost; // Dépense les points
       totalPointsSpent += marchandisesCost;
-      autoclickerPower += 250; // Augmente les points par seconde de 500
-      pointsPerClick += 250;
+      autoclickerPower += 3000; // Augmente les points par seconde de 500
+      pointsPerClick += 6000;
       marchandisesAchete = true;
       disableButton("boutonMarchandises");
       updateDisplay();
@@ -1093,8 +1093,8 @@ document
     if (!superviseurAchete && points >= superviseurCost) {
       points -= superviseurCost; // Dépense les points
       totalPointsSpent += superviseurCost;
-      autoclickerPower += 500; // Augmente les points par seconde de 1000
-      pointsPerClick += 500;
+      autoclickerPower += 6000; // Augmente les points par seconde de 1000
+      pointsPerClick += 8000;
       superviseurAchete = true;
       disableButton("boutonSuperviseur");
       updateDisplay();
@@ -1122,8 +1122,8 @@ document
     if (!agrandissementAchete && points >= agrandissementCost) {
       points -= agrandissementCost; // Dépense les points
       totalPointsSpent += marchandisesCost;
-      autoclickerPower += 1000; // Augmente les points par seconde de 2000
-      pointsPerClick += 1000;
+      autoclickerPower += 7000; // Augmente les points par seconde de 2000
+      pointsPerClick += 10000;
       agrandissementAchete = true;
       disableButton("boutonAgrandissement");
       updateDisplay();
@@ -1161,7 +1161,7 @@ document.getElementById("boutonMagasin").addEventListener("click", function () {
     points -= MagasinCost; // Dépense les points
     totalPointsSpent += MagasinCost;
     autoclickerPower += 10000; // Augmente les points par seconde de 5000
-    pointsPerClick += 10000;
+    pointsPerClick += 12000;
     MagasinAchete = true;
     disableButton("boutonMagasin");
     updateDisplay();
@@ -1190,7 +1190,7 @@ document
       points -= MarchandisesdeluxeCost; // Dépense les points
       totalPointsSpent += MarchandisesdeluxeCost;
       autoclickerPower += 15000; // Augmente les points par seconde de 500
-      pointsPerClick += 15000;
+      pointsPerClick += 19000;
       MarchandisesdeluxeAchete = true;
       disableButton("boutonMarchandisesdeluxe");
       updateDisplay();
@@ -1280,7 +1280,7 @@ document
       points -= ConcessionCost; // Dépense les points
       totalPointsSpent += ConcessionCost;
       autoclickerPower += 50000; // Augmente les points par seconde de 5000
-      pointsPerClick += 50000;
+      pointsPerClick += 100000;
       ConcessionAchete = true;
       disableButton("boutonconcession");
       updateDisplay();
@@ -1309,7 +1309,7 @@ document
       points -= VoituredeluxeCost; // Dépense les points
       totalPointsSpent += VoituredeluxeCost;
       autoclickerPower += 60000; // Augmente les points par seconde de 500
-      pointsPerClick += 60000;
+      pointsPerClick += 150000;
       VoituredeluxeAchete = true;
       disableButton("boutonvoituredeluxe");
       updateDisplay();
@@ -1336,7 +1336,7 @@ document.getElementById("boutonatelier").addEventListener("click", function () {
     points -= AtelierCost; // Dépense les points
     totalPointsSpent += AtelierCost;
     autoclickerPower += 70000; // Augmente les points par seconde de 1000
-    pointsPerClick += 70000;
+    pointsPerClick += 200000;
     AtelierAchete = true;
     disableButton("boutonatelier");
     updateDisplay();
@@ -1365,7 +1365,7 @@ document
       points -= VoiturierCost; // Dépense les points
       totalPointsSpent += VoiturierCost;
       autoclickerPower += 80000; // Augmente les points par seconde de 2000
-      pointsPerClick += 80000;
+      pointsPerClick += 300000;
       VoiturierAchete = true;
       disableButton("boutonvoiturier");
       updateDisplay();
