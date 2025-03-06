@@ -670,127 +670,38 @@ input[type="range"]::-moz-range-track {
 #popupTrade .popup-content::-webkit-scrollbar-thumb:hover {
   background: #555; /* Couleur de la barre de défilement au survol */
 }
-/* Style général des éléments de la liste */
-#immobilier-achete li,
-#immobilier-a-acheter li {
-    display: flex;
-    align-items: center; /* Centre verticalement */
-    padding: 15px;
-    margin: 10px 0;
-    background-color: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animation au survol */
-}
-
-/* Effet de survol sur les éléments de la liste */
-#immobilier-achete li:hover,
-#immobilier-a-acheter li:hover {
-    transform: translateY(-2px); /* Légère élévation */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
-}
-
 /* Style des images des biens immobiliers */
 .immobilier-image {
-    width: 100px; /* Taille de l'image */
-    height: 100px;
-    border-radius: 10px; /* Coins arrondis */
-    object-fit: cover; /* Ajuste l'image dans le cadre */
-    margin-right: 15px; /* Espace entre l'image et le texte */
-    border: 2px solid #e0e0e0; /* Bordure légère */
+  width: 80px; /* Taille de l'image */
+  height: 80px;
+  border-radius: 10px; /* Coins arrondis */
+  object-fit: cover; /* Ajuste l'image dans le cadre */
+  margin-right: 10px; /* Espace entre l'image et le texte */
 }
 
-/* Style du texte (nom, prix, loyer) */
-.immobilier-info {
-    flex: 1; /* Prend tout l'espace disponible */
-}
-
-.immobilier-info strong {
-    font-size: 1.2em; /* Taille du nom */
-    color: #333; /* Couleur du texte */
-}
-
-.immobilier-info p {
-    margin: 5px 0; /* Espace entre les lignes */
-    color: #666; /* Couleur du texte secondaire */
-    font-size: 0.9em;
+/* Style des éléments de la liste */
+#immobilier-achete li,
+#immobilier-a-acheter li {
+  display: flex;
+  align-items: center; /* Centre verticalement */
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #ddd;
 }
 
 /* Style des boutons d'achat */
-.acheter-button {
-    background-color: #28a745; /* Couleur de fond */
-    color: white; /* Couleur du texte */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Animation */
+#immobilier-a-acheter button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
 }
 
-.acheter-button:hover {
-    background-color: #218838; /* Couleur de fond au survol */
-    transform: scale(1.05); /* Légère augmentation de taille */
-}
-
-.acheter-button:active {
-    transform: scale(0.95); /* Réduction de taille au clic */
-}
-
-/* Responsive pour tablettes */
-@media (max-width: 768px) {
-    .immobilier-image {
-        width: 80px;
-        height: 80px;
-    }
-
-    #immobilier-achete li,
-    #immobilier-a-acheter li {
-        padding: 12px;
-    }
-
-    .immobilier-info strong {
-        font-size: 1.1em;
-    }
-
-    .immobilier-info p {
-        font-size: 0.85em;
-    }
-
-    .acheter-button {
-        padding: 8px 16px;
-        font-size: 0.85em;
-    }
-}
-
-/* Responsive pour mobiles */
-@media (max-width: 480px) {
-    #immobilier-achete li,
-    #immobilier-a-acheter li {
-        flex-direction: column; /* Empiler l'image et le texte */
-        align-items: center;
-        text-align: center;
-    }
-
-    .immobilier-image {
-        width: 70px;
-        height: 70px;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .immobilier-info strong {
-        font-size: 1em;
-    }
-
-    .immobilier-info p {
-        font-size: 0.8em;
-    }
-
-    .acheter-button {
-        width: 100%; /* Bouton plein largeur */
-        padding: 10px;
-        font-size: 0.8em;
-    }
+#immobilier-a-acheter button:hover {
+  background-color: #218838;
 }
