@@ -2078,19 +2078,19 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Appartement',
         price: 200000,
         income: 1000,
-        image: 'images/appartement.jpg' // Chemin de l'image
+        image: 'Images/appartement.jpg' // Chemin de l'image
     },
     {
         name: 'Maison',
         price: 500000,
         income: 2500,
-        image: 'images/maisonimo.jpg' // Chemin de l'image
+        image: 'Images/maisonimo.jpg' // Chemin de l'image
     },
     {
         name: 'Immeuble',
         price: 1000000,
         income: 5000,
-        image: 'images/immeuble.jpg' // Chemin de l'image
+        image: 'Images/immeuble.jpg' // Chemin de l'image
     }
 ];
 
