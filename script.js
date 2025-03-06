@@ -1,5 +1,5 @@
-const maxUpgrade1Level = 500; // niveau max pour l'amélioration 1²
-const maxUpgrade2Level = 500; // Niveau max pour l'amélioration 2
+const maxUpgrade1Level = 1000; // niveau max pour l'amélioration 1²
+const maxUpgrade2Level = 1000; // Niveau max pour l'amélioration 2
 const maxAutoclickers = 500; // Nombre max d'autoclickers
 const supermarcheCost = 1400000; // Coût du supermarché
 const marchandisesCost = 2500000; // Coût des marchandises
@@ -95,6 +95,26 @@ const trophies = [
   { name: "Amélioration 1 au niveau 500", condition: "upgrade1Level >= 500" },
   { name: "Amélioration 2 au niveau 500", condition: "upgrade2Level >= 500" },
   { name: "Autoclicker au niveau 500", condition: "autoclickers >= 500" },
+  { name: "Amélioration 1 au niveau 550", condition: "upgrade1Level >= 550" },
+  { name: "Amélioration 2 au niveau 550", condition: "upgrade2Level >= 550" },
+  { name: "Amélioration 1 au niveau 600", condition: "upgrade1Level >= 600" },
+  { name: "Amélioration 2 au niveau 600", condition: "upgrade2Level >= 600" },
+  { name: "Amélioration 1 au niveau 650", condition: "upgrade1Level >= 650" },
+  { name: "Amélioration 2 au niveau 650", condition: "upgrade2Level >= 650" },
+  { name: "Amélioration 1 au niveau 700", condition: "upgrade1Level >= 700" },
+  { name: "Amélioration 2 au niveau 700", condition: "upgrade2Level >= 700" },
+  { name: "Amélioration 1 au niveau 750", condition: "upgrade1Level >= 750" },
+  { name: "Amélioration 2 au niveau 750", condition: "upgrade2Level >= 750" },
+  { name: "Amélioration 1 au niveau 800", condition: "upgrade1Level >= 800" },
+  { name: "Amélioration 2 au niveau 800", condition: "upgrade2Level >= 800" },
+  { name: "Amélioration 1 au niveau 850", condition: "upgrade1Level >= 850" },
+  { name: "Amélioration 2 au niveau 850", condition: "upgrade2Level >= 850" },
+  { name: "Amélioration 1 au niveau 900", condition: "upgrade1Level >= 900" },
+  { name: "Amélioration 2 au niveau 900", condition: "upgrade2Level >= 900" },
+  { name: "Amélioration 1 au niveau 950", condition: "upgrade1Level >= 950" },
+  { name: "Amélioration 2 au niveau 950", condition: "upgrade2Level >= 950" },
+  { name: "Amélioration 1 au niveau 1000", condition: "upgrade1Level >= 1000" },
+  { name: "Amélioration 2 au niveau 1000", condition: "upgrade2Level >= 1000" },
   { name: "5 000 €", condition: "points >= 5000" }, // Nouveau trophée
   { name: "10 000 €", condition: "points >= 10000" }, // Nouveau trophée
   { name: "50 000 €", condition: "points >= 50000" }, // Nouveau trophée
@@ -143,6 +163,7 @@ const items = [
   { name: "Voiture", cost: 1000000000 },
   { name: "Jet", cost: 15000000000 }, // Ajouté
   { name: "Villa", cost: 40000000000 },
+  { name: "GOBLIN", cost: 100000000000 },
   { name: "Île", cost: 500000000000 },
   { name: "Pays", cost: 10000000000000 }, // Ajouté
 ];
@@ -233,6 +254,9 @@ function saveGame() {
     botPurchased: bot.purchased,
     botSellThreshold: bot.sellThreshold,
     botAutoBuy: bot.autoBuy,
+    immobilierAchete, // Liste des biens immobiliers achetés
+    immobilierData,   // Liste des biens immobiliers disponibles
+    lastIncomeTime: Date.now(), // Heure du dernier revenu généré
   };
   localStorage.setItem("incrementalGameSave", JSON.stringify(gameData));
 }
@@ -261,7 +285,7 @@ function loadGame() {
     MarchandisesdeluxeAchete = gameData.MarchandisesdeluxeAchete || false;
     NouvellecollectionAchete = gameData.NouvellecollectionAchete || false;
     DevellopementdanslemondeAchete =
-      gameData.DevellopementdanslemondeAchete || false;
+    gameData.DevellopementdanslemondeAchete || false;
     totalClicks = gameData.totalClicks || 0;
     totalPointsEarned = gameData.totalPointsEarned || 0;
     totalPointsSpent = gameData.totalPointsSpent || 0;
@@ -279,7 +303,26 @@ function loadGame() {
     bot.purchased = gameData.botPurchased || false;
     bot.sellThreshold = gameData.botSellThreshold || 15; // Valeur par défaut
     bot.autoBuy = gameData.botAutoBuy || false; // Valeur par défaut
+// Restaurer les données de l'immobilier
+immobilierAchete = gameData.immobilierAchete || [];
+immobilierData = gameData.immobilierData || [
+  { name: 'Appartement', price: 200000, income: 1000 },
+  { name: 'Maison', price: 500000, income: 2500 },
+  { name: 'Immeuble', price: 1000000, income: 5000 },
+];
 
+// Calculer les revenus générés pendant l'absence
+const lastIncomeTime = gameData.lastIncomeTime || Date.now();
+const currentTime = Date.now();
+const timeDiff = currentTime - lastIncomeTime; // Temps écoulé en millisecondes
+const incomeInterval = 300000; // 5 minutes en millisecondes
+
+if (timeDiff >= incomeInterval) {
+  const incomeCycles = Math.floor(timeDiff / incomeInterval);
+  immobilierAchete.forEach(property => {
+    points += property.income * incomeCycles;
+  });
+}
     // Mettre à jour l'interface utilisateur pour le bot
     if (bot.purchased) {
       document.getElementById("buy-bot-btn").disabled = true;
@@ -391,13 +434,13 @@ function updateDisplay() {
   ).textContent = `Voituriers (Coût: ${formatNumber(VoiturierCost)} €)`;
   document.getElementById(
     "total-clicks"
-  ).textContent = `Nombre total de clics : ${formatNumber(totalClicks)}`;
+  ).textContent = `Nombre total de clics: ${formatNumber(totalClicks)}`;
   document.getElementById(
     "total-points-earned"
-  ).textContent = `€ gagnés au total : ${formatNumber(totalPointsEarned)}`;
+  ).textContent = `€ gagnés au total: ${formatNumber(totalPointsEarned)}`;
   document.getElementById(
     "total-points-spent"
-  ).textContent = `€ dépensés au total : ${formatNumber(totalPointsSpent)}`;
+  ).textContent = `€ dépensés au total: ${formatNumber(totalPointsSpent)}`;
   document
     .getElementById("upgrade1")
     .classList.toggle("upgrade-available", points >= upgrade1Cost);
@@ -421,7 +464,7 @@ function updateDisplay() {
   // Afficher l'heure au format hh:mm:ss
   document.getElementById(
     "elapsed-time"
-  ).textContent = `Temps écoulé : ${hours}:${minutes}:${seconds}`;
+  ).textContent = `Temps écoulé: ${hours}:${minutes}:${seconds}`;
 
   updateTrophies();
   displayItems();
@@ -984,6 +1027,14 @@ function resetGame() {
   bot.purchased = false;
   bot.sellThreshold = 15; // Valeur par défaut
   bot.autoBuy = false; // Valeur par défaut
+  // Réinitialiser l'immobilier
+  immobilierAchete = [];
+  immobilierData = [
+    { name: 'Appartement', price: 200000, income: 1000 },
+    { name: 'Maison', price: 500000, income: 2500 },
+    { name: 'Immeuble', price: 1000000, income: 5000 },
+  ];
+
   // Réactiver le bouton "Acheter le Bot"
   document.getElementById("buy-bot-btn").disabled = false;
 
@@ -1446,37 +1497,43 @@ function displayItems() {
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
       itemCard.style.backgroundPosition = "center"; // Centrer l'image
     }
-        // Ajouter une image de fond pour l'item "vélo"
+    // Ajouter une image de fond pour l'item "vélo"
     if (item.name === "Maison") {
       itemCard.style.backgroundImage = "url('Images/maison.jpg')"; // Remplacez par le chemin de votre image
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
       itemCard.style.backgroundPosition = "center"; // Centrer l'image
     }
-        // Ajouter une image de fond pour l'item "vélo"
+    // Ajouter une image de fond pour l'item "vélo"
     if (item.name === "Voiture") {
       itemCard.style.backgroundImage = "url('Images/voiture.jpg')"; // Remplacez par le chemin de votre image
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
       itemCard.style.backgroundPosition = "center"; // Centrer l'image
     }
-        // Ajouter une image de fond pour l'item "vélo"
+    // Ajouter une image de fond pour l'item "vélo"
     if (item.name === "Jet") {
       itemCard.style.backgroundImage = "url('Images/jet.jpg')"; // Remplacez par le chemin de votre image
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
       itemCard.style.backgroundPosition = "center"; // Centrer l'image
     }
-            // Ajouter une image de fond pour l'item "vélo"
+    // Ajouter une image de fond pour l'item "vélo"
     if (item.name === "Villa") {
       itemCard.style.backgroundImage = "url('Images/villa.jpg')"; // Remplacez par le chemin de votre image
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
       itemCard.style.backgroundPosition = "center"; // Centrer l'image
     }
-            // Ajouter une image de fond pour l'item "vélo"
+    // Ajouter une image de fond pour l'item "vélo"
+    if (item.name === "GOBLIN") {
+      itemCard.style.backgroundImage = "url('Images/GOBLIN.jpg')"; // Remplacez par le chemin de votre image
+      itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
+      itemCard.style.backgroundPosition = "center"; // Centrer l'image
+    }
+    // Ajouter une image de fond pour l'item "vélo"
     if (item.name === "Île") {
       itemCard.style.backgroundImage = "url('Images/ile.jpg')"; // Remplacez par le chemin de votre image
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
       itemCard.style.backgroundPosition = "center"; // Centrer l'image
     }
-                // Ajouter une image de fond pour l'item "vélo"
+    // Ajouter une image de fond pour l'item "vélo"
     if (item.name === "Pays") {
       itemCard.style.backgroundImage = "url('Images/pays.jpg')"; // Remplacez par le chemin de votre image
       itemCard.style.backgroundSize = "cover"; // Ajuster l'image pour couvrir la carte
@@ -1544,20 +1601,21 @@ function addToBoughtItems(item) {
 
   // Ajouter une image de fond pour les items spécifiques
   const itemImages = {
-    "Panini": "Images/panini.jpg",
-    "Pizza": "Images/pizza.jpg",
-    "Vélo": "Images/vélo.jpg",
-    "Scooter": "Images/scooter.jpg",
-    "Moto": "Images/moto.jpg",
-    "Vacances": "Images/vacances.jpg",
-    "Salaire": "Images/salaire.jpg",
-    "Studio": "Images/studio.jpg",
-    "Maison": "Images/maison.jpg",
-    "Voiture": "Images/voiture.jpg",
-    "Jet": "Images/jet.jpg",
-    "Villa": "Images/villa.jpg",
-    "Île": "Images/ile.jpg",
-    "Pays": "Images/pays.jpg",
+    Panini: "Images/panini.jpg",
+    Pizza: "Images/pizza.jpg",
+    Vélo: "Images/vélo.jpg",
+    Scooter: "Images/scooter.jpg",
+    Moto: "Images/moto.jpg",
+    Vacances: "Images/vacances.jpg",
+    Salaire: "Images/salaire.jpg",
+    Studio: "Images/studio.jpg",
+    Maison: "Images/maison.jpg",
+    Voiture: "Images/voiture.jpg",
+    Jet: "Images/jet.jpg",
+    Villa: "Images/villa.jpg",
+    GOBLIN: "Images/GOBLIN.jpg",
+    Île: "Images/ile.jpg",
+    Pays: "Images/pays.jpg",
   };
 
   if (itemImages[item.name]) {
@@ -1586,7 +1644,8 @@ function addToBoughtItems(item) {
   differenceElement.textContent = ` (${
     difference >= 0 ? "+" : ""
   }${formatNumber(difference)} €)`;
-  differenceElement.className = difference >= 0 ? "difference positive" : "difference negative";
+  differenceElement.className =
+    difference >= 0 ? "difference positive" : "difference negative";
   boughtItemCard.appendChild(differenceElement);
 
   // Créer un bouton "Vendre"
@@ -1923,72 +1982,173 @@ document.getElementById("infoButton").addEventListener("click", function () {
 })();
 
 // Récupérer les éléments
-const imageSupermarche = document.getElementById('imageSupermarche');
-const popupSupermarche = document.getElementById('popupSupermarche');
-const closePopup = document.querySelector('.close');
+const imageSupermarche = document.getElementById("imageSupermarche");
+const popupSupermarche = document.getElementById("popupSupermarche");
+const closePopup = document.querySelector(".close");
 
 // Ouvrir le pop-up quand on clique sur l'image
-imageSupermarche.addEventListener('click', () => {
-    popupSupermarche.style.display = 'flex';
+imageSupermarche.addEventListener("click", () => {
+  popupSupermarche.style.display = "flex";
 });
 
 // Fermer le pop-up quand on clique sur la croix
-closePopup.addEventListener('click', () => {
-    popupSupermarche.style.display = 'none';
+closePopup.addEventListener("click", () => {
+  popupSupermarche.style.display = "none";
 });
 
 // Fermer le pop-up si on clique en dehors de la fenêtre
-window.addEventListener('click', (event) => {
-    if (event.target === popupSupermarche) {
-        popupSupermarche.style.display = 'none';
-    }
+window.addEventListener("click", (event) => {
+  if (event.target === popupSupermarche) {
+    popupSupermarche.style.display = "none";
+  }
 });
 // Récupérer les éléments
-const imageMagasinLuxe = document.getElementById('imageMagasinLuxe');
-const popupMagasinLuxe = document.getElementById('popupMagasinLuxe');
+const imageMagasinLuxe = document.getElementById("imageMagasinLuxe");
+const popupMagasinLuxe = document.getElementById("popupMagasinLuxe");
 
 // Ouvrir le pop-up quand on clique sur l'image
-imageMagasinLuxe.addEventListener('click', () => {
-    popupMagasinLuxe.style.display = 'flex';
+imageMagasinLuxe.addEventListener("click", () => {
+  popupMagasinLuxe.style.display = "flex";
 });
 
 // Fermer le pop-up si on clique en dehors de la fenêtre
-window.addEventListener('click', (event) => {
-    if (event.target === popupMagasinLuxe) {
-        popupMagasinLuxe.style.display = 'none';
-    }
-});
-
-// Récupérer les éléments
-const imageConcession = document.getElementById('imageConcession');
-const popupConcession = document.getElementById('popupConcession');
-
-// Ouvrir le pop-up quand on clique sur l'image
-imageConcession.addEventListener('click', () => {
-    popupConcession.style.display = 'flex';
-});
-
-// Fermer le pop-up si on clique en dehors de la fenêtre
-window.addEventListener('click', (event) => {
-    if (event.target === popupConcession) {
-        popupConcession.style.display = 'none';
-    }
+window.addEventListener("click", (event) => {
+  if (event.target === popupMagasinLuxe) {
+    popupMagasinLuxe.style.display = "none";
+  }
 });
 
 // Récupérer les éléments
-const imageTrade = document.getElementById('imageTrade');
-const popupTrade = document.getElementById('popupTrade');
+const imageConcession = document.getElementById("imageConcession");
+const popupConcession = document.getElementById("popupConcession");
 
 // Ouvrir le pop-up quand on clique sur l'image
-imageTrade.addEventListener('click', () => {
-  popupTrade.style.display = 'flex';
+imageConcession.addEventListener("click", () => {
+  popupConcession.style.display = "flex";
 });
 
 // Fermer le pop-up si on clique en dehors de la fenêtre
-window.addEventListener('click', (event) => {
-    if (event.target === popupTrade) {
-      popupTrade.style.display = 'none';
-    }
+window.addEventListener("click", (event) => {
+  if (event.target === popupConcession) {
+    popupConcession.style.display = "none";
+  }
+});
+
+// Récupérer les éléments
+const imageTrade = document.getElementById("imageTrade");
+const popupTrade = document.getElementById("popupTrade");
+
+// Ouvrir le pop-up quand on clique sur l'image
+imageTrade.addEventListener("click", () => {
+  popupTrade.style.display = "flex";
+});
+
+// Fermer le pop-up si on clique en dehors de la fenêtre
+window.addEventListener("click", (event) => {
+  if (event.target === popupTrade) {
+    popupTrade.style.display = "none";
+  }
+});
+// Récupérer les éléments
+const imageImmobilier = document.getElementById("imageImmobilier");
+const popupImmobilier = document.getElementById("popupImmobilier");
+
+// Ouvrir le pop-up quand on clique sur l'image
+imageImmobilier.addEventListener("click", () => {
+  popupImmobilier.style.display = "flex";
+});
+
+// Fermer le pop-up si on clique en dehors de la fenêtre
+window.addEventListener("click", (event) => {
+  if (event.target === popupImmobilier) {
+    popupImmobilier.style.display = "none";
+  }
 });
 
 
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const immobilierAcheteList = document.getElementById('immobilier-achete');
+  const immobilierAAcheterList = document.getElementById('immobilier-a-acheter');
+  const currentPointsElement = document.getElementById('current-points'); // Assurez-vous d'avoir cet élément dans votre HTML
+  let immobilierAchete = []; // Liste des biens immobiliers achetés
+
+  // Données des biens immobiliers disponibles
+  const immobilierData = [
+      { name: 'Appartement', price: 500000, income: 3000 },
+      { name: 'Maison', price: 1000000, income: 5000 },
+      { name: 'Immeuble', price: 5000000, income: 10000 }
+  ];
+
+  // Fonction pour afficher les biens immobiliers
+  const updateImmobilierUI = () => {
+      // Vider les listes
+      immobilierAcheteList.innerHTML = '';
+      immobilierAAcheterList.innerHTML = '';
+
+      // Afficher les biens achetés
+      immobilierAchete.forEach(property => {
+          const li = document.createElement('li');
+          li.textContent = `${property.name} - Loyer: ${formatNumber(property.income)} €/5min`;
+          immobilierAcheteList.appendChild(li);
+      });
+
+      // Afficher les biens disponibles à l'achat
+      immobilierData.forEach(property => {
+          if (!immobilierAchete.some(p => p.name === property.name)) {
+              const li = document.createElement('li');
+              li.innerHTML = `
+                  ${property.name} - ${formatNumber(property.price)} € (Loyer: ${formatNumber(property.income)} €/5min)
+                  <button onclick="acheterImmobilier('${property.name}')">Acheter</button>
+              `;
+              immobilierAAcheterList.appendChild(li);
+          }
+      });
+  };
+
+  // Fonction pour acheter un bien immobilier
+  window.acheterImmobilier = (propertyName) => {
+      const property = immobilierData.find(p => p.name === propertyName);
+      if (points >= property.price) {
+          points -= property.price;
+          totalPointsSpent += property.price;
+          immobilierAchete.push(property);
+          updatePoints();
+          updateImmobilierUI();
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "fond insuffisant",
+          text: `Il vous manque ${formatNumber(
+            property.price - points
+          )} € pour acheter.`,
+          showConfirmButton: false,
+          timer: 1000,
+          didOpen: () => {
+            document.querySelector(".swal2-popup").style.borderRadius = "20px";
+          },
+        });
+      }
+  };
+
+  // Fonction pour mettre à jour l'affichage des points
+  const updatePoints = () => {
+      if (currentPointsElement) {
+          currentPointsElement.textContent = points;
+      }
+  };
+
+  // Générer des revenus passifs toutes les 5 minutes
+  setInterval(() => {
+      immobilierAchete.forEach(property => {
+          points += property.income;
+          totalPointsEarned += property.income;
+      });
+      updatePoints();
+  }, 300000); // 300000 ms = 5 minutes
+
+  // Initialiser l'interface
+  updateImmobilierUI();
+});

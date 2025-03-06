@@ -84,14 +84,19 @@
             </div>
         </div>
 
-
-        <!-- Conteneur pour les images -->
 <div class="image-container">
-    <img src="Images\Supermarche.jpg" alt="Supermarché" id="imageSupermarche">
-    <img src="Images\luxe.jpg" alt="Magasin de Luxe" id="imageMagasinLuxe">
-    <img src="Images\concession.jpg" alt="Concession Automobile" id="imageConcession">
-    <img src="Images\trade.jpg" alt="Magasin" id="imageTrade">
-</div>
+    <!-- Première rangée : 3 images -->
+    <div class="image-row">
+      <img id="imageSupermarche" src="Images\Supermarche.jpg" alt="Supermarche">
+      <img id="imageMagasinLuxe" src="Images\luxe.jpg" alt="Magasin Luxe">
+      <img id="imageConcession" src="Images\concession.jpg" alt="Concession">
+    </div>
+    <!-- Deuxième rangée : 2 images -->
+    <div class="image-row">
+      <img id="imageImmobilier" src="Images\immobilier.jpg" alt="Immobilier">
+      <img id="imageTrade" src="Images\trade.jpg" alt="Trade">
+    </div>
+  </div>
  <!-- Pop-up -->
  <div id="popupSupermarche" class="popup">
      <div class="popup-content">
@@ -166,6 +171,26 @@
         <!-- Les items achetés seront injectés ici via JavaScript -->
     </div>
 </div>
+    </div>
+</div>
+<div id="popupImmobilier" class="popup">
+    <div class="popup-content">
+        <div class="entreprise-immobilier" id="immobilierContainer">
+            <h2>Immobilier</h2>
+            <p>Investissez dans l'immobilier pour générer des revenus passifs.</p>
+
+            <!-- Section Immobilier Acheté -->
+            <div class="immobilier-section">
+                <h3>Immobilier Acheté</h3>
+                <ul id="immobilier-achete"></ul>
+            </div>
+
+            <!-- Section Immobilier à Acheter -->
+            <div class="immobilier-section">
+                <h3>Immobilier à Acheter</h3>
+                <ul id="immobilier-a-acheter"></ul>
+            </div>
+        </div>
     </div>
 </div>
 <div class="stats-container">
