@@ -638,7 +638,7 @@ input[type="range"]::-moz-range-track {
   }
 }
 /* Style du pop-up spécifique */
-#popupTrade .popup-content {
+.popup-content {
   background-color: rgb(43, 42, 42); /* Couleur de fond du pop-up */
   padding: 20px;
   border-radius: 10px;
