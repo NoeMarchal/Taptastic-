@@ -686,7 +686,6 @@ function loadSave(event) {
         // Met à jour l'affichage du jeu
         updateDisplay();
         updateTrophies();
-        updateUI();
         updateCoutTotal();
         displayItems(); // Réafficher les objets disponibles dans la boutique
 
@@ -1068,7 +1067,6 @@ function resetGame() {
   saveGame();
   updateDisplay();
   displayItems();
-  updateUI();
 }
 
 function disableButton(buttonId) {
@@ -2076,36 +2074,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Données des biens immobiliers disponibles
   const immobilierData = [
-      { name: 'Appartement', price: 500000, income: 3000 },
-      { name: 'Maison', price: 1000000, income: 5000 },
-      { name: 'Immeuble', price: 5000000, income: 10000 }
-  ];
+    {
+        name: 'Appartement',
+        price: 200000,
+        income: 1000,
+        image: 'images/appartement.jpg' // Chemin de l'image
+    },
+    {
+        name: 'Maison',
+        price: 500000,
+        income: 2500,
+        image: 'images/maisonimo.jpg' // Chemin de l'image
+    },
+    {
+        name: 'Immeuble',
+        price: 1000000,
+        income: 5000,
+        image: 'images/immeuble.jpg' // Chemin de l'image
+    }
+];
 
   // Fonction pour afficher les biens immobiliers
-  const updateImmobilierUI = () => {
-      // Vider les listes
-      immobilierAcheteList.innerHTML = '';
-      immobilierAAcheterList.innerHTML = '';
+  function updateImmobilierUI() {
+    const immobilierAcheteList = document.getElementById("immobilier-achete");
+    const immobilierAAcheterList = document.getElementById("immobilier-a-acheter");
 
-      // Afficher les biens achetés
-      immobilierAchete.forEach(property => {
-          const li = document.createElement('li');
-          li.textContent = `${property.name} - Loyer: ${formatNumber(property.income)} €/5min`;
-          immobilierAcheteList.appendChild(li);
-      });
+    // Vider les listes
+    immobilierAcheteList.innerHTML = '';
+    immobilierAAcheterList.innerHTML = '';
 
-      // Afficher les biens disponibles à l'achat
-      immobilierData.forEach(property => {
-          if (!immobilierAchete.some(p => p.name === property.name)) {
-              const li = document.createElement('li');
-              li.innerHTML = `
-                  ${property.name} - ${formatNumber(property.price)} € (Loyer: ${formatNumber(property.income)} €/5min)
-                  <button onclick="acheterImmobilier('${property.name}')">Acheter</button>
-              `;
-              immobilierAAcheterList.appendChild(li);
-          }
-      });
-  };
+    // Afficher les biens achetés
+    immobilierAchete.forEach(property => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <img src="${property.image}" alt="${property.name}" class="immobilier-image">
+            <div class="immobilier-info">
+                <strong>${property.name}</strong>
+                <p>Loyer: ${property.income} €/5min</p>
+            </div>
+        `;
+        immobilierAcheteList.appendChild(li);
+    });
+
+    // Afficher les biens disponibles
+    immobilierData.forEach(property => {
+        if (!immobilierAchete.some(p => p.name === property.name)) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <img src="${property.image}" alt="${property.name}" class="immobilier-image">
+                <div class="immobilier-info">
+                    <strong>${property.name}</strong>
+                    <p>Prix: ${formatNumber(property.price)} €</p>
+                    <p>Loyer: ${formatNumber(property.income)} €/5min</p>
+                    <button class="acheter-button" onclick="acheterImmobilier('${property.name}')">Acheter</button>
+                </div>
+            `;
+            immobilierAAcheterList.appendChild(li);
+        }
+    });
+}
 
   // Fonction pour acheter un bien immobilier
   window.acheterImmobilier = (propertyName) => {
