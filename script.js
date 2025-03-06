@@ -2078,7 +2078,7 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Appartement',
         price: 200000,
         income: 1000,
-        image: 'Images\appartement.jpg' // Chemin de l'image
+        image: '/Images/appartement.jpg' // Chemin de l'image
     },
     {
         name: 'Maison',
