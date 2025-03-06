@@ -276,7 +276,7 @@ function loadGame() {
     upgrade2Level = gameData.upgrade2Level || 0;
     unlockedTrophies = gameData.unlockedTrophies || [];
     playerName = gameData.playerName;
-    avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg";
+    avatarSrc = gameData.avatarSrc || "Images/choose_avatar.jpg.jpg";
     supermarcheAchete = gameData.supermarcheAchete || false;
     marchandisesAchete = gameData.marchandisesAchete || false;
     superviseurAchete = gameData.superviseurAchete || false;
@@ -310,19 +310,6 @@ immobilierData = gameData.immobilierData || [
   { name: 'Maison', price: 500000, income: 2500 },
   { name: 'Immeuble', price: 1000000, income: 5000 },
 ];
-
-// Calculer les revenus générés pendant l'absence
-const lastIncomeTime = gameData.lastIncomeTime || Date.now();
-const currentTime = Date.now();
-const timeDiff = currentTime - lastIncomeTime; // Temps écoulé en millisecondes
-const incomeInterval = 300000; // 5 minutes en millisecondes
-
-if (timeDiff >= incomeInterval) {
-  const incomeCycles = Math.floor(timeDiff / incomeInterval);
-  immobilierAchete.forEach(property => {
-    points += property.income * incomeCycles;
-  });
-}
     // Mettre à jour l'interface utilisateur pour le bot
     if (bot.purchased) {
       document.getElementById("buy-bot-btn").disabled = true;
