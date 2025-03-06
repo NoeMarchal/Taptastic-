@@ -2103,7 +2103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     immobilierAcheteList.innerHTML = '';
     immobilierAAcheterList.innerHTML = '';
 
-    // Afficher les biens achetés
+    // Afficher les biens achetées
     immobilierAchete.forEach(property => {
         const li = document.createElement('li');
         li.innerHTML = `
