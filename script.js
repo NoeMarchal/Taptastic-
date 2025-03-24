@@ -56,7 +56,6 @@ let bot = {
 // Mise à jour du temps de jeu chaque seconde
 setInterval(() => {
   gameTime = Math.floor((Date.now() - gameStartTime) / 1000);
-  updateTrophies();
 }, 1000);
 
 // Liste des trophées et leurs conditions
@@ -168,15 +167,6 @@ const items = [
   { name: "Pays", cost: 10000000000000 }, // Ajouté
 ];
 
-// Propriétés des tickets (coût, multiplicateur)
-const ticketProperties = {
-  100: { multiplicateur: 0.1 }, // Ticket Basique
-  1000: { multiplicateur: 0.2 }, // Ticket Intermédiaire
-  10000: { multiplicateur: 0.5 }, // Ticket Avancé
-  1000000: { multiplicateur: 1.0 }, // Ticket Expert
-  100000000: { multiplicateur: 2.0 }, // Ticket Premium
-};
-
 const avatars = [
   { src: "avatar1.jpg", name: "Léo" },
   { src: "avatar2.jpg", name: "Noah" },
@@ -254,9 +244,6 @@ function saveGame() {
     botPurchased: bot.purchased,
     botSellThreshold: bot.sellThreshold,
     botAutoBuy: bot.autoBuy,
-    immobilierAchete, // Liste des biens immobiliers achetés
-    immobilierData,   // Liste des biens immobiliers disponibles
-    lastIncomeTime: Date.now(), // Heure du dernier revenu généré
   };
   localStorage.setItem("incrementalGameSave", JSON.stringify(gameData));
 }
@@ -303,13 +290,7 @@ function loadGame() {
     bot.purchased = gameData.botPurchased || false;
     bot.sellThreshold = gameData.botSellThreshold || 15; // Valeur par défaut
     bot.autoBuy = gameData.botAutoBuy || false; // Valeur par défaut
-// Restaurer les données de l'immobilier
-immobilierAchete = gameData.immobilierAchete || [];
-immobilierData = gameData.immobilierData || [
-  { name: 'Appartement', price: 200000, income: 1000 },
-  { name: 'Maison', price: 500000, income: 2500 },
-  { name: 'Immeuble', price: 1000000, income: 5000 },
-];
+
     // Mettre à jour l'interface utilisateur pour le bot
     if (bot.purchased) {
       document.getElementById("buy-bot-btn").disabled = true;
@@ -1013,13 +994,6 @@ function resetGame() {
   bot.purchased = false;
   bot.sellThreshold = 15; // Valeur par défaut
   bot.autoBuy = false; // Valeur par défaut
-  // Réinitialiser l'immobilier
-  immobilierAchete = [];
-  immobilierData = [
-    { name: 'Appartement', price: 200000, income: 1000 },
-    { name: 'Maison', price: 500000, income: 2500 },
-    { name: 'Immeuble', price: 1000000, income: 5000 },
-  ];
 
   // Réactiver le bouton "Acheter le Bot"
   document.getElementById("buy-bot-btn").disabled = false;
@@ -2033,136 +2007,4 @@ window.addEventListener("click", (event) => {
   if (event.target === popupTrade) {
     popupTrade.style.display = "none";
   }
-});
-// Récupérer les éléments
-const imageImmobilier = document.getElementById("imageImmobilier");
-const popupImmobilier = document.getElementById("popupImmobilier");
-
-// Ouvrir le pop-up quand on clique sur l'image
-imageImmobilier.addEventListener("click", () => {
-  popupImmobilier.style.display = "flex";
-});
-
-// Fermer le pop-up si on clique en dehors de la fenêtre
-window.addEventListener("click", (event) => {
-  if (event.target === popupImmobilier) {
-    popupImmobilier.style.display = "none";
-  }
-});
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const immobilierAcheteList = document.getElementById('immobilier-achete');
-  const immobilierAAcheterList = document.getElementById('immobilier-a-acheter');
-  const currentPointsElement = document.getElementById('current-points'); // Assurez-vous d'avoir cet élément dans votre HTML
-  let immobilierAchete = []; // Liste des biens immobiliers achetés
-
-  // Données des biens immobiliers disponibles
-  const immobilierData = [
-    {
-        name: 'Appartement',
-        price: 200000,
-        income: 1000,
-        image: 'Images/appartement.jpg' // Chemin de l'image
-    },
-    {
-        name: 'Maison',
-        price: 500000,
-        income: 2500,
-        image: 'Images/maisonimo.jpg' // Chemin de l'image
-    },
-    {
-        name: 'Immeuble',
-        price: 1000000,
-        income: 5000,
-        image: 'Images/immeuble.jpg' // Chemin de l'image
-    }
-];
-
-  // Fonction pour afficher les biens immobiliers
-  function updateImmobilierUI() {
-    const immobilierAcheteList = document.getElementById("immobilier-achete");
-    const immobilierAAcheterList = document.getElementById("immobilier-a-acheter");
-
-    // Vider les listes
-    immobilierAcheteList.innerHTML = '';
-    immobilierAAcheterList.innerHTML = '';
-
-    // Afficher les biens achetées
-    immobilierAchete.forEach(property => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <img src="${property.image}" alt="${property.name}" class="immobilier-image">
-            <div class="immobilier-info">
-                <strong>${property.name}</strong>
-                <p>Loyer: ${property.income} €/5min</p>
-            </div>
-        `;
-        immobilierAcheteList.appendChild(li);
-    });
-
-    // Afficher les biens disponibles
-    immobilierData.forEach(property => {
-        if (!immobilierAchete.some(p => p.name === property.name)) {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <img src="${property.image}" alt="${property.name}" class="immobilier-image">
-                <div class="immobilier-info">
-                    <strong>${property.name}</strong>
-                    <p>Prix: ${formatNumber(property.price)} €</p>
-                    <p>Loyer: ${formatNumber(property.income)} €/5min</p>
-                    <button class="acheter-button" onclick="acheterImmobilier('${property.name}')">Acheter</button>
-                </div>
-            `;
-            immobilierAAcheterList.appendChild(li);
-        }
-    });
-}
-
-  // Fonction pour acheter un bien immobilier
-  window.acheterImmobilier = (propertyName) => {
-      const property = immobilierData.find(p => p.name === propertyName);
-      if (points >= property.price) {
-          points -= property.price;
-          totalPointsSpent += property.price;
-          immobilierAchete.push(property);
-          updatePoints();
-          updateImmobilierUI();
-      } else {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "fond insuffisant",
-          text: `Il vous manque ${formatNumber(
-            property.price - points
-          )} € pour acheter.`,
-          showConfirmButton: false,
-          timer: 1000,
-          didOpen: () => {
-            document.querySelector(".swal2-popup").style.borderRadius = "20px";
-          },
-        });
-      }
-  };
-
-  // Fonction pour mettre à jour l'affichage des points
-  const updatePoints = () => {
-      if (currentPointsElement) {
-          currentPointsElement.textContent = points;
-      }
-  };
-
-  // Générer des revenus passifs toutes les 5 minutes
-  setInterval(() => {
-      immobilierAchete.forEach(property => {
-          points += property.income;
-          totalPointsEarned += property.income;
-      });
-      updatePoints();
-  }, 300000); // 300000 ms = 5 minutes
-
-  // Initialiser l'interface
-  updateImmobilierUI();
 });

@@ -568,8 +568,8 @@ input[type="range"]::-moz-range-track {
 #imageConcession,
 #imageImmobilier,
 #imageTrade {
-  width: 26%; /* Taille de base */
-  height: 26%; /* Taille de base */
+  width: 19%; /* Taille de base */
+  height: 19%; /* Taille de base */
   max-width: 100%; /* Limite la largeur maximale */
   max-height: 100%; /* Limite la hauteur maximale */
   border-radius: 20px; /* Coins arrondis */
@@ -610,8 +610,8 @@ input[type="range"]::-moz-range-track {
   #imageConcession,
   #imageImmobilier,
   #imageTrade {
-    width: 30%; /* Taille réduite pour les tablettes */
-    height: 30%;
+    width: 22%; /* Taille réduite pour les tablettes */
+    height: 22%;
   }
 }
 
@@ -631,8 +631,8 @@ input[type="range"]::-moz-range-track {
   #imageConcession,
   #imageImmobilier,
   #imageTrade {
-    width: 28%; /* Taille plus petite pour les mobiles */
-    height: 28%;
+    width: 21%; /* Taille plus petite pour les mobiles */
+    height: 21%;
     border-radius: 15px; /* Coins moins arrondis */
     border-width: 2px; /* Bordure plus fine */
   }
